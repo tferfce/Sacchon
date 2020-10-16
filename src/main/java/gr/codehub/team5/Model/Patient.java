@@ -29,8 +29,7 @@ public class Patient {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id")
+    @ManyToOne
     private Doctor doctor;
 
     @OneToMany(mappedBy = "patId",cascade = CascadeType.ALL)

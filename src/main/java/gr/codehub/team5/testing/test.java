@@ -27,6 +27,7 @@ public class test {
 
         Patient pat1 = new Patient("Thomas","Ferfelis","something", Encryption.encrypt("somethingElse"));
         patRepo.save(pat1);
+        pat1.setDoctor(doc);
         patRepo.save(pat1);
 
         Consultations consultations = new Consultations("This is a not very big sentence",doc,pat1);

@@ -27,7 +27,7 @@ public class Doctor {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "doctor",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Patient> listOfPatients;
 
     @OneToMany(mappedBy = "docId",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

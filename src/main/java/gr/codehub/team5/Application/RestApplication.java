@@ -47,7 +47,6 @@ public class RestApplication extends Application {
         //apis
         router.attach("/doctor", DoctorController.class);
         router.attach("/patient", PatientController.class);
-        router.attach("/doctor/{id}",DoctorController.class);
         return router;
     }
 }
