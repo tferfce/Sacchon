@@ -29,7 +29,8 @@ public class Patient {
     }
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     @OneToMany(mappedBy = "patId",cascade = CascadeType.ALL)
