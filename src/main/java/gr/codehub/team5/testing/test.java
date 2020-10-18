@@ -4,7 +4,6 @@ import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.Model.PatientData;
-import gr.codehub.team5.PassEncrypt.Encryption;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.repository.DoctorRepository;
@@ -22,10 +21,10 @@ public class test {
         ConsultationRepository consRepo = new ConsultationRepository(em);
         PatientDataRepository pdataRepo = new PatientDataRepository(em);
 
-        Doctor doc = new Doctor("Kyros","Granazhs","personalUSR", Encryption.encrypt("password"));
+        Doctor doc = new Doctor("Kyros","Granazhs","personalUSR", "somethingelse");
         drRepo.save(doc);
 
-        Patient pat1 = new Patient("Thomas","Ferfelis","something", Encryption.encrypt("somethingElse"));
+        Patient pat1 = new Patient("Thomas","Ferfelis","something", "something");
         patRepo.save(pat1);
         pat1.setDoctor(doc);
         patRepo.save(pat1);

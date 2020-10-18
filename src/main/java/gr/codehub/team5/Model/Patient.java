@@ -28,14 +28,14 @@ public class Patient {
         this.password = password;
     }
 
-
     @ManyToOne
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @OneToMany(mappedBy = "patId",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Consultations> consultations;
 
-    @OneToMany(mappedBy = "pData",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pData",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<PatientData> patientData;
 
     @Override

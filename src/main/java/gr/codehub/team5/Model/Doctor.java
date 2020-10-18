@@ -27,10 +27,10 @@ public class Doctor {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Patient> listOfPatients;
 
-    @OneToMany(mappedBy = "docId",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "docId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Consultations> consultations;
 
     @Override

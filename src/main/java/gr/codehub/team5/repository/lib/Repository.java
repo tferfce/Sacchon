@@ -1,5 +1,7 @@
 package gr.codehub.team5.repository.lib;
+
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +21,8 @@ public abstract class Repository<T, K> implements IRepository<T, K> {
 
     @Override
     public List<T> findAll() {
-        return entityManager.createQuery("from "+getEntityClassName()).getResultList();
+        TypedQuery<T> query = entityManager.createQuery("from " + getEntityClassName(), getEntityClass());
+        return query.getResultList();
     }
 
     @Override
