@@ -1,5 +1,6 @@
 package gr.codehub.team5.Application;
 
+import gr.codehub.team5.resource.impl.DoctorResourceImpl;
 import gr.codehub.team5.resource.impl.PatientListResourceImpl;
 import gr.codehub.team5.resource.impl.PatientResourceImpl;
 import org.restlet.Application;
@@ -25,6 +26,7 @@ public class RestApplication extends Application {
 
         c.getDefaultHost().attach("/project", new RestApplication());
 
+
         c.start();
         LOGGER.info("Sample Web API started");
         LOGGER.info("URL: http://localhost:9000/");
@@ -47,6 +49,7 @@ public class RestApplication extends Application {
         router.attach("/patient", PatientListResourceImpl.class);
         router.attach("/patient/", PatientListResourceImpl.class);
         router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/doctor", DoctorResourceImpl.class);
         return router;
     }
 }
