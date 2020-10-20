@@ -21,11 +21,15 @@ public class Patient {
     private String userName;
     private String password;
 
-    public Patient(String firstName, String lastName, String userName, String password) {
+    @Column(nullable = false)
+    private String gender;
+
+    public Patient(String firstName, String lastName, String userName, String password, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.gender = gender;
     }
 
     @ManyToOne
@@ -41,10 +45,12 @@ public class Patient {
     @Override
     public String toString() {
         return "Patient{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

@@ -5,11 +5,13 @@ import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
+import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientListResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource  {
@@ -31,14 +33,17 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
     }
 
     @Override
-    public Patient addPatient(Patient patient) throws BadEntityException {
-        if (patient == null) throw new BadEntityException("Null Patient Error");
+    public PatientRepresentation addPatient(PatientRepresentation patientRepresentation) throws BadEntityException {
+        if (patientRepresentation == null) throw new BadEntityException("Null patient error");
+        Patient patient = PatientRepresentation.getPatient(patientRepresentation);
         patientRepository.save(patient);
-        return patient;
-
+        return PatientRepresentation.getPatientRepresentation(patient);
     }
     @Override
-    public List<Patient> getAllPatients() throws NotFoundException {
-        return patientRepository.findAll();
+    public List<PatientRepresentation> getAllPatients() throws NotFoundException {
+        List<Patient> patients = patientRepository.findAll();
+        List<PatientRepresentation> patientRepresentations = new ArrayList<>();
+        patients.forEach(patient -> patientRepresentations.add(PatientRepresentation.getPatientRepresentation(patient)));
+        return patientRepresentations;
     }
 }
