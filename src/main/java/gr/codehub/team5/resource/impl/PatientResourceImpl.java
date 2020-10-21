@@ -47,12 +47,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         PatientRepresentation patientRepresentation = PatientRepresentation.getPatientRepresentation(patient.get());
         return patientRepresentation;
     }
-
-    @Override
-    public void remove() throws NotFoundException {
-        patientRepository.deleteById(id);
-    }
-
     @Override
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
         Optional<Patient> patientOptional = patientRepository.findById(id);

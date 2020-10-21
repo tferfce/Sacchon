@@ -17,16 +17,13 @@ public class RestApplication extends Application {
     public static final Logger LOGGER = Engine.getLogger(RestApplication.class);
 
     public static void main(String[] args) throws Exception {
-        LOGGER.info("Contacts application starting...");
+        LOGGER.info("Patients application starting...");
 
 
         // Attach application to http://localhost:9000/v1
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
-
-
         c.getDefaultHost().attach("/project", new RestApplication());
-
         c.start();
         LOGGER.info("Sample Web API started");
         LOGGER.info("URL: http://localhost:9000/");

@@ -10,8 +10,6 @@ import org.restlet.resource.*;
 public interface PatientResource {
     @Get("json")
     PatientRepresentation getPatient() throws NotFoundException, ResourceException;
-    @Delete
-    void remove() throws NotFoundException;
     @Put("json")
     PatientRepresentation updatePatient(PatientRepresentation patientRepresentation)
         throws NotFoundException, BadEntityException;
