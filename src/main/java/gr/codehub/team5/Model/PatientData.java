@@ -22,7 +22,6 @@ public class PatientData {
     public PatientData(double carbIntake, double bloodGlucose) {
         this.carbIntake = carbIntake;
         this.bloodGlucose = bloodGlucose;
-
     }
 
     @ManyToOne

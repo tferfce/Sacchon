@@ -16,9 +16,7 @@ public class Consultations {
     private long id;
     private String consult;
 
-    public Consultations(String consult,Doctor doctor, Patient patient) {
-        this.patId = patient;
-        this.docId = doctor;
+    public Consultations(String consult) {
         this.consult = consult;
     }
 

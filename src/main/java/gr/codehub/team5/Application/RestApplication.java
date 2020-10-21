@@ -1,5 +1,7 @@
 package gr.codehub.team5.Application;
 
+import gr.codehub.team5.resource.impl.PatientDataResourceImpl;
+import gr.codehub.team5.resource.impl.PatientDataSpecifyResourceImpl;
 import gr.codehub.team5.resource.impl.PatientListResourceImpl;
 import gr.codehub.team5.resource.impl.PatientResourceImpl;
 import org.restlet.Application;
@@ -47,6 +49,8 @@ public class RestApplication extends Application {
         router.attach("/patient", PatientListResourceImpl.class);
         router.attach("/patient/", PatientListResourceImpl.class);
         router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
+        router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
         return router;
     }
 }
