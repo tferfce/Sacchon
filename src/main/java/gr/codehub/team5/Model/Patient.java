@@ -39,7 +39,7 @@ public class Patient {
     @OneToMany(mappedBy = "patId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Consultations> consultations;
 
-    @OneToMany(mappedBy = "pData",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pData",fetch = FetchType.EAGER)
     private List<PatientData> patientData;
 
     @Override
