@@ -44,6 +44,6 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
-        patientDataRepository.deleteById(pdataList.get(listId).getId());
+        patientDataRepository.deleteById(pdataList.get(listId-1).getId());
     }
 }
