@@ -1,5 +1,6 @@
 package gr.codehub.team5.Model;
 
+import gr.codehub.team5.security.CustomRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Patient {
     private String lastName;
     private String userName;
     private String password;
+    private CustomRole customRole = CustomRole.ROLE_PATIENT;
 
     @Column(nullable = false)
     private String gender;

@@ -1,4 +1,5 @@
 package gr.codehub.team5.Model;
+import gr.codehub.team5.security.CustomRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +21,14 @@ public class Administrator {
     private long id;
     private String firstName;
     private String lastName;
+    private String userName;
+    private String password;
+    private CustomRole customRole = CustomRole.ROLE_CHIEFDOCTOR;
 
-    public Administrator(String firstName, String lastName) {
+    public Administrator(String firstName, String lastName, String userName,String password) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
     }
 }

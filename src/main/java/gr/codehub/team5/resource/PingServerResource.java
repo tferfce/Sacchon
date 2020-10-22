@@ -14,4 +14,3 @@ public class PingServerResource extends ServerResource {
     }
 
 }
-
