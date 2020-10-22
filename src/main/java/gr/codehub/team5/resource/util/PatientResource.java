@@ -1,4 +1,4 @@
-package gr.codehub.team5.resource;
+package gr.codehub.team5.resource.util;
 
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.NotFoundException;

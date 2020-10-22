@@ -4,7 +4,7 @@ import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
-import gr.codehub.team5.resource.PatientResource;
+import gr.codehub.team5.resource.util.PatientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 

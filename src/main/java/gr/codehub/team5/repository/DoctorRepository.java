@@ -20,4 +20,7 @@ public class DoctorRepository extends Repository<Doctor, Long> {
     public String getEntityClassName() {
         return Doctor.class.getName();
     }
+
+
+
 }

@@ -5,16 +5,18 @@ import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
-import gr.codehub.team5.resource.PatientListResource;
+import gr.codehub.team5.representation.PatientRepresentation;
+import gr.codehub.team5.resource.util.PatientListResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource  {
     private EntityManager em;
-    PatientRepository patientRepository;
+    private PatientRepository patientRepository;
 
     @Override
     protected void doInit() throws ResourceException {
@@ -30,15 +32,34 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         em.close();
     }
 
-    @Override
-    public Patient addPatient(Patient patient) throws BadEntityException {
-        if (patient == null) throw new BadEntityException("Null Patient Error");
-        patientRepository.save(patient);
-        return patient;
 
-    }
     @Override
-    public List<Patient> getAllPatients() throws NotFoundException {
-        return patientRepository.findAll();
+    public PatientRepresentation addPatient(PatientRepresentation patientIn) throws BadEntityException {
+
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_ADMIN.getRoleName());
+
+        if (patientIn==null) throw new  BadEntityException("Null patient representation error");
+        //if (customerIn.getName().equals("admin")) throw new  BadEntityException("Invalid customer name error");
+
+        Patient patient = PatientRepresentation.getPatient( patientIn);
+
+        patientRepository.save(patient);
+
+
+        return PatientRepresentation.getPatientRepresentation(patient);
+    }
+
+    @Override
+    public List<PatientRepresentation> getAllPatients() throws NotFoundException {
+
+       // ResourceUtils.checkRole(this, CustomRole.ROLE_USER.getRoleName());
+        List<Patient> patients= patientRepository.findAll();
+
+        List<PatientRepresentation> patientRepresentationList = new ArrayList<>();
+
+        patients.forEach(patient -> patientRepresentationList.add(PatientRepresentation.getPatientRepresentation(patient)));
+
+        return patientRepresentationList;
+
     }
 }

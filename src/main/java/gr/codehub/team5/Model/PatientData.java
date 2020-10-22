@@ -11,6 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name="PatientData")
+
 public class PatientData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -49,4 +49,22 @@ public abstract class Repository<T, K> implements IRepository<T, K> {
 
     public abstract Class<T> getEntityClass();
     public abstract String getEntityClassName();
+
+    @Override
+    public boolean deleteById(K id) {
+        T persistentInstance = entityManager.find(getEntityClass(), id);
+        if (persistentInstance != null) {
+
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.remove(persistentInstance);
+                entityManager.getTransaction().commit();
+            } catch (Exception e) {
+                //e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 }
