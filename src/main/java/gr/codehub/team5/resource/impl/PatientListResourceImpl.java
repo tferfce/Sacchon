@@ -1,9 +1,11 @@
 package gr.codehub.team5.resource.impl;
 
+import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
+import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.util.PatientListResource;
@@ -13,10 +15,14 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource  {
     private EntityManager em;
     private PatientRepository patientRepository;
+    private DoctorRepository doctorRepository;
+    private long docId;
+    private long patId;
 
     @Override
     protected void doInit() throws ResourceException {
@@ -42,6 +48,13 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         //if (customerIn.getName().equals("admin")) throw new  BadEntityException("Invalid customer name error");
 
         Patient patient = PatientRepresentation.getPatient( patientIn);
+
+        Optional <Doctor> doctorOpt = doctorRepository.findById(docId);
+
+        Doctor doctor= doctorOpt.get();
+
+        patient.setDoctor(doctor);
+
 
         patientRepository.save(patient);
 
