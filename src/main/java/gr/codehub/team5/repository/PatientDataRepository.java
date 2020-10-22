@@ -19,4 +19,5 @@ public class PatientDataRepository extends Repository<PatientData, Long> {
     public String getEntityClassName() {
         return PatientData.class.getName();
     }
+
 }

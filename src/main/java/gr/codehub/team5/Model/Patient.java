@@ -23,11 +23,15 @@ public class Patient {
     private String password;
     private CustomRole customRole = CustomRole.ROLE_PATIENT;
 
-    public Patient(String firstName, String lastName, String userName, String password) {
+    @Column(nullable = false)
+    private String gender;
+
+    public Patient(String firstName, String lastName, String userName, String password, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.gender = gender;
     }
 
     @ManyToOne
@@ -37,16 +41,18 @@ public class Patient {
     @OneToMany(mappedBy = "patId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Consultations> consultations;
 
-    @OneToMany(mappedBy = "pData",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pData",fetch = FetchType.EAGER)
     private List<PatientData> patientData;
 
     @Override
     public String toString() {
         return "Patient{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

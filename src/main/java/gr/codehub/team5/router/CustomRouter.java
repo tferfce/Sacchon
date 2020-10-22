@@ -16,11 +16,20 @@ public class CustomRouter {
     public Router createApiRouter() {
         Router router = new Router(application.getContext());
         //apis
+
+        // Patient
         router.attach("/patient", PatientListResourceImpl.class);
         router.attach("/patient/", PatientListResourceImpl.class);
         router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
+        router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
+        router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
+
+        // Doctor
         router.attach("/doctors", DoctorsResourceImpl.class);
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
+
+        // Consultation
         router.attach("/consultations", ConsultationsResourceImpl.class);
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
 

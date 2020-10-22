@@ -1,18 +1,25 @@
 package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Patient;
+import gr.codehub.team5.Model.PatientData;
+import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
+import gr.codehub.team5.repository.PatientDataRepository;
 import gr.codehub.team5.repository.PatientRepository;
+import gr.codehub.team5.representation.PatientDataRepresentation;
+import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 public class PatientResourceImpl extends ServerResource implements PatientResource {
     private EntityManager em;
     private PatientRepository patientRepository;
+    private PatientDataRepository patientDataRepository;
     private long id;
 
     @Override
@@ -20,6 +27,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         try {
             em = SacchonJpa.getEntityManager();
             patientRepository = new PatientRepository(em);
+            patientDataRepository = new PatientDataRepository(em);
             id=Long.parseLong(getAttribute("id"));
         }catch (Exception e){
             throw new ResourceException(e);
@@ -32,8 +40,38 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     }
 
     @Override
-    public Patient getPatient() throws NotFoundException, ResourceException {
-        Patient patient = patientRepository.findById(id).get();
-        return patient;
+    public PatientRepresentation getPatient() throws NotFoundException, ResourceException {
+        Optional<Patient> patient = patientRepository.findById(id);
+        setExisting(patient.isPresent());
+        if (!patient.isPresent()) throw new NotFoundException("Patient is not found");
+        PatientRepresentation patientRepresentation = PatientRepresentation.getPatientRepresentation(patient.get());
+        return patientRepresentation;
+    }
+    @Override
+    public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
+        Optional<Patient> patientOptional = patientRepository.findById(id);
+        if (!patientOptional.isPresent()) throw new NotFoundException("No such patient exists");
+        Patient patient = patientOptional.get();
+        patient.setFirstName(patientRepresentation.getFirstName());
+        patient.setLastName(patientRepresentation.getLastName());
+        patient.setGender(patientRepresentation.getGender());
+        patient.setUserName(patientRepresentation.getUserName());
+        patient.setPassword(patientRepresentation.getPassword());
+
+        patientRepository.save(patient);
+        return PatientRepresentation.getPatientRepresentation(patient);
+
+    }
+
+    @Override
+    public PatientDataRepresentation addPatientData(PatientData patientData) throws BadEntityException, NotFoundException {
+        Optional<Patient> patientOpt = patientRepository.findById(id);
+        if (!patientOpt.isPresent()) throw new NotFoundException("No such patient exists");
+        Patient patient = patientOpt.get();
+        if (patientData == null) throw new BadEntityException("No data error");
+        patientData.setPData(patient);
+        patientDataRepository.save(patientData);
+
+        return PatientDataRepresentation.getDataRepresentation(patientData);
     }
 }

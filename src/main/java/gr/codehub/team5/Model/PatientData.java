@@ -17,14 +17,23 @@ public class PatientData {
     private long id;
     private double carbIntake;
     private double bloodGlucose;
-    private Date date;
+    private Date date = new Date();
 
     public PatientData(double carbIntake, double bloodGlucose) {
         this.carbIntake = carbIntake;
         this.bloodGlucose = bloodGlucose;
-        this.date = new Date();
     }
 
     @ManyToOne
     private Patient pData;
+
+    @Override
+    public String toString() {
+        return "PatientData{" +
+                "id=" + id +
+                ", carbIntake=" + carbIntake +
+                ", bloodGlucose=" + bloodGlucose +
+                ", date=" + date +
+                '}';
+    }
 }

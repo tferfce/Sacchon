@@ -40,11 +40,21 @@ public abstract class Repository<T, K> implements IRepository<T, K> {
     }
 
     @Override
-    public Optional<T> findByName(String name) {
-        T t = entityManager.createQuery("SELECT b FROM " + getEntityClassName() + " b WHERE b.name = :name", getEntityClass())
-                .setParameter("name", name)
-                .getSingleResult();
-        return Optional.ofNullable(t);
+    public boolean deleteById(K id) {
+        T persistentInstance = entityManager.find(getEntityClass(), id);
+        if (persistentInstance != null) {
+
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.remove(persistentInstance);
+                entityManager.getTransaction().commit();
+            } catch (Exception e) {
+                //e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     public abstract Class<T> getEntityClass();

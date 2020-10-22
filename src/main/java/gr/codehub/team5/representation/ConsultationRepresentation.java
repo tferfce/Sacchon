@@ -40,4 +40,18 @@ public class ConsultationRepresentation {
         //consultationRepresentation.setUri("http://localhost:9000/app/consultation/"+consultation.getDocId()+"/"+consultation.getPatId());
         return consultationRepresentation;
     }
+
+    // TO DO: After merge
+    // public static Consultations getConsultation(ConsultationRepresentation consultationRepresentation){
+    //     Consultations consultation = new Consultations();
+    //     consultation.setConsult(consultationRepresentation.getConsult());
+    //     return consultation;
+    // }
+
+
+    // public static ConsultationRepresentation getConsultationRepresentation(Consultations consultation){
+    //     ConsultationRepresentation consultationRepresentation = new ConsultationRepresentation();
+    //     consultationRepresentation.setConsult(consultation.getConsult());
+    //     return consultationRepresentation;
+    // }
 }

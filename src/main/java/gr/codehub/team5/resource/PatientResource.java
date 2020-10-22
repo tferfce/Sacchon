@@ -1,11 +1,19 @@
 package gr.codehub.team5.resource;
 
-import gr.codehub.team5.Model.Patient;
+import gr.codehub.team5.Model.PatientData;
+import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
-import org.restlet.resource.Get;
-import org.restlet.resource.ResourceException;
+import gr.codehub.team5.representation.PatientDataRepresentation;
+import gr.codehub.team5.representation.PatientRepresentation;
+import org.restlet.resource.*;
 
 public interface PatientResource {
-    @Get
-    Patient getPatient() throws NotFoundException, ResourceException;
+    @Get("json")
+    PatientRepresentation getPatient() throws NotFoundException, ResourceException;
+    @Put("json")
+    PatientRepresentation updatePatient(PatientRepresentation patientRepresentation)
+        throws NotFoundException, BadEntityException;
+    @Post("json")
+    PatientDataRepresentation addPatientData(PatientData patientData) throws BadEntityException,NotFoundException;
+
 }
