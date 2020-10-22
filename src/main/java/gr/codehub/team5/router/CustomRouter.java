@@ -27,6 +27,7 @@ public class CustomRouter {
             router.attach("/doctor/{doctorId}/{patientId}/data", PatientDataListResourceImpl.class);
             router.attach("/doctor/pats", PatientListResourceImpl.class);
             router.attach("/patient/",PatientListResourceImpl.class);
+            router.attach("/patient/{doctorId}", PatientListResourceImpl.class);
 
 
 

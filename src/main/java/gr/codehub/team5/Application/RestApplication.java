@@ -7,7 +7,6 @@ import org.restlet.Component;
 import org.restlet.Restlet;
 import org.restlet.data.Protocol;
 import org.restlet.engine.Engine;
-import org.restlet.routing.Router;
 
 import javax.persistence.EntityManager;
 import java.util.logging.Logger;
@@ -46,11 +45,11 @@ public class RestApplication extends Application {
 
         CustomRouter customRouter = new CustomRouter(this);
 
-        Router publicRouter = customRouter.publicResources();
+
 
         // Create the api router, protected by a guard
 
-        return publicRouter;
+        return customRouter.createApiRouter();
     }
 
 
