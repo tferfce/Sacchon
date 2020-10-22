@@ -45,10 +45,6 @@ public class RestApplication extends Application {
 
         CustomRouter customRouter = new CustomRouter(this);
 
-
-
-        // Create the api router, protected by a guard
-
         return customRouter.createApiRouter();
     }
 

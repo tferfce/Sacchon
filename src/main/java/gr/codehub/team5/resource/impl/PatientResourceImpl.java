@@ -4,11 +4,13 @@ import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
+import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.util.PatientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 public class PatientResourceImpl extends ServerResource implements PatientResource {
     private EntityManager em;
@@ -32,8 +34,11 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     }
 
     @Override
-    public Patient getPatient() throws NotFoundException, ResourceException {
-        Patient patient = patientRepository.findById(id).get();
-        return patient;
+    public PatientRepresentation getPatient() throws NotFoundException, ResourceException {
+        Optional<Patient> patient = patientRepository.findById(id);
+        setExisting(patient.isPresent());
+        if (!patient.isPresent())  throw new NotFoundException("Customer is not found");
+        PatientRepresentation patientRepresentation = PatientRepresentation.getPatientRepresentation(patient.get());
+        return patientRepresentation;
     }
 }

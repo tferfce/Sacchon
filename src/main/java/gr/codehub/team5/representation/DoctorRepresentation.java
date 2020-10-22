@@ -38,6 +38,8 @@ public class DoctorRepresentation {
         doctorRepresentation.setLastName(doctor.getLastName());
         //doctorRepresentation.setActive(doctor.isActive());
 
+        doctorRepresentation.setUri("http://localhost:9000/project/doctor/"+doctor.getId());
+
         return doctorRepresentation;
     }
 

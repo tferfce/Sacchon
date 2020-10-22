@@ -75,4 +75,23 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         return patientRepresentationList;
 
     }
+
+//    public List<PatientRepresentation> getDoctorsPatients() throws NotFoundException{
+//        List<Patient> patients= patientRepository.findAll();
+//
+//        List<PatientRepresentation> DoctorsPatientRepresentationList = new ArrayList<>();
+//
+//        Optional <Doctor> doctorOpt = doctorRepository.findById(docId);
+//
+//        Doctor doctor= doctorOpt.get();
+//
+//        for( Patient patient: patients){
+//            if(patient.getDoctor().getId()==(doctor.getId())){
+//                DoctorsPatientRepresentationList.add(PatientRepresentation.getPatientRepresentation(patient));
+//                System.out.println(patient);
+//            }
+//        }
+//
+//        return DoctorsPatientRepresentationList;
+//    }
 }

@@ -32,7 +32,7 @@ public class PatientRepresentation {
         patientRepresentation.setUserName(patient.getUserName());
         patientRepresentation.setPassword(patient.getPassword());
 
-        patientRepresentation.setUri("http://localhost:9000/app/patient/"+patient.getId());
+        patientRepresentation.setUri("http://localhost:9000/project/patient/"+patient.getId());
         return patientRepresentation;
     }
 

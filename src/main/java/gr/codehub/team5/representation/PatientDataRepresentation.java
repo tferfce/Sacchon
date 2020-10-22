@@ -33,7 +33,7 @@ public class PatientDataRepresentation {
         patientDataRepresentation.setCarbIntake(patientData.getCarbIntake());
         patientDataRepresentation.setDate(patientData.getDate());
 
-        patientDataRepresentation.setUri("http://localhost:9000/app/patient/"+patientData.getId());
+        patientDataRepresentation.setUri("http://localhost:9000/project/patientData/"+patientData.getId());
 
         return patientDataRepresentation;
     }
