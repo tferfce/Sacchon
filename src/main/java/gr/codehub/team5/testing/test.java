@@ -1,6 +1,5 @@
 package gr.codehub.team5.testing;
 
-import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.Model.PatientData;
@@ -29,8 +28,8 @@ public class test {
         pat1.setDoctor(doc);
         patRepo.save(pat1);
 
-        Consultations consultations = new Consultations("This is a not very big sentence",doc,pat1);
-        consRepo.save(consultations);
+//        Consultations consultations = new Consultations("This is a not very big sentence",doc,pat1);
+//        consRepo.save(consultations);
 
 
         PatientData pdata = new PatientData(325.123,245.32);

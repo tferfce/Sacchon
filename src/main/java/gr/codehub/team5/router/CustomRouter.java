@@ -1,10 +1,7 @@
 package gr.codehub.team5.router;
 
 import gr.codehub.team5.resource.PingServerResource;
-import gr.codehub.team5.resource.impl.ConsultationResourceImpl;
-import gr.codehub.team5.resource.impl.DoctorResourceImpl;
-import gr.codehub.team5.resource.impl.PatientListResourceImpl;
-import gr.codehub.team5.resource.impl.PatientResourceImpl;
+import gr.codehub.team5.resource.impl.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -22,8 +19,11 @@ public class CustomRouter {
         router.attach("/patient", PatientListResourceImpl.class);
         router.attach("/patient/", PatientListResourceImpl.class);
         router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/doctor", DoctorResourceImpl.class);
-        router.attach("/consultation", ConsultationResourceImpl.class);
+        router.attach("/doctors", DoctorsResourceImpl.class);
+        router.attach("/doctor/{id}", DoctorResourceImpl.class);
+        router.attach("/consultations", ConsultationsResourceImpl.class);
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+
         return router;
     }
 

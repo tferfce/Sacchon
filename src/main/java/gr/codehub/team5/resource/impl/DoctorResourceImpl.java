@@ -2,27 +2,29 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.exceptions.BadEntityException;
+import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.DoctorRepresentation;
 import gr.codehub.team5.resource.DoctorResource;
-import gr.codehub.team5.resource.util.ResourceUtils;
-import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 public class DoctorResourceImpl extends ServerResource implements DoctorResource {
 
     private DoctorRepository doctorRepository;
     private EntityManager em;
+    private long id;
 
     @Override
     protected void doInit() throws ResourceException {
         try {
             em = SacchonJpa.getEntityManager();
             doctorRepository = new DoctorRepository(em);
+            id = Long.parseLong(getAttribute("id"));
         }
         catch(Exception ex){
             throw new ResourceException(ex);
@@ -35,12 +37,24 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     }
 
     @Override
-    public DoctorRepresentation add(DoctorRepresentation doctorIn) throws BadEntityException {
-        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+    public DoctorRepresentation getDoctor() throws NotFoundException {
+        Optional<Doctor> doctor = doctorRepository.findById(id);
+        setExisting(doctor.isPresent());
+        if (!doctor.isPresent())  throw new NotFoundException("Doctor is not found");
+        DoctorRepresentation doctorRepresentation = DoctorRepresentation.getDoctorRepresentation(doctor.get());
+        return doctorRepresentation;
+    }
 
-        if (doctorIn==null) throw new  BadEntityException("Null doctor representation error");
+    @Override
+    public DoctorRepresentation update(DoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
+        Optional<Doctor> doctorOpt = doctorRepository.findById(id);
+        if (!doctorOpt.isPresent()) throw new NotFoundException("The given doctor id is not existing");
+        Doctor doctor = doctorOpt.get();
 
-        Doctor doctor = DoctorRepresentation.getDoctor(doctorIn);
+        doctor.setFirstName(doctorReprIn.getFirstName());
+        doctor.setLastName(doctorReprIn.getLastName());
+        doctor.setUserName(doctorReprIn.getUserName());
+        doctor.setPassword(doctorReprIn.getPassword());
 
         doctorRepository.save(doctor);
         return DoctorRepresentation.getDoctorRepresentation(doctor);

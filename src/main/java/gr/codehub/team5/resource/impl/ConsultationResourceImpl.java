@@ -2,6 +2,7 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.exceptions.BadEntityException;
+import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.representation.ConsultationRepresentation;
@@ -10,19 +11,23 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 public class ConsultationResourceImpl extends ServerResource implements ConsultationResource {
 
     private ConsultationRepository consultationRepository;
     private EntityManager em;
+    private long id;
 
     @Override
-    protected void doInit() throws ResourceException {
+    protected void doInit() {
         try {
             em = SacchonJpa.getEntityManager();
             consultationRepository = new ConsultationRepository(em);
+            id = Long.parseLong(getAttribute("id"));
         }
         catch(Exception ex){
+
             throw new ResourceException(ex);
         }
     }
@@ -33,10 +38,24 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     }
 
     @Override
-    public ConsultationRepresentation add(ConsultationRepresentation consultationIn) throws BadEntityException {
-        if (consultationIn==null) throw new  BadEntityException("Null doctor representation error");
+    public ConsultationRepresentation getConsultation() throws NotFoundException, ResourceException {
 
-        Consultations consultation = ConsultationRepresentation.getConsultation(consultationIn);
+        Optional<Consultations> consultation = consultationRepository.findById(id);
+        setExisting(consultation.isPresent());
+        if (!consultation.isPresent())  throw new NotFoundException("Consultation is not found");
+        ConsultationRepresentation consultationRepresentation = ConsultationRepresentation.getConsultationRepresentation(consultation.get());
+        return consultationRepresentation;
+    }
+
+    @Override
+    public ConsultationRepresentation update(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException {
+
+        Optional<Consultations> consultationOpt = consultationRepository.findById(id);
+        if (!consultationOpt.isPresent()) throw new NotFoundException("The given consultation id is not existing");
+        Consultations consultation = consultationOpt.get();
+
+        consultation.setConsult(consultationReprIn.getConsult());
+        consultation.setDate(consultationReprIn.getDate());
 
         consultationRepository.save(consultation);
         return ConsultationRepresentation.getConsultationRepresentation(consultation);
