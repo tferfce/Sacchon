@@ -16,7 +16,6 @@ public class RestApplication extends Application {
     public static void main(String[] args) throws Exception {
         LOGGER.info("Patients application starting...");
 
-
         // Attach application to http://localhost:9000/v1
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
