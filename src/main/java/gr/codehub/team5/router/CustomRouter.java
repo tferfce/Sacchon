@@ -18,8 +18,7 @@ public class CustomRouter {
         //apis
 
         // Patient
-        router.attach("/patient", PatientListResourceImpl.class);
-        router.attach("/patient/", PatientListResourceImpl.class);
+
         router.attach("/patient/{id}", PatientResourceImpl.class);
         router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
         router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
@@ -39,6 +38,7 @@ public class CustomRouter {
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class);
+        router.attach("/patient", PatientListResourceImpl.class);
         return router;
     }
 }
