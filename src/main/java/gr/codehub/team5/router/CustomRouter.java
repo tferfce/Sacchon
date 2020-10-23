@@ -18,12 +18,11 @@ public class CustomRouter {
         //apis
 
         // Patient
-        router.attach("/patient", PatientListResourceImpl.class);
-        router.attach("/patient/", PatientListResourceImpl.class);
         router.attach("/patient/{id}", PatientResourceImpl.class);
         router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
         router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
         router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
+        router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);
 
         // Doctor
         router.attach("/doctors", DoctorsResourceImpl.class);
@@ -33,12 +32,18 @@ public class CustomRouter {
         router.attach("/consultations", ConsultationsResourceImpl.class);
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
 
+        // Administrator
+        router.attach("/admin", AdministratorResourceImpl.class);
+        router.attach("/admin/{id}", AdminResourceGetImpl.class);
+
         return router;
     }
 
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class);
+        router.attach("/patient", PatientListResourceImpl.class);
+
         return router;
     }
 }

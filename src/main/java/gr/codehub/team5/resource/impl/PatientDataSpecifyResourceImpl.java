@@ -8,6 +8,8 @@ import gr.codehub.team5.repository.PatientDataRepository;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientDataRepresentation;
 import gr.codehub.team5.resource.PatientDataSpecifyResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -43,6 +45,7 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
 
     @Override
     public void deleteSpecificData() throws NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
@@ -51,6 +54,7 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
 
     @Override
     public PatientDataRepresentation updatePData(PatientDataRepresentation patientDataRepresentation) throws NotFoundException, BadEntityException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();

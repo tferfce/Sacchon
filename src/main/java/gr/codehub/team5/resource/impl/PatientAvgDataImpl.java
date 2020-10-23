@@ -1,10 +1,8 @@
 package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.PatientData;
-import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
-import gr.codehub.team5.representation.PatientDataRepresentation;
-import gr.codehub.team5.resource.PatientDataResource;
+import gr.codehub.team5.resource.PatientAvgData;
 import gr.codehub.team5.resource.util.ResourceUtils;
 import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
@@ -12,23 +10,21 @@ import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
-public class PatientDataResourceImpl extends ServerResource implements PatientDataResource {
+public class PatientAvgDataImpl extends ServerResource implements PatientAvgData {
 
-    private long id;
     private EntityManager em;
+    private long id;
 
-    public PatientDataResourceImpl() {
+    public PatientAvgDataImpl() {
         super();
     }
 
     @Override
     protected void doInit() throws ResourceException {
-
         em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
+        id = Long.parseLong(getAttribute("id"));
     }
 
     @Override
@@ -37,13 +33,20 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
     }
 
     @Override
-    public List<PatientDataRepresentation> getPatientData() throws NotFoundException {
+    public double[] getAvgData() {
         ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
-        List<PatientDataRepresentation> representList = new ArrayList<>();
-        pdataList.forEach(patientdata-> representList.add(PatientDataRepresentation.getDataRepresentation(patientdata)));
-        return representList;
+        double totalCarbs=0;
+        double totalBloodGlucose = 0;
+        for (PatientData pdata: pdataList){
+            totalCarbs += pdata.getCarbIntake();
+            totalBloodGlucose +=pdata.getBloodGlucose();
+        }
+        double[] avgStatistics = new double[2];
+        avgStatistics[0] = totalCarbs/pdataList.size();
+        avgStatistics[1] = totalBloodGlucose/pdataList.size();
+        return avgStatistics;
     }
 }

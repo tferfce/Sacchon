@@ -5,6 +5,8 @@ import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.representation.ConsultationRepresentation;
 import gr.codehub.team5.resource.ConsultationListResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -36,6 +38,7 @@ public class ConsultationListImpl extends ServerResource implements Consultation
 
     @Override
     public List<ConsultationRepresentation> getConsults() throws NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         TypedQuery<Consultations> query = em.createQuery("FROM Consultations C WHERE patId_id=:param", Consultations.class);
         query.setParameter("param",this.id);
         List<Consultations> consultationsList = query.getResultList();
