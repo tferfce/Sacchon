@@ -7,8 +7,6 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.DoctorRepresentation;
 import gr.codehub.team5.resource.DoctorsResource;
-import gr.codehub.team5.resource.util.ResourceUtils;
-import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -42,7 +40,7 @@ public class DoctorsResourceImpl extends ServerResource implements DoctorsResour
 
     @Override
     public DoctorRepresentation add(DoctorRepresentation doctorIn) throws BadEntityException {
-        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
 
         if (doctorIn==null) throw new  BadEntityException("Null doctor representation error");
 

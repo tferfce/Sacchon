@@ -11,8 +11,6 @@ import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.ConsultationRepresentation;
 import gr.codehub.team5.resource.ConsultationsResource;
-import gr.codehub.team5.resource.util.ResourceUtils;
-import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -54,7 +52,7 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
 
     @Override
     public ConsultationRepresentation add(ConsultationRepresentation consultationIn) throws BadEntityException, NotFoundException {
-        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
 
         if (consultationIn==null) throw new  BadEntityException("Null consultation representation error");
 
