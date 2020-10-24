@@ -51,6 +51,8 @@ public class CustomRouter {
         // Doctor
         router.attach("/doctors", DoctorsResourceImpl.class);
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
+        router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
+
 
         // Consultation
         router.attach("/consultations", ConsultationsResourceImpl.class);
