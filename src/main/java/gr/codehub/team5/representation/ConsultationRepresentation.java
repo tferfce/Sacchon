@@ -54,4 +54,5 @@ public class ConsultationRepresentation {
     //     consultationRepresentation.setConsult(consultation.getConsult());
     //     return consultationRepresentation;
     // }
+
 }

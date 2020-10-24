@@ -4,7 +4,7 @@ import gr.codehub.team5.Model.PatientData;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.representation.PatientDataRepresentation;
-import gr.codehub.team5.resource.PatientDataResource;
+import gr.codehub.team5.resource.AdminDataForEachPatient;
 import gr.codehub.team5.resource.util.ResourceUtils;
 import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
@@ -15,12 +15,12 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientDataResourceImpl extends ServerResource implements PatientDataResource {
+public class AdminDataForEachPatientImpl extends ServerResource implements AdminDataForEachPatient {
 
     private long id;
     private EntityManager em;
 
-    public PatientDataResourceImpl() {
+    public AdminDataForEachPatientImpl() {
         super();
     }
 
@@ -38,7 +38,7 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
 
     @Override
     public List<PatientDataRepresentation> getPatientData() throws NotFoundException {
-        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName()) ;
+        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName()) ;
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();

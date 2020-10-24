@@ -35,7 +35,8 @@ public class CustomRouter {
         // Administrator
         router.attach("/admin", AdministratorResourceImpl.class);
         router.attach("/admin/{id}", AdminResourceGetImpl.class);
-
+        router.attach("/admin/patient/{id}/data", AdminDataForEachPatientImpl.class);
+        router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
         return router;
     }
 

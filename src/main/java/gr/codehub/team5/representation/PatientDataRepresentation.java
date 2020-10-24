@@ -3,13 +3,15 @@ package gr.codehub.team5.representation;
 import gr.codehub.team5.Model.PatientData;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 @Data
 public class PatientDataRepresentation {
     private long id;
     private double carbIntake;
     private double bloodGlucose;
-    private Date date = new Date();
+
+    private int date = LocalDateTime.now().getDayOfYear();
 
     public static PatientDataRepresentation getDataRepresentation(PatientData patientData){
         PatientDataRepresentation patientDataRepresentation = new PatientDataRepresentation();

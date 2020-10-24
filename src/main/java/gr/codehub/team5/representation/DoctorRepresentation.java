@@ -33,6 +33,7 @@ public class DoctorRepresentation {
         doctorRepresentation.setLastName(doctor.getLastName());
         doctorRepresentation.setUserName(doctor.getUserName());
         doctorRepresentation.setPassword(doctor.getPassword());
+        doctorRepresentation.setUri("http://localhost:9000/project/doctor/"+doctor.getId());
         return doctorRepresentation;
 
     }
