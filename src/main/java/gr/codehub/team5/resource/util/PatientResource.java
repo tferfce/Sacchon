@@ -7,5 +7,7 @@ import org.restlet.resource.ResourceException;
 
 public interface PatientResource {
     @Get
-    PatientRepresentation getPatient() throws NotFoundException, ResourceException;
+    public PatientRepresentation getPatient() throws NotFoundException, ResourceException;
+
+
 }

@@ -8,7 +8,7 @@ public interface IRepository<T, K> {
     List<T> findAll() ;
     Optional<T> save(T t) ;
     Optional<T> findByName(String name);
-    boolean deleteById(K id);
+
 
 
 

@@ -1,6 +1,5 @@
 package gr.codehub.team5.resource.impl;
 
-import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
@@ -15,7 +14,6 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource  {
     private EntityManager em;
@@ -43,22 +41,10 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
     public PatientRepresentation addPatient(PatientRepresentation patientIn) throws BadEntityException {
 
         //ResourceUtils.checkRole(this, CustomRole.ROLE_ADMIN.getRoleName());
-
         if (patientIn==null) throw new  BadEntityException("Null patient representation error");
         //if (customerIn.getName().equals("admin")) throw new  BadEntityException("Invalid customer name error");
-
         Patient patient = PatientRepresentation.getPatient( patientIn);
-
-        Optional <Doctor> doctorOpt = doctorRepository.findById(docId);
-
-        Doctor doctor= doctorOpt.get();
-
-        patient.setDoctor(doctor);
-
-
         patientRepository.save(patient);
-
-
         return PatientRepresentation.getPatientRepresentation(patient);
     }
 
@@ -67,31 +53,12 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
        // ResourceUtils.checkRole(this, CustomRole.ROLE_USER.getRoleName());
         List<Patient> patients= patientRepository.findAll();
-
         List<PatientRepresentation> patientRepresentationList = new ArrayList<>();
-
         patients.forEach(patient -> patientRepresentationList.add(PatientRepresentation.getPatientRepresentation(patient)));
-
         return patientRepresentationList;
 
     }
 
-//    public List<PatientRepresentation> getDoctorsPatients() throws NotFoundException{
-//        List<Patient> patients= patientRepository.findAll();
-//
-//        List<PatientRepresentation> DoctorsPatientRepresentationList = new ArrayList<>();
-//
-//        Optional <Doctor> doctorOpt = doctorRepository.findById(docId);
-//
-//        Doctor doctor= doctorOpt.get();
-//
-//        for( Patient patient: patients){
-//            if(patient.getDoctor().getId()==(doctor.getId())){
-//                DoctorsPatientRepresentationList.add(PatientRepresentation.getPatientRepresentation(patient));
-//                System.out.println(patient);
-//            }
-//        }
-//
-//        return DoctorsPatientRepresentationList;
-//    }
+
+
 }

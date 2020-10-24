@@ -3,8 +3,6 @@ package gr.codehub.team5.Model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE user SET deleted=true WHERE id=?")
-@Where(clause = "deleted = false")
+//@SQLDelete(sql = "UPDATE user SET deleted=true WHERE id=?")
+//@Where(clause = "deleted = false")
 public class Doctor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,7 +21,7 @@ public class Doctor {
     private String lastName;
     private String userName;
     private String password;
-    private Boolean deleted;
+    private boolean deleted;
 
 
 
@@ -35,11 +33,13 @@ public class Doctor {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "doctor",fetch = FetchType.EAGER)
     private List<Patient> listOfPatients;
 
     @OneToMany(mappedBy = "docId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Consultations> consultations;
+
+
 
     @Override
     public String toString() {

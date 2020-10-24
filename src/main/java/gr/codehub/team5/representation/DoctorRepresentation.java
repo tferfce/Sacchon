@@ -9,6 +9,7 @@ public class DoctorRepresentation {
     private String lastName;
     private String userName;
     private String password;
+    private boolean deleted;
 
 
     private String uri;
@@ -21,7 +22,7 @@ public class DoctorRepresentation {
         doctor.setLastName(doctorRepresentation.getLastName());
         doctor.setUserName(doctorRepresentation.getUserName());
         doctor.setPassword(doctorRepresentation.getPassword());
-        //doctor.setActive(doctorRepresentation.isActive());
+        doctor.setDeleted(doctorRepresentation.isDeleted());
 
         return doctor;
 
@@ -36,7 +37,7 @@ public class DoctorRepresentation {
         doctorRepresentation.setLastName(doctor.getLastName());
         doctorRepresentation.setUserName(doctor.getUserName());
         doctorRepresentation.setLastName(doctor.getLastName());
-        //doctorRepresentation.setActive(doctor.isActive());
+        doctorRepresentation.setDeleted(doctor.isDeleted());
 
         doctorRepresentation.setUri("http://localhost:9000/project/doctor/"+doctor.getId());
 
