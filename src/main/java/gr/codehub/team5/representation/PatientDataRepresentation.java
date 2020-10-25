@@ -11,7 +11,7 @@ public class PatientDataRepresentation {
 
     private double carbIntake;
     private double bloodGlucose;
-    private Date date;
+    private Date date= new Date();
 
     private String uri;
 
@@ -21,7 +21,6 @@ public class PatientDataRepresentation {
 
         patientData.setBloodGlucose(patientDataRepresentation.getBloodGlucose());
         patientData.setCarbIntake(patientDataRepresentation.getCarbIntake());
-        patientData.setDate(patientDataRepresentation.getDate());
         return patientData;
 
     }
@@ -31,7 +30,6 @@ public class PatientDataRepresentation {
         PatientDataRepresentation patientDataRepresentation= new PatientDataRepresentation();
         patientDataRepresentation.setBloodGlucose(patientData.getBloodGlucose());
         patientDataRepresentation.setCarbIntake(patientData.getCarbIntake());
-        patientDataRepresentation.setDate(patientData.getDate());
 
         patientDataRepresentation.setUri("http://localhost:9000/project/patientData/"+patientData.getId());
 

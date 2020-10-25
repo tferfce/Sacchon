@@ -11,8 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE user SET deleted=true WHERE id=?")
-//@Where(clause = "deleted = false")
+
 public class Doctor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

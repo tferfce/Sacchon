@@ -1,23 +1,25 @@
 package gr.codehub.team5.resource.impl;
 
+import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.repository.PatientRepository;
-import gr.codehub.team5.representation.PatientRepresentation;
-import gr.codehub.team5.resource.util.PatientResource;
+import gr.codehub.team5.representation.PatientDataRepresentation;
+import gr.codehub.team5.resource.util.DoctorsPatientsResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 
-public class PatientResourceImpl extends ServerResource implements PatientResource {
+public class DoctorsPatientsResourceImpl extends ServerResource implements DoctorsPatientsResource {
+
     private EntityManager em;
     private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
-    private long id;
     private long doctorId;
     private long patientId;
 
@@ -27,7 +29,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
             em = SacchonJpa.getEntityManager();
             patientRepository = new PatientRepository(em);
             doctorRepository= new DoctorRepository(em);
-            id=Long.parseLong(getAttribute("id"));
             doctorId=Long.parseLong(getAttribute("doctorId"));
             patientId=Long.parseLong(getAttribute("patientId"));
         }catch (Exception e){
@@ -41,15 +42,12 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     }
 
     @Override
-    public PatientRepresentation getPatient() throws NotFoundException, ResourceException {
-        Optional<Patient> patient = patientRepository.findById(id);
-        setExisting(patient.isPresent());
-        if (!patient.isPresent())  throw new NotFoundException("Customer is not found");
-        PatientRepresentation patientRepresentation = PatientRepresentation.getPatientRepresentation(patient.get());
-        return patientRepresentation;
+    public List<PatientDataRepresentation> getDoctorsPatientData() throws NotFoundException {
+        Optional<Patient> patient = patientRepository.findById(patientId);
+        Optional<Doctor> doctor= doctorRepository.findById(doctorId);
 
+
+
+        return null;
     }
-
-
-
 }

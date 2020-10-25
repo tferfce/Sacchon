@@ -13,8 +13,7 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
-public class PatientToDoctorResourceImpl extends ServerResource implements PatientToDoctorResource {
-
+public class PatientToDoctorResourceImpl extends ServerResource implements gr.codehub.team5.resource.util.PatientToDoctorResource {
     private EntityManager em;
     private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
@@ -40,16 +39,15 @@ public class PatientToDoctorResourceImpl extends ServerResource implements Patie
     }
 
     @Override
-    public PatientRepresentation setDoctorToPatient() throws  ResourceException {
+    public PatientRepresentation setDoctorToPatient() throws ResourceException {
         Optional<Patient> patient = patientRepository.findById(patientId);
         Optional<Doctor> doctor= doctorRepository.findById(doctorId);
 
         patient.get().setDoctor(doctor.get());
-
         patientRepository.save(patient.get());
+
         return PatientRepresentation.getPatientRepresentation(patient.get());
 
-
-    }
+}
 
 }

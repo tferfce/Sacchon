@@ -25,6 +25,8 @@ public abstract class Repository<T, K> implements IRepository<T, K> {
         return query.getResultList();
     }
 
+
+
     @Override
     public Optional<T> save(T t) {
         try {

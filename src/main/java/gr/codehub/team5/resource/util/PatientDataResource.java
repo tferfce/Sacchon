@@ -8,10 +8,10 @@ import org.restlet.resource.Post;
 
 import java.util.List;
 
-public interface PatientDataListResource {
+public interface PatientDataResource {
 
     @Get("json")
-    public List<PatientDataRepresentation> getAllPatientData() throws NotFoundException;
+    public List<PatientDataRepresentation> getPatientData() throws NotFoundException;
 
     @Post("json")
     public PatientDataRepresentation addPatientData(PatientDataRepresentation patientDataRepresentation)
