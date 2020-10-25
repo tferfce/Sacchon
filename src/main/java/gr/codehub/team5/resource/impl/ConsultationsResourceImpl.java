@@ -67,13 +67,13 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
         Consultations consultation = ConsultationRepresentation.getConsultation(consultationIn);
         consultation.setDocId(doctor);
         consultation.setPatId(patient);
-
         consultationRepository.save(consultation);
         return ConsultationRepresentation.getConsultationRepresentation(consultation);
     }
 
     @Override
     public List<ConsultationRepresentation> getConsultations() throws NotFoundException {
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         List<Consultations> consultations= consultationRepository.findAll();
 
         List<ConsultationRepresentation> consultationRepresentationList = new ArrayList<>();

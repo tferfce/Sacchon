@@ -36,9 +36,14 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
 
     @Override
     public List<PatientDataRepresentation> getPatientData() throws NotFoundException {
+        //List<String> roles = new ArrayList<>();
+        //roles.add(CustomRole.ROLE_PATIENT.getRoleName());
+        //roles.add(CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+        //ResourceUtils.checkRole(this, roles);
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
+        if (pdataList.isEmpty()) throw new NotFoundException("No Data in the list");
         List<PatientDataRepresentation> representList = new ArrayList<>();
         pdataList.forEach(patientdata-> representList.add(PatientDataRepresentation.getDataRepresentation(patientdata)));
         return representList;

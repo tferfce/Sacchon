@@ -4,7 +4,7 @@ import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.representation.ConsultationRepresentation;
-import gr.codehub.team5.resource.ConsultationListResource;
+import gr.codehub.team5.resource.AdminConsultsForOfEachDoctor;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -13,18 +13,17 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultationListImpl extends ServerResource implements ConsultationListResource {
+public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements AdminConsultsForOfEachDoctor {
 
     private long id;
     private EntityManager em;
 
-    public ConsultationListImpl() {
+    public AdminConsultsForOfEachDoctorImpl() {
         super();
     }
 
     @Override
     protected void doInit() throws ResourceException {
-
         em = SacchonJpa.getEntityManager();
         id=Long.parseLong(getAttribute("id"));
     }
@@ -35,9 +34,9 @@ public class ConsultationListImpl extends ServerResource implements Consultation
     }
 
     @Override
-    public List<ConsultationRepresentation> getConsults() throws NotFoundException {
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
-        TypedQuery<Consultations> query = em.createQuery("FROM Consultations C WHERE patId_id=:param", Consultations.class);
+    public List<ConsultationRepresentation> getConsultsForEveryDoc() throws NotFoundException {
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+        TypedQuery<Consultations> query = em.createQuery("FROM Consultations C WHERE docId_id=:param", Consultations.class);
         query.setParameter("param",this.id);
         List<Consultations> consultationsList = query.getResultList();
         if (consultationsList.isEmpty()) throw new NotFoundException("No data");

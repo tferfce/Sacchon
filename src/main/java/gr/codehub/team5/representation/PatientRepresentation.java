@@ -1,16 +1,18 @@
 package gr.codehub.team5.representation;
 
 import gr.codehub.team5.Model.Patient;
+import gr.codehub.team5.security.CustomRole;
 import lombok.Data;
 
 @Data
 public class PatientRepresentation {
+    private long id;
     private String firstName;
     private String lastName;
     private String gender;
     private String userName;
     private String password;
-
+    private CustomRole customRole;
     private String uri;
 
     public static Patient getPatient(PatientRepresentation patientRepresentation){
@@ -27,7 +29,8 @@ public class PatientRepresentation {
 
     public static PatientRepresentation getPatientRepresentation(Patient patient){
         PatientRepresentation patientRepresentation = new PatientRepresentation();
-
+        patientRepresentation.setId(patient.getId());
+        patientRepresentation.setCustomRole(patient.getCustomRole());
         patientRepresentation.setFirstName(patient.getFirstName());
         patientRepresentation.setLastName(patient.getLastName());
         patientRepresentation.setGender(patient.getGender());
