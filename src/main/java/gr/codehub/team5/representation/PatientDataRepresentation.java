@@ -19,4 +19,14 @@ public class PatientDataRepresentation {
         patientDataRepresentation.setBloodGlucose(patientData.getBloodGlucose());
         return patientDataRepresentation;
     }
+
+    static public PatientData getPatientData(PatientDataRepresentation patientDataRepresentation){
+
+        PatientData patientData = new PatientData();
+
+        patientData.setBloodGlucose(patientDataRepresentation.getBloodGlucose());
+        patientData.setCarbIntake(patientDataRepresentation.getCarbIntake());
+        return patientData;
+
+    }
 }

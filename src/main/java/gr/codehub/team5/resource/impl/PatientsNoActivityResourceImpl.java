@@ -2,12 +2,14 @@ package gr.codehub.team5.resource.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.Model.PatientData;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientDataRepository;
-import gr.codehub.team5.representation.PatientDataRepresentation;
-import gr.codehub.team5.resource.PatientDataResource;
+import gr.codehub.team5.repository.PatientRepository;
+import gr.codehub.team5.representation.PatientRepresentation;
+import gr.codehub.team5.resource.PatientsNoActivityResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -17,35 +19,32 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class PatientDataResourceImpl extends ServerResource implements PatientDataResource {
-
-    private long id;
+public class PatientsNoActivityResourceImpl extends ServerResource implements PatientsNoActivityResource {
     private EntityManager em;
     private PatientDataRepository patientDataRepository;
+    private PatientRepository patientRepository;
 
-    public PatientDataResourceImpl() {
-        super();
-    }
 
     @Override
     protected void doInit() throws ResourceException {
+        try {
+            em = SacchonJpa.getEntityManager();
+            patientDataRepository = new PatientDataRepository(em);
+            patientRepository= new PatientRepository(em);
 
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
-        patientDataRepository = new PatientDataRepository(em);
+        }catch (Exception e){
+            throw new ResourceException(e);
+        }
     }
-
     @Override
     protected void doRelease() throws ResourceException {
         em.close();
     }
 
+
     @Override
-    public List<PatientDataRepresentation> getPatientData(String dates) throws NotFoundException, IOException, ParseException {
-        //List<String> roles = new ArrayList<>();
-        //roles.add(CustomRole.ROLE_PATIENT.getRoleName());
-        //roles.add(CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
-        //ResourceUtils.checkRole(this, roles);
+    public List<PatientRepresentation> getPatientsWithNoActivity(String dates) throws NotFoundException, ParseException, IOException {
+
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Object> map = mapper.readValue(dates, Map.class);
         JsonNode rootNode = mapper.readTree(dates);
@@ -57,16 +56,15 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);
         dateTo = c.getTime();
-        List<PatientData> pdataList = new ArrayList<>();
-        List<PatientData> allDataInRange = patientDataRepository.findByTimeRange(dateFrom,dateTo);
-        for (PatientData p: allDataInRange){
-            if (p.getPData().getId()==this.id){
-                pdataList.add(p);
-            }
-        }
-        if (pdataList.isEmpty()) throw new NotFoundException("No Data in the list");
-        List<PatientDataRepresentation> representList = new ArrayList<>();
-        pdataList.forEach(patientdata-> representList.add(PatientDataRepresentation.getDataRepresentation(patientdata)));
-        return representList;
+
+        List<Patient> patients= patientRepository.findAll();
+        List<Patient> activePatients =new ArrayList<>();
+        List <PatientData> patientData = patientDataRepository.findByTimeRange(dateFrom, dateTo);
+        patientData.forEach(pd -> activePatients.add(pd.getPData()));
+        patients.removeAll(activePatients); //patients with no activity
+        List <PatientRepresentation> inactivePatients = new ArrayList<>();
+        patients.forEach(patient -> inactivePatients.add(PatientRepresentation.getPatientRepresentation(patient)) );
+        return inactivePatients;
     }
+
 }

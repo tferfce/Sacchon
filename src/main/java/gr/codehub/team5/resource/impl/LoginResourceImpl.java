@@ -15,7 +15,7 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
     public ApplicationUser getUser() throws NotFoundException {
         // Role
         List role = Request.getCurrent().getClientInfo().getRoles();
-        User user = getRequest().getClientInfo().getUser();
+        User user = Request.getCurrent().getClientInfo().getUser();
         char[] pass = getChallengeResponse().getSecret();
         ApplicationUser app_user = new ApplicationUser(user.getIdentifier(), String.valueOf(pass), CustomRole.getRoleValue(role.get(0).toString()));
         return app_user;
