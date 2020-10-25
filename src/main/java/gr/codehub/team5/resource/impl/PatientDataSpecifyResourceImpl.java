@@ -1,7 +1,6 @@
 package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.PatientData;
-import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientDataRepository;
@@ -49,15 +48,17 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
+        if (pdataList.isEmpty()) throw new NotFoundException("No data");
         patientDataRepository.deleteById(pdataList.get(listId-1).getId());
     }
 
     @Override
-    public PatientDataRepresentation updatePData(PatientDataRepresentation patientDataRepresentation) throws NotFoundException, BadEntityException {
+    public PatientDataRepresentation updatePData(PatientDataRepresentation patientDataRepresentation) throws NotFoundException{
         ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
+        if (pdataList.isEmpty()) throw new NotFoundException("No data");
         PatientData patientData = pdataList.get(listId-1);
         patientData.setBloodGlucose(patientDataRepresentation.getBloodGlucose());
         patientData.setCarbIntake(patientDataRepresentation.getCarbIntake());

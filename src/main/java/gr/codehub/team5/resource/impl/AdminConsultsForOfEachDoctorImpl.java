@@ -41,6 +41,7 @@ public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements 
         TypedQuery<Consultations> query = em.createQuery("FROM Consultations C WHERE docId_id=:param", Consultations.class);
         query.setParameter("param",this.id);
         List<Consultations> consultationsList = query.getResultList();
+        if (consultationsList.isEmpty()) throw new NotFoundException("No data");
         List<ConsultationRepresentation> representationList = new ArrayList<>();
         consultationsList.forEach(consult ->representationList.add(ConsultationRepresentation.getConsultationRepresentation(consult)));
         return representationList;
