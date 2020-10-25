@@ -28,7 +28,8 @@ export class RegisterComponent implements OnInit {
     username:new FormControl(),
     password:new FormControl(),
     gender:new FormControl()
-  });}
+  });
+}
 
   ngOnInit(): void {
 

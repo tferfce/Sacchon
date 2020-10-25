@@ -9,12 +9,16 @@ import { AuthModule } from './Auth/auth.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { ShowDataListComponent } from './patient/show-data-list/show-data-list.component';
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
+import { ShowAverageComponent } from './patient/show-average/show-average.component';
+import { ShowConsulationComponent } from './patient/show-consulation/show-consulation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShowDataListComponent,
-    AddPatientDataComponent
+    AddPatientDataComponent,
+    ShowAverageComponent,
+    ShowConsulationComponent
 
   ],
   imports: [

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Patient } from '../model/patient.model';
+import { User } from '../model/user.model';
 import { StorageService } from '../storage.service';
 
 @Injectable({
@@ -11,6 +12,7 @@ import { StorageService } from '../storage.service';
 export class AuthServiceService {
   private patient:Patient=this.storage.getScope();
 private  endpoint='http://localhost:9000/project/patient';
+private loginEndPoint='http://localhost:9000/project/login';
   errorMessage:string;
 authChange=new Subject<boolean>();
 constructor(
@@ -19,6 +21,24 @@ constructor(
   private storage:StorageService
   ) { }
 
+
+  createAuthorizationHeader(headers: Headers,user:User) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Authorization', 'Basic ' +
+      btoa(user.username+':'+ user.password)); 
+  }
+
+
+  login(user:User){
+    let httpHeaders = new HttpHeaders()
+              .set('authorization','Basic ' +
+              btoa(user.username+':'+ user.password))
+              .set('Content-Type', 'application/json');
+    const httpOptions = {
+        headers: httpHeaders
+}; 
+    return this.http.get<User>(this.loginEndPoint,httpOptions);
+  }
 
   signup(patient:Patient){
   return  this.http.post<Patient>(this.endpoint,{
@@ -30,9 +50,8 @@ constructor(
 
   
   })
-  
-    
   }
+
 
   authSuccessfully(){
     this.authChange.next(true);

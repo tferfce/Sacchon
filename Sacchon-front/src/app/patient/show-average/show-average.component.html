@@ -1,0 +1,18 @@
+<table class="table  table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Average Glycose</th>
+        <th scope="col">Average Carbohydrate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let averageData of dataAverage">
+        <th  scope="row">{{averageData.id}}</th>
+        <td>{{averageData.avgGlycose}}</td>
+        <td>{{averageData.avgCarbs}}
+     </td>
+      
+      </tr>
+    </tbody>
+  </table>

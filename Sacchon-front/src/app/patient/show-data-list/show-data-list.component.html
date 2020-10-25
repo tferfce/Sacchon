@@ -1,31 +1,47 @@
-<div class="col text-center">
-    <button class="btn btn-primary btn-space" (click)="loadMyChildComponent()">Put Data</button>
-    <div class="container p-1" *ngIf='loadComponent'>
-      <app-add-patient-data></app-add-patient-data>
-    </div>
+<ul class="nav nav-tabs">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">History Data</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Average Table</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Consulations Table</a></li>
+</ul>
+<div class="tab-content p-1">
+  <div id="home" class="tab-pane fade in active show">
+    <div class="col text-center">
+      <button class="btn btn-primary btn-space " (click)="loadMyChildComponent()">Put Data</button>
+      <div class="container p-1" *ngIf='loadComponent'>
+        <app-add-patient-data></app-add-patient-data>
+      </div>
+  </div>
+  <table class="table  table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Carbohydrates</th>
+          <th scope="col">Blood Glucose</th>
+          <th scope="col">Date</th>
+      
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patientData of dataPatientList">
+          <th  scope="row">{{patientData.id}}</th>
+          <td>{{patientData.carbIntake}}</td>
+          <td>{{patientData.bloodGlucose}}</td>
+          <td>{{patientData.date}}
+            <button class="btn btn-warning float-right m-1">Update</button>
+            <button class="btn btn-danger float-right m-1 ">Delete</button>
+          
+          </td>
+        
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <app-show-average></app-show-average>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <app-show-consulation></app-show-consulation>
+  </div>
 </div>
-<table class="table  table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Carbohydrates</th>
-        <th scope="col">Blood Glucose</th>
-        <th scope="col">Date</th>
-        <th scope="col">Average</th>
-        <th scope="col">Consulation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let patientData of dataPatientList">
-        <th  scope="row">{{patientData.id}}</th>
-        <td>{{patientData.carbIntake}}</td>
-        <td>{{patientData.bloodGlucose}}</td>
-        <td>{{patientData.date}}</td>
-        <td>{{patientData.avg}}</td>
-        <td>{{patientData.consultation}}
-          <button class="btn btn-warning float-right m-1">Update</button>
-          <button class="btn btn-danger float-right m-1 ">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+
