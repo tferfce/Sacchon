@@ -56,7 +56,6 @@ public class PatientsNoActivityResourceImpl extends ServerResource implements Pa
         SimpleDateFormat sdfTo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateTo = sdfTo.parse(dateToStr);
 
-
         List<Patient> patients= patientRepository.findAll();
 
         List<Patient> activePatients =new ArrayList<>();
