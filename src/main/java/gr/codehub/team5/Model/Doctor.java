@@ -20,7 +20,7 @@ public class Doctor {
     private String lastName;
     private String userName;
     private String password;
-    private boolean Active;
+    private boolean Active = true;
     private CustomRole customRole = CustomRole.ROLE_DOCTOR;
 
     public Doctor(String firstName, String lastName, String userName,String password) {

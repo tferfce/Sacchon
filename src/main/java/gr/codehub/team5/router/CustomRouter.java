@@ -76,8 +76,6 @@ public class CustomRouter {
         router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
         router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
 
-
-
         return router;
     }
 }
