@@ -9,12 +9,16 @@ import { AuthModule } from './Auth/auth.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { ShowDataListComponent } from './patient/show-data-list/show-data-list.component';
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
+import { DoctorsWithNoActivityComponent } from './chief-doctor/doctors-with-no-activity/doctors-with-no-activity.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShowDataListComponent,
-    AddPatientDataComponent
+    AddPatientDataComponent,
+    DoctorsWithNoActivityComponent
 
   ],
   imports: [
@@ -22,7 +26,9 @@ import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-
     AppRoutingModule,
     BrowserAnimationsModule,
     NavigationModule,
-    AuthModule
+    AuthModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

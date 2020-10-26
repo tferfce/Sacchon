@@ -1,0 +1,13 @@
+<div class="container">
+    <form [formGroup]="datesForm" (submit)="formSubmit(datesForm)">
+        <div class="form-row">
+            <div class="col">
+                <input class="form-control" formControlName ="fromDate" type="text" placeholder="From Date"/>
+            </div>
+            <div class="col">
+                <input class="form-control" formControlName ="toDate" type="text" placeholder="To Date"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
