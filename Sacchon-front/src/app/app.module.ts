@@ -11,6 +11,7 @@ import { ShowDataListComponent } from './patient/show-data-list/show-data-list.c
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
 import { ShowAverageComponent } from './patient/show-average/show-average.component';
 import { ShowConsulationComponent } from './patient/show-consulation/show-consulation.component';
+import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ShowConsulationComponent } from './patient/show-consulation/show-consul
     ShowDataListComponent,
     AddPatientDataComponent,
     ShowAverageComponent,
-    ShowConsulationComponent
+    ShowConsulationComponent,
+    DoctorDataViewComponent
 
   ],
   imports: [

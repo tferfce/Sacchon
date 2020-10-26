@@ -22,12 +22,6 @@ constructor(
   ) { }
 
 
-  createAuthorizationHeader(headers: Headers,user:User) {
-    var headers_object = new HttpHeaders();
-    headers_object.append('Authorization', 'Basic ' +
-      btoa(user.username+':'+ user.password)); 
-  }
-
 
   login(user:User){
     let httpHeaders = new HttpHeaders()
@@ -41,6 +35,7 @@ constructor(
   }
 
   signup(patient:Patient){
+    
   return  this.http.post<Patient>(this.endpoint,{
       'firstName':patient.firstName,
       'lastName':patient.lastName,
@@ -48,7 +43,6 @@ constructor(
       'userName':patient.userName,
       'password':patient.password
 
-  
   })
   }
 

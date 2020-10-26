@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
      gender:'',
      customRole:''
    };
+   
   constructor(private authService:AuthServiceService,private storageService:StorageService) {   
 
     this.registerForm=new FormGroup({
