@@ -38,7 +38,6 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
         loginUserPersistence.setPassword(app_user.getPassword());
         loginUserPersistence.setRole(app_user.getRole());
         loginUserPersistence.setUsername(app_user.getUsername());
-
         TypedQuery<Long> query = em.createQuery("SELECT p.id FROM Doctor p WHERE p.userName=:param",Long.class);
         TypedQuery<Doctor> queryDoc = em.createQuery("FROM Doctor p WHERE p.userName=:param",Doctor.class);
         query.setParameter("param",user.getIdentifier());
@@ -50,14 +49,10 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
         List<Long> doclist = query.getResultList();
         if (!doclist.isEmpty()) loginUserPersistence.setId(doclist.get(0));
 
-
-
         TypedQuery<Long> query1 = em.createQuery("SELECT p.id FROM Administrator p WHERE p.userName=:param",Long.class);
         query1.setParameter("param",user.getIdentifier());
         List<Long> adminlist = query1.getResultList();
         if (!adminlist.isEmpty()) loginUserPersistence.setId(adminlist.get(0));
-
-
 
         TypedQuery<Long> query2 = em.createQuery("SELECT p.id FROM Patient p WHERE p.userName=:param",Long.class);
         query2.setParameter("param",user.getIdentifier());
