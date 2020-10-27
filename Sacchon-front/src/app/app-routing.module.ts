@@ -10,8 +10,8 @@ const routes: Routes = [
   {path:'',component:RegisterComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'patientData',component:ShowDataListComponent,canActivate:[AuthGuard]},
-  {path:'addPatientData',component:AddPatientDataComponent,canActivate:[AuthGuard]}
+  {path:'patientData',component:ShowDataListComponent},
+  {path:'addPatientData',component:AddPatientDataComponent}
 ];
 
 @NgModule({
