@@ -11,10 +11,7 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class PatientAvgDataImpl extends ServerResource implements PatientAvgData {
 
@@ -39,7 +36,7 @@ public class PatientAvgDataImpl extends ServerResource implements PatientAvgData
     }
 
     @Override
-    public double[] getAvgData() throws NotFoundException,ParseException {
+    public Map<String, Double> getAvgData() throws NotFoundException,ParseException {
         //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
 
         String paramValue1=getQueryValue("fromDate");
@@ -65,9 +62,11 @@ public class PatientAvgDataImpl extends ServerResource implements PatientAvgData
             totalCarbs += pdata.getCarbIntake();
             totalBloodGlucose +=pdata.getBloodGlucose();
         }
-        double[] avgStatistics = new double[2];
-        avgStatistics[0] = totalCarbs/pdataList.size();
-        avgStatistics[1] = totalBloodGlucose/pdataList.size();
+        Map<String ,Double> avgStatistics = new HashMap();
+        avgStatistics.put("avgCarbs",totalCarbs/pdataList.size());
+        avgStatistics.put("avgGlycose",totalBloodGlucose/pdataList.size());
+//        avgStatistics[0] = totalCarbs/pdataList.size();
+//        avgStatistics[1] = totalBloodGlucose/pdataList.size();
         return avgStatistics;
     }
 }
