@@ -2,7 +2,6 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.BadEntityException;
-import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
@@ -11,8 +10,6 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource  {
     private EntityManager em;
@@ -39,11 +36,5 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         patientRepository.save(patient);
         return PatientRepresentation.getPatientRepresentation(patient);
     }
-    @Override
-    public List<PatientRepresentation> getAllPatients() throws NotFoundException {
-        List<Patient> patients = patientRepository.findAll();
-        List<PatientRepresentation> patientRepresentations = new ArrayList<>();
-        patients.forEach(patient -> patientRepresentations.add(PatientRepresentation.getPatientRepresentation(patient)));
-        return patientRepresentations;
-    }
+
 }

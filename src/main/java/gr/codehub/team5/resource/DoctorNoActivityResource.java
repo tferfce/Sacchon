@@ -11,5 +11,5 @@ import java.util.List;
 public interface DoctorNoActivityResource {
 
     @Get("json")
-    List<DoctorRepresentation> getDoctorsWithNoActivity(String dates) throws NotFoundException, ParseException, IOException;
+    List<DoctorRepresentation> getDoctorsWithNoActivity() throws NotFoundException, ParseException, IOException;
 }

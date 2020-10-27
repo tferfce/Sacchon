@@ -1,7 +1,5 @@
 package gr.codehub.team5.resource.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gr.codehub.team5.Model.PatientData;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
@@ -15,7 +13,10 @@ import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class PatientDataResourceImpl extends ServerResource implements PatientDataResource {
 
@@ -41,17 +42,15 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
     }
 
     @Override
-    public List<PatientDataRepresentation> getPatientData(String dates) throws NotFoundException, IOException, ParseException {
+    public List<PatientDataRepresentation> getPatientData() throws NotFoundException, IOException, ParseException {
         //List<String> roles = new ArrayList<>();
         //roles.add(CustomRole.ROLE_PATIENT.getRoleName());
         //roles.add(CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         //ResourceUtils.checkRole(this, roles);
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Object> map = mapper.readValue(dates, Map.class);
-        JsonNode rootNode = mapper.readTree(dates);
-        // B) Json values to Dates
-        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(rootNode.get("fromDate").asText());
-        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(rootNode.get("toDate").asText());
+        String paramValue1=getQueryValue("fromDate");
+        String paramValue2=getQueryValue("toDate");
+        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
+        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
         // C) Add 1 day to toDate
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);

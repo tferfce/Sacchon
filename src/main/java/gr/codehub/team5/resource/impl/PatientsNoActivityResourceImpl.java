@@ -1,7 +1,5 @@
 package gr.codehub.team5.resource.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.Model.PatientData;
 import gr.codehub.team5.exceptions.NotFoundException;
@@ -17,7 +15,10 @@ import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class PatientsNoActivityResourceImpl extends ServerResource implements PatientsNoActivityResource {
     private EntityManager em;
@@ -43,20 +44,16 @@ public class PatientsNoActivityResourceImpl extends ServerResource implements Pa
 
 
     @Override
-    public List<PatientRepresentation> getPatientsWithNoActivity(String dates) throws NotFoundException, ParseException, IOException {
+    public List<PatientRepresentation> getPatientsWithNoActivity() throws NotFoundException, ParseException, IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Object> map = mapper.readValue(dates, Map.class);
-        JsonNode rootNode = mapper.readTree(dates);
-        // B) Json values to Dates
-        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(rootNode.get("fromDate").asText());
-        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(rootNode.get("toDate").asText());
-        // C) Add 1 day to toDate
+        String paramValue1=getQueryValue("fromDate");
+        String paramValue2=getQueryValue("toDate");
+        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
+        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);
         dateTo = c.getTime();
-
         List<Patient> patients= patientRepository.findAll();
         List<Patient> activePatients =new ArrayList<>();
         List <PatientData> patientData = patientDataRepository.findByTimeRange(dateFrom, dateTo);

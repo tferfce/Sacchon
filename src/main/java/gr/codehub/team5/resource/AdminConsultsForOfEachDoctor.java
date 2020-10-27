@@ -11,5 +11,5 @@ import java.util.List;
 public interface AdminConsultsForOfEachDoctor {
 
     @Get
-    List<ConsultationRepresentation> getConsultsForEveryDoc(String dates) throws NotFoundException, IOException, ParseException;
+    List<ConsultationRepresentation> getConsultsForEveryDoc() throws NotFoundException, IOException, ParseException;
 }

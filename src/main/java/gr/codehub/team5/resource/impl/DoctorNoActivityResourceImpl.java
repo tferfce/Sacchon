@@ -1,7 +1,5 @@
 package gr.codehub.team5.resource.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.exceptions.NotFoundException;
@@ -17,7 +15,10 @@ import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class DoctorNoActivityResourceImpl extends ServerResource implements DoctorNoActivityResource {
 
@@ -43,34 +44,29 @@ public class DoctorNoActivityResourceImpl extends ServerResource implements Doct
     }
 
     @Override
-    public List<DoctorRepresentation> getDoctorsWithNoActivity(String dates) throws NotFoundException, ParseException, IOException {
-        // Get all doctors ids
+    public List<DoctorRepresentation> getDoctorsWithNoActivity() throws NotFoundException, ParseException, IOException {
+        String paramValue1=getQueryValue("fromDate");
+        String paramValue2=getQueryValue("toDate");
+
         List<Doctor> doctors = doctorRepository.findAll();
         List<Long> idsFromDoctor = new ArrayList<>();
         doctors.forEach((e) -> idsFromDoctor.add(e.getId()));
 
-        // Get doctors ids in date range from Consultation
-        // A) String to Json object
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String,Object> map = mapper.readValue(dates, Map.class);
-        JsonNode rootNode = mapper.readTree(dates);
-        // B) Json values to Dates
-        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(rootNode.get("fromDate").asText());
-        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(rootNode.get("toDate").asText());
-        // C) Add 1 day to toDate
+        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
+        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
+
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);
         dateTo = c.getTime();
-        // D) Find Consultation in range
         List<Consultations> consultations = consultationRepository.findByTimeRange(dateFrom, dateTo);
         List<Long> idsFromConsultations = new ArrayList<>();
         consultations.forEach((e) -> idsFromConsultations.add(e.getDocId().getId()));
 
-        // All doctors - Doctors in Range. (Range has the doctors with activity.)
+
         idsFromDoctor.removeAll(idsFromConsultations);
 
-        // Doctors with no activity
+
         List<Doctor> doctorsWithNoActivity = new ArrayList<>();
         idsFromDoctor.forEach((e) -> doctorsWithNoActivity.add(doctorRepository.findById(e).get()));
 

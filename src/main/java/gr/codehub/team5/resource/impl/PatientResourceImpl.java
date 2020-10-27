@@ -73,7 +73,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         Optional<Patient> patientOpt = patientRepository.findById(id);
         if (!patientOpt.isPresent()) throw new NotFoundException("No such patient exists");
         Patient patient = patientOpt.get();
-        if (patientData == null) throw new BadEntityException("No data error");
+        if (patientData == null) throw new BadEntityException("Null Entity");
         patientData.setPData(patient);
         patientDataRepository.save(patientData);
 
