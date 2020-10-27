@@ -1,4 +1,5 @@
-export interface Consultations {
+export interface Consultation {
     id:number;
-    consultation:String;
+    consultation:string;
+    date:number;
 }

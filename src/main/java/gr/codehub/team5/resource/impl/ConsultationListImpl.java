@@ -25,8 +25,13 @@ public class ConsultationListImpl extends ServerResource implements Consultation
     @Override
     protected void doInit() throws ResourceException {
 
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
+        try {
+
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+        }catch (Exception ex){
+            throw new ResourceException(ex);
+        }
     }
 
     @Override

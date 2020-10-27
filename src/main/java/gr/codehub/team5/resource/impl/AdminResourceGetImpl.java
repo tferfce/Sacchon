@@ -23,9 +23,14 @@ public class AdminResourceGetImpl extends ServerResource implements AdminResourc
 
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
-        id = Long.parseLong(getAttribute("id"));
-        administratorRepository = new AdministratorRepository(em);
+        try {
+
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+            administratorRepository = new AdministratorRepository(em);
+        }catch (Exception ex){
+            throw new ResourceException(ex);
+        }
     }
 
     @Override

@@ -65,15 +65,14 @@ public class DoctorNoActivityResourceImpl extends ServerResource implements Doct
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);
         dateTo = c.getTime();
-        // D) Find Consultation in range
         List<Consultations> consultations = consultationRepository.findByTimeRange(dateFrom, dateTo);
         List<Long> idsFromConsultations = new ArrayList<>();
         consultations.forEach((e) -> idsFromConsultations.add(e.getDocId().getId()));
 
-        // All doctors - Doctors in Range. (Range has the doctors with activity.)
+
         idsFromDoctor.removeAll(idsFromConsultations);
 
-        // Doctors with no activity
+
         List<Doctor> doctorsWithNoActivity = new ArrayList<>();
         idsFromDoctor.forEach((e) -> doctorsWithNoActivity.add(doctorRepository.findById(e).get()));
 

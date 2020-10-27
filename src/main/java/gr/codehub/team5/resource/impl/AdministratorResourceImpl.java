@@ -6,8 +6,6 @@ import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.AdministratorRepository;
 import gr.codehub.team5.resource.AdministratorResource;
-import gr.codehub.team5.resource.util.ResourceUtils;
-import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -37,7 +35,7 @@ public class AdministratorResourceImpl extends ServerResource implements Adminis
     @Override
     public Administrator addAdmin(Administrator admin) throws NotFoundException, BadEntityException {
         if (admin==null) throw new BadEntityException("Null admin error");
-        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         administratorRepository.save(admin);
         return admin;
     }

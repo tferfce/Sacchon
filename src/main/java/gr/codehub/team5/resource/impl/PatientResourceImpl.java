@@ -10,8 +10,6 @@ import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientDataRepresentation;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientResource;
-import gr.codehub.team5.resource.util.ResourceUtils;
-import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -71,11 +69,11 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
     @Override
     public PatientDataRepresentation addPatientData(PatientData patientData) throws BadEntityException, NotFoundException {
-        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
+        //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         Optional<Patient> patientOpt = patientRepository.findById(id);
         if (!patientOpt.isPresent()) throw new NotFoundException("No such patient exists");
         Patient patient = patientOpt.get();
-        if (patientData == null) throw new BadEntityException("No data error");
+        if (patientData == null) throw new BadEntityException("Null Entity");
         patientData.setPData(patient);
         patientDataRepository.save(patientData);
 

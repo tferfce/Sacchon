@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './Auth/auth.guard.service';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { DoctorsWithNoActivityComponent } from './chief-doctor/doctors-with-no-activity/doctors-with-no-activity.component';
@@ -10,9 +11,9 @@ const routes: Routes = [
   {path:'',component:RegisterComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'patientData',component:ShowDataListComponent},
-  {path:'addPatientData',component:AddPatientDataComponent},
-  {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent}
+  {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent},
+  {path:'patientData',component:ShowDataListComponent,canActivate:[AuthGuard]},
+  {path:'addPatientData',component:AddPatientDataComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({

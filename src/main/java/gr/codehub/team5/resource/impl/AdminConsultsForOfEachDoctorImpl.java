@@ -3,20 +3,26 @@ package gr.codehub.team5.resource.impl;
 import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
+import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.representation.ConsultationRepresentation;
 import gr.codehub.team5.resource.AdminConsultsForOfEachDoctor;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements AdminConsultsForOfEachDoctor {
 
     private long id;
     private EntityManager em;
+    private ConsultationRepository consultationRepository;
 
     public AdminConsultsForOfEachDoctorImpl() {
         super();
@@ -26,6 +32,7 @@ public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements 
     protected void doInit() throws ResourceException {
         em = SacchonJpa.getEntityManager();
         id=Long.parseLong(getAttribute("id"));
+        consultationRepository = new ConsultationRepository(em);
     }
 
     @Override
@@ -34,11 +41,25 @@ public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements 
     }
 
     @Override
-    public List<ConsultationRepresentation> getConsultsForEveryDoc() throws NotFoundException {
+    public List<ConsultationRepresentation> getConsultsForEveryDoc() throws NotFoundException, IOException, ParseException {
         //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
-        TypedQuery<Consultations> query = em.createQuery("FROM Consultations C WHERE docId_id=:param", Consultations.class);
-        query.setParameter("param",this.id);
-        List<Consultations> consultationsList = query.getResultList();
+
+        String paramValue1=getQueryValue("fromDate");
+        String paramValue2=getQueryValue("toDate");
+        Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
+        Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
+        Calendar c = Calendar.getInstance();
+        c.setTime(dateTo);
+        c.add(Calendar.DATE, 1);
+        dateTo = c.getTime();
+        List<Consultations> allConsultsInRange = consultationRepository.findByTimeRange(dateFrom,dateTo);
+        List<Consultations> consultationsList = new ArrayList<>();
+
+        for (Consultations cons: allConsultsInRange){
+            if (cons.getDocId().getId()==this.id){
+                consultationsList.add(cons);
+            }
+        }
         if (consultationsList.isEmpty()) throw new NotFoundException("No data");
         List<ConsultationRepresentation> representationList = new ArrayList<>();
         consultationsList.forEach(consult ->representationList.add(ConsultationRepresentation.getConsultationRepresentation(consult)));
