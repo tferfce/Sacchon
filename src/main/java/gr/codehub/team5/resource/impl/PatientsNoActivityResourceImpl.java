@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,11 @@ public class PatientsNoActivityResourceImpl extends ServerResource implements Pa
         String dateToStr =datesJsonObj.getString("toDate");
         SimpleDateFormat sdfTo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateTo = sdfTo.parse(dateToStr);
+        //add one day
+        Calendar c = Calendar.getInstance();
+        c.setTime(dateTo);
+        c.add(Calendar.DATE, 1);
+        dateTo = c.getTime();
 
         List<Patient> patients= patientRepository.findAll();
 

@@ -25,7 +25,7 @@ import java.util.Date;
             consultation.setConsult(consultationRepresentation.getConsult());
             consultation.setDocId(consultationRepresentation.getDoctor());
             consultation.setPatId(consultationRepresentation.getPatient());
-            //consultation.setDate(consultationRepresentation.getDate());
+            consultation.setDate(consultationRepresentation.getDate());
             return consultation;
         }
 
@@ -37,7 +37,7 @@ import java.util.Date;
             consultationRepresentation.setDoctorId(consultation.getDocId().getId());
             consultationRepresentation.setPatientId(consultation.getPatId().getId());
            // consultationRepresentation.setDate(consultation.getDate());
-            consultationRepresentation.setUri("http://localhost:9000/app/consultation/"+consultation.getDocId()+"/"+consultation.getPatId());
+            consultationRepresentation.setUri("http://localhost:9000/project/consultation/"+consultation.getDocId()+"/"+consultation.getPatId());
             return consultationRepresentation;
         }
 }

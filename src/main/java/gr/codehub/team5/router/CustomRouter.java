@@ -32,6 +32,7 @@ public class CustomRouter {
             router.attach("/getPatientData/{id}", PatientDataResourceImpl.class);
 
             router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
+            router.attach("/addConsult/{doctorId}/{patientId}", ConsultationsResourceImpl.class);
 
             router.attach("/getAllPatients",PatientListResourceImpl.class);
             router.attach("/addPatient", PatientListResourceImpl.class);

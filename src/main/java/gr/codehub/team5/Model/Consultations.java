@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -16,6 +17,7 @@ public class Consultations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String consult;
+    private Date date = new Date();
 
     public Consultations(String consult,Doctor doctor, Patient patient) {
         this.patId = patient;
