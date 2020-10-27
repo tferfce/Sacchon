@@ -9,6 +9,8 @@ import { AuthModule } from './Auth/auth.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { ShowDataListComponent } from './patient/show-data-list/show-data-list.component';
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
+import { DoctorsWithNoActivityComponent } from './chief-doctor/doctors-with-no-activity/doctors-with-no-activity.component';
+import { HttpClientModule } from '@angular/common/http';
 import { ShowAverageComponent } from './patient/show-average/show-average.component';
 import { ShowConsulationComponent } from './patient/show-consulation/show-consulation.component';
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
@@ -19,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     ShowDataListComponent,
     AddPatientDataComponent,
+    DoctorsWithNoActivityComponent,
     ShowAverageComponent,
     ShowConsulationComponent,
     DoctorDataViewComponent
@@ -30,8 +33,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     NavigationModule,
     AuthModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -45,16 +45,22 @@ public class DoctorNoActivityResourceImpl extends ServerResource implements Doct
 
     @Override
     public List<DoctorRepresentation> getDoctorsWithNoActivity() throws NotFoundException, ParseException, IOException {
-        String paramValue1=getQueryValue("fromDate");
-        String paramValue2=getQueryValue("toDate");
-
+        String paramValue1 = getQueryValue("fromDate");
+        String paramValue2 = getQueryValue("toDate");
+        // Get all doctors ids
         List<Doctor> doctors = doctorRepository.findAll();
         List<Long> idsFromDoctor = new ArrayList<>();
         doctors.forEach((e) -> idsFromDoctor.add(e.getId()));
 
+        // Get doctors ids in date range from Consultation
+        // A) String to Json object
+//        ObjectMapper mapper = new ObjectMapper();
+//        Map<String,Object> map = mapper.readValue(dates, Map.class);
+//        JsonNode rootNode = mapper.readTree(dates);
+        // B) Json values to Dates
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
         Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
-
+        // C) Add 1 day to toDate
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);
