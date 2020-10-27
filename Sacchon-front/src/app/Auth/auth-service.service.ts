@@ -10,7 +10,8 @@ import { StorageService } from '../storage.service';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private patient:Patient=this.storage.getScope();
+  // private patient:Patient=this.storage.getScope();
+  private user:User=this.storage.getScopeUser();
 private  endpoint='http://localhost:9000/project/patient';
 private loginEndPoint='http://localhost:9000/project/login';
   errorMessage:string;
@@ -52,12 +53,13 @@ constructor(
     this.router.navigate(['/patientData']);
 }
 isAUth(){
-  return this.patient != null;
+  return this.user != null;
 }
 
 logout(){
-  this.patient=null;
+  this.user=null;
   this.authChange.next(false);
+  
 }
 
 }

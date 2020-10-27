@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/model/user.model';
+import { StorageService } from 'src/app/storage.service';
 import { AuthServiceService } from '../auth-service.service';
 
 @Component({
@@ -11,11 +12,12 @@ import { AuthServiceService } from '../auth-service.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user:User={
+    id:null,
     username:'',
     password:'',
     role:''
   }
-  constructor(private authService:AuthServiceService) {
+  constructor(private authService:AuthServiceService,private storage:StorageService) {
     this.loginForm=new FormGroup({
       username:new FormControl(),
       password:new FormControl(),
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).subscribe(data=>{
    if(data.role=="ROLE_PATIENT")
    {
+     this.storage.setScopeUser(data);
      this.authService.authSuccessfully();
    }
     })

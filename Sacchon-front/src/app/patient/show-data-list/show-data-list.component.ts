@@ -12,33 +12,7 @@ import { StorageService } from 'src/app/storage.service';
 })
 export class ShowDataListComponent implements OnInit {
 
-  dataPatientList:PatientData[]=[
-    {
-      "id": 1,
-      "carbIntake": 20.5,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753
-
-        },
-  {
-      "id": 2,
-      "carbIntake": 20.6,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753
-  },
-  {
-      "id": 3,
-      "carbIntake": 20.5,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753
-
-  },
-  {
-      "id": 4,
-      "carbIntake": 20.5,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753
-  }];
+  dataPatientList:PatientData[]=[];
 
  patient:Patient;
   loadComponent = false;

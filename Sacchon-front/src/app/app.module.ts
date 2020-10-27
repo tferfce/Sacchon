@@ -12,6 +12,7 @@ import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-
 import { ShowAverageComponent } from './patient/show-average/show-average.component';
 import { ShowConsulationComponent } from './patient/show-consulation/show-consulation.component';
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-v
     AppRoutingModule,
     BrowserAnimationsModule,
     NavigationModule,
-    AuthModule
+    AuthModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
