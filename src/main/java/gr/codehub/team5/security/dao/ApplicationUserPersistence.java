@@ -27,7 +27,7 @@ public class ApplicationUserPersistence   {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement(
-                            "select userName, [password], customRole from Doctor where userName=? union select userName, [password], customRole from Administrator where userName=? union select userName, [password], customRole from Patient where userName=?");
+                            "select id, userName, [password], customRole from Doctor where userName=? union select id, userName, [password], customRole from Administrator where userName=? union select id, userName, [password], customRole from Patient where userName=?");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, username);
             preparedStatement.setString(3, username);
@@ -35,7 +35,6 @@ public class ApplicationUserPersistence   {
 
             if (rs.next()) {
                 ApplicationUser user = new ApplicationUser();
-
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(CustomRole.values()[Integer.parseInt(rs.getString("customRole"))]);

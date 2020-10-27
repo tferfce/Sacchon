@@ -59,6 +59,10 @@ public class CustomRouter {
         router.attach("/doctors", DoctorsResourceImpl.class);
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
         router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
+        router.attach("/doctor/{id}/myPatients", GetPatientsForASpecificDoctorImpl.class);
+        router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
+
+        router.attach("/newPatients", GetNewPatientsImpl.class);
 
 
         // Consultation
@@ -69,8 +73,7 @@ public class CustomRouter {
         router.attach("/admin", AdministratorResourceImpl.class);
         router.attach("/admin/{id}", AdminResourceGetImpl.class);
         router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
-
-       // router.attach("/login", LoginResourceImpl.class);
+        router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
 
         return router;
     }
