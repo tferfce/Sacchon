@@ -26,14 +26,8 @@ export class DoctorsWithNoActivityComponent implements OnInit {
     event.preventDefault();
     console.log(form.value);
     this.noActivityDoctorsService.getDoctorsWithNoActivity(form.value).subscribe((data) => {
-      this.doctors = data;
-      console.log(data);
+      this.doctors = data
     });
-    // this.noActivityDoctorsService.getDoctorsWithNoActivity(form.value).subscribe((data) => {
-    //   this.doctors = data.map((it) => {
-    //     return it;
-    //   }); 
-    // });
   }
 
 }

@@ -10,4 +10,20 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
-</div>
+</div><br>
+<table class="table  table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctorData of doctors">
+        <th  scope="row">{{doctorData.id}}</th>
+        <td>{{doctorData.firstName}}</td>
+        <td>{{doctorData.lastName}}</td>
+      </tr>
+    </tbody>
+  </table>
