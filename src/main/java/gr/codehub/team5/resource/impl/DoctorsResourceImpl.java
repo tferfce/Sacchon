@@ -2,7 +2,6 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.exceptions.BadEntityException;
-import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.DoctorRepresentation;
@@ -42,7 +41,7 @@ public class DoctorsResourceImpl extends ServerResource implements DoctorsResour
     public DoctorRepresentation add(DoctorRepresentation doctorIn) throws BadEntityException {
         //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
 
-        if (doctorIn==null) throw new  BadEntityException("Null doctor representation error");
+        if (doctorIn==null) throw new  BadEntityException("Null doctor error");
 
         Doctor doctor = DoctorRepresentation.getDoctor(doctorIn);
 
@@ -51,7 +50,7 @@ public class DoctorsResourceImpl extends ServerResource implements DoctorsResour
     }
 
     @Override
-    public List<DoctorRepresentation> getDoctors() throws NotFoundException {
+    public List<DoctorRepresentation> getDoctors(){
         List<Doctor> doctors= doctorRepository.findAll();
 
         List<DoctorRepresentation> doctorRepresentationList = new ArrayList<>();

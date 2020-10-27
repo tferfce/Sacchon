@@ -25,8 +25,13 @@ public class GetPatientsForASpecificDoctorImpl extends ServerResource implements
 
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
+        try {
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+        }catch (Exception ex){
+            throw new ResourceException(ex);
+        }
+
     }
 
     @Override
@@ -39,7 +44,6 @@ public class GetPatientsForASpecificDoctorImpl extends ServerResource implements
         TypedQuery<Patient> query = em.createQuery("FROM Patient P WHERE doctor_id=:param", Patient.class);
         query.setParameter("param",this.id);
         List<Patient> patients = query.getResultList();
-        if (patients.isEmpty()) throw new NotFoundException("No Patients");
         List<PatientRepresentation> patientRepresentations = new ArrayList<>();
         patients.forEach(patient -> patientRepresentations.add(PatientRepresentation.getPatientRepresentation(patient)));
         return patientRepresentations;

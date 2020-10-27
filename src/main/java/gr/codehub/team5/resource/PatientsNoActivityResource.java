@@ -11,5 +11,5 @@ import java.util.List;
 public interface PatientsNoActivityResource {
 
     @Get
-    List<PatientRepresentation> getPatientsWithNoActivity(String dates) throws NotFoundException, ParseException, IOException;
+    List<PatientRepresentation> getPatientsWithNoActivity() throws NotFoundException, ParseException, IOException;
 }

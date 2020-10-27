@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface PatientDataResource {
     @Get("json")
-    List<PatientDataRepresentation> getPatientData(String dates) throws NotFoundException, IOException, ParseException;
+    List<PatientDataRepresentation> getPatientData() throws NotFoundException, IOException, ParseException;
 }

@@ -28,11 +28,15 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
 
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
-        listId= Integer.parseInt(getAttribute("listId"));
-        patientDataRepository = new PatientDataRepository(em);
-        patientRepository = new PatientRepository(em);
+        try {
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+            listId = Integer.parseInt(getAttribute("listId"));
+            patientDataRepository = new PatientDataRepository(em);
+            patientRepository = new PatientRepository(em);
+        } catch (Exception ex){
+            throw new ResourceException(ex);
+        }
     }
 
     @Override
@@ -46,7 +50,7 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
-        if (pdataList.isEmpty()) throw new NotFoundException("No data");
+        if (pdataList.isEmpty()) throw new NotFoundException("No data to delete!");
         patientDataRepository.deleteById(pdataList.get(listId-1).getId());
     }
 
@@ -56,7 +60,7 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
-        if (pdataList.isEmpty()) throw new NotFoundException("No data");
+        if (pdataList.isEmpty()) throw new NotFoundException("No data to update");
         PatientData patientData = pdataList.get(listId-1);
         patientData.setBloodGlucose(patientDataRepresentation.getBloodGlucose());
         patientData.setCarbIntake(patientDataRepresentation.getCarbIntake());
