@@ -11,43 +11,12 @@ import { StorageService } from 'src/app/storage.service';
   styleUrls: ['./show-data-list.component.scss']
 })
 export class ShowDataListComponent implements OnInit {
-  dataPatientList:PatientData[]=[
-    {
-      "id": 1,
-      "carbIntake": 20.5,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753,
-      "avg":25,
-      "consultation":"consulation1"
-        },
-  {
-      "id": 2,
-      "carbIntake": 20.6,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753, 
-      "avg":25,
-      "consultation":"consulation2"
-  },
-  {
-      "id": 3,
-      "carbIntake": 20.5,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753,
-      "avg":25,
-      "consultation":"consulation3"
-  },
-  {
-      "id": 4,
-      "carbIntake": 20.5,
-      "bloodGlucose": 135.2,
-      "date": 1603456593753,
-      "avg":25,
-      "consultation":"consulation4"
-  }];
+
+  dataPatientList:PatientData[]=[];
 
  patient:Patient;
   loadComponent = false;
-
+  onTableNav=false;
 
   constructor(private storageService:StorageService) {
 

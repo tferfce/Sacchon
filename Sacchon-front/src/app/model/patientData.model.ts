@@ -3,6 +3,5 @@ export interface PatientData {
     carbIntake:number;
     bloodGlucose:number;
     date:number;
-    avg:number;
-    consultation:string;
+
 }

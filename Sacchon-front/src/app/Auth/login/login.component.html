@@ -1,13 +1,13 @@
 <div class="container">
   <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4"> 
-<form class="justify-content-center">
+<form class="justify-content-center" [formGroup]="loginForm" (submit)="onSubmit()">
 <div class="form-group">
-  <label for="exampleInputEmail1">Email address</label>
-  <input type="email" class="form-control" ngModel name="exampleInputEmail1" >
+  <label for="exampleInputEmail1">Username</label>
+  <input type="email" class="form-control" formControlName="username" >
 </div>
 <div class="form-group">
   <label for="exampleInputPassword1">Password</label>
-  <input type="password" class="form-control"ngModel name="inputPassword">
+  <input type="password" class="form-control"formControlName="password">
 </div>
 <button type="submit" class="btn btn-primary">Login</button>
 </form>
