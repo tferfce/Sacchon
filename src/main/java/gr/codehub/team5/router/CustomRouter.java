@@ -50,8 +50,7 @@ public class CustomRouter {
 
         // Patient
         router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);//Admin Privilege also
-//        router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
+        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
         router.attach("/patient/{id}/data/edit", PatientDataSpecifyResourceImpl.class);
         router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
         router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);

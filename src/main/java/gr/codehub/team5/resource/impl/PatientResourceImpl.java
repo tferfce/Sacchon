@@ -41,9 +41,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
     @Override
     public PatientRepresentation getPatient() throws NotFoundException, ResourceException {
-        //DOCTOR MUST SEE THIS
         //ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
-
         Optional<Patient> patient = patientRepository.findById(id);
         setExisting(patient.isPresent());
         if (!patient.isPresent()) throw new NotFoundException("Patient is not found");
@@ -74,7 +72,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         if (patientData == null) throw new BadEntityException("Null Entity");
         patientData.setPData(patient);
         patientDataRepository.save(patientData);
-
         return PatientDataRepresentation.getDataRepresentation(patientData);
     }
 }
