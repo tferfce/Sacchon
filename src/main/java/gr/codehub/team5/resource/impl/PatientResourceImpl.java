@@ -58,8 +58,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         Patient patient = patientOptional.get();
         patient.setFirstName(patientRepresentation.getFirstName());
         patient.setLastName(patientRepresentation.getLastName());
-        patient.setGender(patientRepresentation.getGender());
-        patient.setUserName(patientRepresentation.getUserName());
         patient.setPassword(patientRepresentation.getPassword());
 
         patientRepository.save(patient);

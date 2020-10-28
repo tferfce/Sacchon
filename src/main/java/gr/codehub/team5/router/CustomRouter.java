@@ -61,7 +61,7 @@ public class CustomRouter {
         router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
         router.attach("/doctor/{id}/myPatients", GetPatientsForASpecificDoctorImpl.class);
         router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
-
+        router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
         router.attach("/newPatients", GetNewPatientsImpl.class);
 
 
@@ -74,6 +74,7 @@ public class CustomRouter {
         router.attach("/admin/{id}", AdminResourceGetImpl.class);
         router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
         router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
+        router.attach("/allPatientsWaitForConsult", AllPatientsWaitForConsultResourceImpl.class);
 
         return router;
     }
