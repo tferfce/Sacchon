@@ -3,7 +3,6 @@ package gr.codehub.team5.testing;
 import gr.codehub.team5.Model.Consultations;
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.Model.Patient;
-import gr.codehub.team5.Model.PatientData;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.repository.DoctorRepository;
@@ -33,9 +32,9 @@ public class test {
         consRepo.save(consultations);
 
 
-        PatientData pdata = new PatientData(325.123,245.32);
-        pdata.setPData(pat1);
-        pdataRepo.save(pdata);
+        //PatientData pdata = new PatientData(325.123,245.32);
+//        pdata.setPData(pat1);
+//        pdataRepo.save(pdata);
     }
 }
 

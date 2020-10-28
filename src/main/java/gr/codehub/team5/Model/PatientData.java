@@ -19,7 +19,7 @@ public class PatientData {
     private long id;
     private double carbIntake;
     private double bloodGlucose;
-    private Date date = new Date();
+    private Date date= new Date();
 
     public PatientData(double carbIntake, double bloodGlucose) {
         this.carbIntake = carbIntake;

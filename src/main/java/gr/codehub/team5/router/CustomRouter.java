@@ -26,7 +26,10 @@ public class CustomRouter {
             router.attach("/setDoctorDeleted/{id}", DoctorResourceImpl.class);
             router.attach("/addDoctor", DoctorsResourceImpl.class);
             router.attach("/updateDoctor/{id}",DoctorResourceImpl.class);
-            //router.attach("/")
+            router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
+
+
+            router.attach("/allPatientsWaitForConsult", AllPatientsWaitForConsultResourceImpl.class);
 
             router.attach("/addPatientData/{id}", PatientDataResourceImpl.class);
             router.attach("/getPatientData/{id}", PatientDataResourceImpl.class);
