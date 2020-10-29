@@ -9,15 +9,13 @@ import java.util.Date;
 
 @Data
 public class ConsultationRepresentation {
-
+    private long id;
     private String consult;
     private Doctor doctor;
     private Patient patient;
     private long doctorId;
     private long patientId;
-    private Date date = new Date();
-
-    private String uri;
+    private Date date= new Date();
 
     //Creates Consultation from ConsultationRepresentation
     public static Consultations getConsultation(ConsultationRepresentation consultationRepresentation){
@@ -33,11 +31,11 @@ public class ConsultationRepresentation {
     public static ConsultationRepresentation getConsultationRepresentation(Consultations consultation){
         ConsultationRepresentation consultationRepresentation = new ConsultationRepresentation();
         consultationRepresentation.setConsult(consultation.getConsult());
+        consultationRepresentation.setId(consultation.getId());
         //consultationRepresentation.setDoctor(consultation.getDocId());
         consultationRepresentation.setDoctorId(consultation.getDocId().getId());
         consultationRepresentation.setPatientId(consultation.getPatId().getId());
         consultationRepresentation.setDate(consultation.getDate());
-        consultationRepresentation.setUri("http://localhost:9000/app/consultation/"+consultation.getId());
         return consultationRepresentation;
     }
 
