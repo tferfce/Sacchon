@@ -16,7 +16,6 @@ import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +25,9 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
     private EntityManager em;
+    private long  doctorId;
+    private long patientId;
+
 
 
     @Override
@@ -35,7 +37,9 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
             consultationRepository = new ConsultationRepository(em);
             doctorRepository = new DoctorRepository(em);
             patientRepository = new PatientRepository(em);
-            }
+            //doctorId = Long.parseLong(getAttribute("doctorId"));
+            //patientId = Long.parseLong(getAttribute("patientId"));
+        }
         catch(Exception ex){
             throw new ResourceException(ex);
         }
@@ -52,11 +56,11 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
 
         if (consultationIn==null) throw new  BadEntityException("Null consultation representation error");
 
-        Optional<Doctor> doctorOpt = doctorRepository.findById(consultationIn.getDoctorId());
+        Optional<Doctor> doctorOpt = doctorRepository.findById(consultationIn.getDoctor().getId());
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given doctor id is not existing");
         Doctor doctor = doctorOpt.get();
         if (!doctor.isActive()) throw new NotFoundException("Inactive Doctor");
-        Optional<Patient> patientOpt = patientRepository.findById(consultationIn.getPatientId());
+        Optional<Patient> patientOpt = patientRepository.findById(consultationIn.getPatient().getId());
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given patient id is not existing");
         Patient patient = patientOpt.get();
 
@@ -64,9 +68,7 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
         consultation.setDocId(doctor);
         consultation.setPatId(patient);
         patient.setDoctor(doctor);
-        consultation.setDate(new Date());
         patientRepository.save(patient);
-
         consultationRepository.save(consultation);
         return ConsultationRepresentation.getConsultationRepresentation(consultation);
     }

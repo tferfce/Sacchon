@@ -9,13 +9,16 @@ import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
-import gr.codehub.team5.resource.util.DoctorsPatientsWaitForConsultResource;
+import gr.codehub.team5.resource.DoctorsPatientsWaitForConsultResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource implements DoctorsPatientsWaitForConsultResource {
@@ -105,8 +108,8 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
 
     }
     public List<PatientRepresentation> checkdiff(Date fromDate, List<PatientRepresentation> patientsWaitForConsult, Patient patient){
-        if(calculatediff(fromDate)>=0){//30 days
-            Long days= calculatediff(fromDate) -0;
+        if(calculatediff(fromDate)>=30){//30 days
+            Long days= calculatediff(fromDate) -30;
             patientsWaitForConsult.add(PatientRepresentation.getPatientRepresentation(patient));
         }
         return patientsWaitForConsult;

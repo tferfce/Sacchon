@@ -6,9 +6,9 @@ import gr.codehub.team5.representation.PatientRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ResourceException;
 
-import java.util.List;
+import java.util.HashMap;
 
-public interface DoctorsPatientsWaitForConsultResource {
+public interface AllPatientsWaitForConsultResource {
     @Get
-    List<PatientRepresentation> getDoctorsPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException;
+    HashMap<PatientRepresentation, Long> getAllPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException;
 }

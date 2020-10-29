@@ -2,7 +2,6 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Administrator;
 import gr.codehub.team5.exceptions.BadEntityException;
-import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.AdministratorRepository;
 import gr.codehub.team5.resource.AdministratorResource;
@@ -10,6 +9,8 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class AdministratorResourceImpl extends ServerResource implements AdministratorResource {
 
@@ -33,10 +34,30 @@ public class AdministratorResourceImpl extends ServerResource implements Adminis
     }
 
     @Override
-    public Administrator addAdmin(Administrator admin) throws NotFoundException, BadEntityException {
+    public Administrator addAdmin(Administrator admin) throws Exception {
         if (admin==null) throw new BadEntityException("Null admin error");
         //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+
+        userNameCheck(admin);
+
         administratorRepository.save(admin);
         return admin;
+    }
+
+    private void userNameCheck(Administrator admin) throws Exception {
+        TypedQuery<Long> query = em.createQuery("SELECT p.id FROM Doctor p WHERE p.userName=:param",Long.class);
+        query.setParameter("param", admin.getUserName());
+        List<Long> doclist = query.getResultList();
+        if (!doclist.isEmpty()) throw new Exception("Username already in use!");
+
+        TypedQuery<Long> query1 = em.createQuery("SELECT p.id FROM Administrator p WHERE p.userName=:param",Long.class);
+        query1.setParameter("param", admin.getUserName());
+        List<Long> adminlist = query1.getResultList();
+        if (!adminlist.isEmpty()) throw new Exception("Username already in use!");
+
+        TypedQuery<Long> query2 = em.createQuery("SELECT p.id FROM Patient p WHERE p.userName=:param",Long.class);
+        query2.setParameter("param", admin.getUserName());
+        List<Long> patientlist = query2.getResultList();
+        if (!patientlist.isEmpty()) throw new Exception("Username already in use!");
     }
 }
