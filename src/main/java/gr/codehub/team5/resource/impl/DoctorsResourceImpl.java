@@ -10,6 +10,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,31 @@ public class DoctorsResourceImpl extends ServerResource implements DoctorsResour
     }
 
     @Override
-    public DoctorRepresentation add(DoctorRepresentation doctorIn) throws BadEntityException {
+    public DoctorRepresentation add(DoctorRepresentation doctorIn) throws Exception {
         //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
-
         if (doctorIn==null) throw new  BadEntityException("Null doctor error");
+        userNameCheck(doctorIn);
 
         Doctor doctor = DoctorRepresentation.getDoctor(doctorIn);
-
         doctorRepository.save(doctor);
         return DoctorRepresentation.getDoctorRepresentation(doctor);
+    }
+
+    private void userNameCheck(DoctorRepresentation doctorIn) throws Exception {
+        TypedQuery<Long> query = em.createQuery("SELECT p.id FROM Doctor p WHERE p.userName=:param",Long.class);
+        query.setParameter("param", doctorIn.getUserName());
+        List<Long> doclist = query.getResultList();
+        if (!doclist.isEmpty()) throw new Exception("Username already in use!");
+
+        TypedQuery<Long> query1 = em.createQuery("SELECT p.id FROM Administrator p WHERE p.userName=:param",Long.class);
+        query1.setParameter("param", doctorIn.getUserName());
+        List<Long> adminlist = query1.getResultList();
+        if (!adminlist.isEmpty()) throw new Exception("Username already in use!");
+
+        TypedQuery<Long> query2 = em.createQuery("SELECT p.id FROM Patient p WHERE p.userName=:param",Long.class);
+        query2.setParameter("param", doctorIn.getUserName());
+        List<Long> patientlist = query2.getResultList();
+        if (!patientlist.isEmpty()) throw new Exception("Username already in use!");
     }
 
     @Override
