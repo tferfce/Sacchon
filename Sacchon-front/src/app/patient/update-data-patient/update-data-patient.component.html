@@ -1,0 +1,13 @@
+<div class="container">
+    <form  [formGroup]="UpdateDataPatientForm" (submit)="updateDataOnSubmit()" >
+    <div class="form-row">
+        <div class="col">
+            <input class="form-control" type="text" placeholder="carbohydrates" formControlName="carbIntake" value={{patientData.carbIntake}}/>
+        </div>
+        <div class="col">
+        <input class="form-control" type="text" placeholder="Glycose" formControlName="bloodGlucose" value={{patientData.bloodGlucose}}/>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Data</button>
+    </div>
+    </form>
+    </div>

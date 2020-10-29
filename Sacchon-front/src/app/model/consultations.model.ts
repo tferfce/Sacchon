@@ -1,5 +1,19 @@
-export interface Consultation {
+export interface Consultation {​​
+    
     id:number;
-    consultation:string;
+
+    consult:string;
+
     date:number;
-}
+
+    doctorId: number;
+
+    patientId: number;
+
+    doctor:string;
+
+    patient:string;
+    
+    uri:string;
+
+}​​
