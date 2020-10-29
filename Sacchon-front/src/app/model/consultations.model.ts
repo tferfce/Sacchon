@@ -1,8 +1,17 @@
-import { Doctor } from './doctor.model';
-import { Patient } from './patient.model';
+export interface Consultation {​​
+    
+    id:number;
 
-export interface Consultation {
     consult:string;
+
+    date:number;
+
     doctorId: number;
+
     patientId: number;
-}
+
+    doctor:string;
+
+    patient:string;
+    
+}​​

@@ -6,19 +6,36 @@
 <div class="tab-content p-1">
   <div id="home" class="tab-pane fade in active show">
     <div class="col text-center">
-      <button class="btn btn-primary btn-space " (click)="loadMyChildComponent()">Put Data</button>
+      <button class="btn btn-primary btn-space " (click)="loadMyAddDataComponent()">Put Data</button>
       <div class="container p-1" *ngIf='loadComponent'>
         <app-add-patient-data></app-add-patient-data>
       </div>
+      <div class="container p-1" *ngIf='loadUpdateComponent'>
+        <app-update-data-patient [patientData]="patientData"></app-update-data-patient>
+      </div>
+    
   </div>
+<br>
+  <form [formGroup]="datesForm" (submit)="onSubmitForm(datesForm)">
+    <div class="form-row">
+        <div class="col">
+            <input class="form-control" formControlName ="fromDate" type="text" placeholder="From Date"/>
+        </div>
+        <div class="col">
+            <input class="form-control" formControlName ="toDate" type="text" placeholder="To Date"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+<br>
+
   <table class="table  table-bordered">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Carbohydrates</th>
           <th scope="col">Blood Glucose</th>
-          <th scope="col">Date</th>
-      
+          <th scope="col" style="text-align: center;">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -26,10 +43,10 @@
           <th  scope="row">{{patientData.id}}</th>
           <td>{{patientData.carbIntake}}</td>
           <td>{{patientData.bloodGlucose}}</td>
-          <td>{{patientData.date}}
-            <button class="btn btn-warning float-right m-1">Update</button>
-            <button class="btn btn-danger float-right m-1 ">Delete</button>
-          
+          <td>
+            <button class="btn btn-warning float-right m-1"  (click)="loadMyUpdateDataComponent(patientData)">Update</button>
+            <button class="btn btn-danger float-right m-1 " (click)="onClickDeleteBtn(patientData)">Delete</button>
+        
           </td>
         
         </tr>
