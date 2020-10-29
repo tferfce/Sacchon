@@ -26,6 +26,15 @@ public class Consultations {
     @ManyToOne
     private Doctor docId;
 
+    public void setDocId( Doctor doctor){
+        this.docId =doctor;
+    }
+
+    public void setPatId( Patient patient){
+        this.patId =patient;
+    }
+
+
     @ManyToOne
     private Patient patId;
 
