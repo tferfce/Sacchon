@@ -61,6 +61,7 @@ public class CustomRouter {
         router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
         router.attach("/doctor/{id}/myPatients", GetPatientsForASpecificDoctorImpl.class);
         router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
+        router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
 
         router.attach("/newPatients", GetNewPatientsImpl.class);
 

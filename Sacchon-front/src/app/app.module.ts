@@ -15,6 +15,7 @@ import { ShowAverageComponent } from './patient/show-average/show-average.compon
 import { ShowConsulationComponent } from './patient/show-consulation/show-consulation.component';
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PatientsWithNoConsultComponent } from './doctor/patients-with-no-consult/patients-with-no-consult.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DoctorsWithNoActivityComponent,
     ShowAverageComponent,
     ShowConsulationComponent,
-    DoctorDataViewComponent
+    DoctorDataViewComponent,
+    PatientsWithNoConsultComponent
 
   ],
   imports: [

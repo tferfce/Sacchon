@@ -37,7 +37,7 @@ public class ConsultationRepresentation {
         consultationRepresentation.setDoctorId(consultation.getDocId().getId());
         consultationRepresentation.setPatientId(consultation.getPatId().getId());
         consultationRepresentation.setDate(consultation.getDate());
-        consultationRepresentation.setUri("http://localhost:9000/app/consultation/"+consultation.getId());
+        consultationRepresentation.setUri("http://localhost:9000/project/consultation/"+consultation.getId());
         return consultationRepresentation;
     }
 
