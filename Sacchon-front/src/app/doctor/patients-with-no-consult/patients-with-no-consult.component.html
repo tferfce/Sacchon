@@ -1,0 +1,22 @@
+<table class="table  table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patientsWithNoConsults">
+        <th  scope="row">{{patient.id}}</th>
+        <td>{{patient.firstName}}</td>
+        <td>{{patient.lastName}}</td>
+        <td>{{patient.gender}}</td>
+        <td><button class="btn btn-primary" (click)="addConsult(patient)" > Consult </button></td>
+
+      </tr>
+    </tbody>
+  </table>
