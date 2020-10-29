@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Consultation } from '../model/consultations.model';
 import { Doctor } from '../model/doctor.model';
 import { Patient } from '../model/patient.model';
+import { PatientData } from '../model/patientData.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,9 @@ export class DoctorServiceService {
   private readonly url_endpoint= 'http://localhost:9000/project'
   private readonly noconsults = '/doctorsPatientsWaitForConsult/'
   private readonly addconsult='/consultations'
+  private readonly addDoctorEndpoint= '/doctors';
+  private readonly patientDataEndpoint= '/patient/';
+
 
 
   constructor(private http: HttpClient) { }
@@ -30,4 +34,21 @@ export class DoctorServiceService {
 
   }
 
+  getPatientData(patientId): Observable<PatientData[]>{
+    const headers = { 'Content-Type': 'application/json' }
+    
+    return this.http.get<PatientData[]>(this.url_endpoint+this.patientDataEndpoint+patientId+'/data', { headers})
+  }
+
+  addDoctor(doctor: Doctor): Observable<Doctor> {
+    const headers = { 'Content-Type': 'application/json' }
+
+    return this.http.post<Doctor>(this.url_endpoint+this.addDoctorEndpoint, {
+      'firstName': doctor.firstName,
+      'lastName': doctor.lastName,
+      'userName': doctor.username,
+      'password': doctor.password
+    }, {headers});
+
+  }
 }

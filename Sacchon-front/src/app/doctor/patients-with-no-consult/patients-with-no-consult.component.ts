@@ -24,8 +24,7 @@ export class PatientsWithNoConsultComponent implements OnInit {
   ngOnInit(): void {
 
      this.user=this.storage.getScopeUser();
-     debugger
-     this.getPatientsWithNoConsult();
+      this.getPatientsWithNoConsult();
 
   }
 
@@ -42,15 +41,13 @@ export class PatientsWithNoConsultComponent implements OnInit {
   const consultation: Consultation ={
     patientId: patient.id, 
     doctorId: this.user.id,
-    consult: "This is the first Consult.",
-    date: null
+    consult: "This is the first Consult."
+
+   }
+
+  
 
 
-  }
-
-    this.doctorService.addConsult(consultation).subscribe((data) => {
-       console.log(data)
-    });
   }
 
 }

@@ -61,9 +61,9 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
             List<Consultations> consults = getConsultsQueryResult(patient);
             if (consults.size() == 0) {
                 List<PatientData> pdataList = getPatientQueryResult(patient);
-                if (pdataList.size() == 0) {
-                    System.out.println("The patient hasn't entered any data.");
-                } else {
+                if (!(pdataList.size() == 0)) {
+//                    System.out.println("The patient hasn't entered any data.");
+//                } else {
                     Date fromDate = pdataList.get(0).getDate();
                     patientsWaitForConsult= checkdiff(fromDate, patientsWaitForConsult, patient);
                 }
@@ -108,8 +108,8 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
 
     }
     public List<PatientRepresentation> checkdiff(Date fromDate, List<PatientRepresentation> patientsWaitForConsult, Patient patient){
-        if(calculatediff(fromDate)>=30){//30 days
-            Long days= calculatediff(fromDate) -30;
+        if(calculatediff(fromDate)>=0){//30 days
+            Long days= calculatediff(fromDate) -0;
             patientsWaitForConsult.add(PatientRepresentation.getPatientRepresentation(patient));
         }
         return patientsWaitForConsult;

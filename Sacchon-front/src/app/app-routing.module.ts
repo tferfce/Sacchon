@@ -7,6 +7,8 @@ import { DoctorsWithNoActivityComponent } from './chief-doctor/doctors-with-no-a
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
 import { ShowDataListComponent } from './patient/show-data-list/show-data-list.component';
+import { AddDoctorComponent } from './doctor/add-doctor/add-doctor.component';
+
 
 const routes: Routes = [
   {path:'',component:RegisterComponent},
@@ -15,7 +17,9 @@ const routes: Routes = [
   {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent},
   {path:'patientData',component:ShowDataListComponent},//,canActivate:[AuthGuard]},
   {path:'addPatientData',component:AddPatientDataComponent},//,canActivate:[AuthGuard]}
-  {path:'doctor-data-view', component:DoctorDataViewComponent}
+  {path:'doctor-data-view', component:DoctorDataViewComponent},
+  {path: 'add-doctor', component:AddDoctorComponent}
+
 ];
 
 @NgModule({
