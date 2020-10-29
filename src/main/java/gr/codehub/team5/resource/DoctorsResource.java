@@ -11,7 +11,7 @@ import java.util.List;
 public interface DoctorsResource {
 
     @Post("json")
-    DoctorRepresentation add(DoctorRepresentation doctorIn) throws BadEntityException;
+    DoctorRepresentation add(DoctorRepresentation doctorIn) throws Exception;
 
     @Get("json")
     List<DoctorRepresentation> getDoctors() throws NotFoundException;

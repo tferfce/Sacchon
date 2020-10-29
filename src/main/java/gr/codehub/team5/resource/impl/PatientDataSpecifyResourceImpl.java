@@ -17,7 +17,6 @@ import java.util.List;
 public class PatientDataSpecifyResourceImpl extends ServerResource implements PatientDataSpecifyResource {
 
     private long id;
-    private int listId;
     private EntityManager em;
     private PatientDataRepository patientDataRepository;
     private PatientRepository patientRepository;
@@ -31,7 +30,6 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
         try {
             em = SacchonJpa.getEntityManager();
             id = Long.parseLong(getAttribute("id"));
-            listId = Integer.parseInt(getAttribute("listId"));
             patientDataRepository = new PatientDataRepository(em);
             patientRepository = new PatientRepository(em);
         } catch (Exception ex){
@@ -46,12 +44,17 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
 
     @Override
     public void deleteSpecificData() throws NotFoundException {
+        String paramValue1=getQueryValue("id");
         //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
         if (pdataList.isEmpty()) throw new NotFoundException("No data to delete!");
-        patientDataRepository.deleteById(pdataList.get(listId-1).getId());
+        for (PatientData p: pdataList){
+            if (p.getId()==Long.parseLong(paramValue1)){
+                patientDataRepository.deleteById(Long.parseLong(paramValue1));
+            }
+        }
     }
 
     @Override
@@ -61,11 +64,16 @@ public class PatientDataSpecifyResourceImpl extends ServerResource implements Pa
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();
         if (pdataList.isEmpty()) throw new NotFoundException("No data to update");
-        PatientData patientData = pdataList.get(listId-1);
-        patientData.setBloodGlucose(patientDataRepresentation.getBloodGlucose());
-        patientData.setCarbIntake(patientDataRepresentation.getCarbIntake());
-        patientDataRepository.save(patientData);
-
-        return PatientDataRepresentation.getDataRepresentation(patientData);
+        String paramValue1=getQueryValue("id");
+        for (PatientData p: pdataList){
+            if (p.getId()==Long.parseLong(paramValue1)){
+                PatientData patientData = patientDataRepository.findById(Long.parseLong(paramValue1)).get();
+                patientData.setBloodGlucose(patientDataRepresentation.getBloodGlucose());
+                patientData.setCarbIntake(patientDataRepresentation.getCarbIntake());
+                patientDataRepository.save(patientData);
+                return PatientDataRepresentation.getDataRepresentation(patientData);
+            }
+        }
+        return null;
     }
 }

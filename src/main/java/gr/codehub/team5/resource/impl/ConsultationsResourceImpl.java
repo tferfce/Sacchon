@@ -68,7 +68,7 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
         consultation.setDocId(doctor);
         consultation.setPatId(patient);
         patient.setDoctor(doctor);
-
+        patientRepository.save(patient);
         consultationRepository.save(consultation);
         return ConsultationRepresentation.getConsultationRepresentation(consultation);
     }
