@@ -48,10 +48,12 @@ constructor(
   }
 
 
-  authSuccessfully(){
+  authSuccessfullyPatient(){
     this.authChange.next(true);
     this.router.navigate(['/patientData']);
 }
+
+
 isAUth(){
   return this.user != null;
 }

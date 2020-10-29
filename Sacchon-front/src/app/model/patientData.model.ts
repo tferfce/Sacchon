@@ -1,5 +1,5 @@
 export interface PatientData {
-    id:number;
+    id:string;
     carbIntake:number;
     bloodGlucose:number;
     date:number;
