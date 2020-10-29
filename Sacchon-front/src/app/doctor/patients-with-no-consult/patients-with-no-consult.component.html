@@ -15,8 +15,29 @@
         <td>{{patient.firstName}}</td>
         <td>{{patient.lastName}}</td>
         <td>{{patient.gender}}</td>
-        <td><button class="btn btn-primary" (click)="addConsult(patient)" > Consult </button></td>
+        <td><button class="btn btn-primary" (click)="openModal(consultationModal, patient)"> Consult </button> 
+        </td>
 
       </tr>
     </tbody>
   </table>
+
+
+
+
+  <ng-template #consultationModal let-modal>
+    <div class="modal-header">
+     <h5 class="modal-title"> Add new consultation </h5>
+     <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">  
+      <textarea class="form-control" [(ngModel)]="consult" rows="5"></textarea>  
+      <!-- ng model th diavazei to component: data binding -->
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addConsultation()"> Save consultation!</button>
+    </div>
+   </ng-template>
+ 
