@@ -38,16 +38,14 @@ export class PatientsWithNoConsultComponent implements OnInit {
     }
 
   addConsult(patient: Patient){
-  const consultation: Consultation ={
-    patientId: patient.id, 
-    doctorId: this.user.id,
-    consult: "This is the first Consult."
+  // const consultation: Consultation ={
+  //   patientId: patient.id, 
+  //   doctorId: this.user.id,
+  //   consult: "This is the first Consult."
 
-   }
+  //  }
 
-  
+}
 
-
-  }
 
 }
