@@ -53,6 +53,12 @@ constructor(
     this.router.navigate(['/patientData']);
 }
 
+registerSuccessfylyPatient(){
+  this.authChange.next(true);
+  this.router.navigate(['/login']);
+
+}
+
 
 isAUth(){
   return this.user != null;
