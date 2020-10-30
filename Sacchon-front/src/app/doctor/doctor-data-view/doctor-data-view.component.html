@@ -1,2 +1,97 @@
-<app-patients-with-no-consult></app-patients-with-no-consult>
+<ul class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">My Patients</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">New Patients</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Ready For Consult</a></li>
+  </ul>
+  <div class="tab-content p-1">
+    <div id="home" class="tab-pane fade in active show">
+  <br>
+    
+    <table class="table  table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Gender</th>
+            <th scope="col" style="text-align: center;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of patients">
+            <th  scope="row">{{patient.id}}</th>
+            <td>{{patient.firstName}}</td>
+            <td>{{patient.lastName}}</td>
+            <td>{{patient.gender}}</td>
+            <td>
+                <button class="btn btn-info float-right m-1"  (click)="openModal(consultsPatientModal,patient)"> Consults</button>
+                <button class="btn btn-info float-right m-1 " (click)="openModal(dataPatientModal,patient)">Data</button>
+            </td>
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <app-patients-with-no-doctor></app-patients-with-no-doctor>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+   <app-patients-with-no-consult></app-patients-with-no-consult>
+    </div>
+  </div>
 
+
+  <ng-template #dataPatientModal let-modal>
+    <div class="modal-header">
+     <h5 class="modal-title"> View Data  </h5>
+     <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">  
+      <table class="table  table-bordered">
+        <thead>
+          <tr>
+           
+            <th scope="col">Carbohydrates</th>
+            <th scope="col">Blood Glucose</th>
+         
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patientData of dataPatients">
+            <td>{{patientData.carbIntake}}</td>
+            <td>{{patientData.bloodGlucose}}</td>
+     
+          </tr>
+        </tbody>
+      </table>
+    </div>
+   </ng-template>
+
+   <ng-template #consultsPatientModal let-modal>
+    <div class="modal-header">
+     <h5 class="modal-title"> View Consults  </h5>
+     <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     </button>
+    </div>
+    <div class="modal-body ">  
+      <table class="table  table-bordered ">
+        <thead>
+          <tr>
+         
+            <th scope="col">Consulation</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let consulationData of consultations">
+            <td >{{consulationData.consult}}</td>
+            <td>{{consulationData.date}}  </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div>
+   </ng-template>

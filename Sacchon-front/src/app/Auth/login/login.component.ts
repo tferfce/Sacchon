@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
    else if(data.role=="ROLE_DOCTOR")
    {
      this.storage.setScopeUser(data);
+     this.authService.loginSuccesfullyDoctor();
     
    }
    else if(data.role="ROLE_CHIEFDOCTOR"){

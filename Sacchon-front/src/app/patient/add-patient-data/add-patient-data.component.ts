@@ -13,6 +13,7 @@ import { PatientService } from '../patient.service';
 })
 export class AddPatientDataComponent implements OnInit {
  user:User;
+ isDataPost=false;
  dataPatientForm: FormGroup;
  patientData:PatientData={
    id:null,
@@ -43,10 +44,15 @@ export class AddPatientDataComponent implements OnInit {
 
   dataPushSubmit(){
     this.getPatientData()
-    console.log(this.patientData);
+
 this.patientService.addData(this.patientData,this.user,).subscribe(data=>{
   console.log(data);
 })
+
+this.patientData.bloodGlucose=this.dataPatientForm.get('carbIntake').value;
+this.patientData.carbIntake=this.dataPatientForm.get('bloodGlucose').value;
+this.isDataPost=true;
   }
+  
   
 }

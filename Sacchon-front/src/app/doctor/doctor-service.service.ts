@@ -5,24 +5,27 @@ import { Consultation } from '../model/consultations.model';
 import { Doctor } from '../model/doctor.model';
 import { Patient } from '../model/patient.model';
 import { PatientData } from '../model/patientData.model';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DoctorServiceService {
-  private readonly url_endpoint= 'http://localhost:9000/project'
-  private readonly noconsults = '/doctorsPatientsWaitForConsult/'
-  private readonly addconsult='/consultations'
+  private readonly url_endpoint= 'http://localhost:9000/project';
+  private readonly noconsults = '/doctorsPatientsWaitForConsult/';
+  private readonly addconsult='/consultations';
   private readonly addDoctorEndpoint= '/doctors';
   private readonly patientDataEndpoint= '/patient/';
-
+  private readonly doctorEndpoint='/doctor/';
+  private readonly myPatientsEndPoint='/myPatients';
+  private readonly getPatientsWithNoDoctorEndPoint='/newPatients';
+  private readonly getPatientDataEndPoint='/AllData';
 
 
   constructor(private http: HttpClient) { }
 
   getPatientsWithNoConsult(doctorId): Observable<Patient[]>{
     const headers = { 'Content-Type': 'application/json' }
-    
     return this.http.get<Patient[]>(this.url_endpoint+this.noconsults+doctorId, { headers})
   }
 
@@ -51,4 +54,26 @@ export class DoctorServiceService {
     }, {headers});
 
   }
-}
+
+  getDoctorPatients(user:User){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.get<Patient[]>(this.url_endpoint+this.doctorEndpoint+user.id+this.myPatientsEndPoint,{headers:headers});
+  }
+
+  getAllPatientsWithNoDoctor(){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.get<Patient[]>(this.url_endpoint+this.getPatientsWithNoDoctorEndPoint,{headers:headers})
+  }
+
+  getAllDataFromPatient(patient:Patient){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.get<PatientData[]>(this.url_endpoint+this.patientDataEndpoint+patient.id+this.getPatientDataEndPoint,{headers:headers})
+  }
+
+  getAllConsultationsFromPatient(patient:Patient){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.get<Consultation[]>(this.url_endpoint+this.patientDataEndpoint+patient.id+this.addconsult,{headers:headers})
+  }
+  }
+
+

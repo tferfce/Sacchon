@@ -14,14 +14,15 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent},
-  {path:'patientData',component:ShowDataListComponent},//,canActivate:[AuthGuard]},
-  {path:'addPatientData',component:AddPatientDataComponent},//,canActivate:[AuthGuard]}
-  {path:'doctor-data-view', component:DoctorDataViewComponent},
+  {path:'patientData',component:ShowDataListComponent,canActivate:[AuthGuard]},
+  {path:'addPatientData',component:AddPatientDataComponent,canActivate:[AuthGuard]},
+  {path:'doctor-data-view', component:DoctorDataViewComponent, canActivate:[AuthGuard]}
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[AuthGuard]
 })
 export class AppRoutingModule { }
