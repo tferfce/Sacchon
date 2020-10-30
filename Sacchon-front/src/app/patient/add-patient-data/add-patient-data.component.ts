@@ -33,7 +33,7 @@ export class AddPatientDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.user=this.storageService.getScopeUser();
- 
+    console.log(this.user);
   }
 
   getPatientData(){

@@ -20,6 +20,9 @@ import { ChiefAfterLoginComponent } from './chief-doctor/chief-after-login/chief
 import { PatientsWithNoActivityComponent } from './chief-doctor/patients-with-no-activity/patients-with-no-activity.component';
 import { AddConsultationComponent } from './consultation/add-consultation/add-consultation.component';
 import { ShowDoctorConsultationsComponent } from './chief-doctor/show-doctor-consultations/show-doctor-consultations.component';
+import { PatientsWithNoConsultComponent } from './doctor/patients-with-no-consult/patients-with-no-consult.component';
+import { UpdateDataPatientComponent } from './patient/update-data-patient/update-data-patient.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { ShowDoctorConsultationsComponent } from './chief-doctor/show-doctor-con
     ChiefAfterLoginComponent,
     PatientsWithNoActivityComponent,
     AddConsultationComponent,
-    ShowDoctorConsultationsComponent
+    ShowDoctorConsultationsComponent,
+    PatientsWithNoConsultComponent,
+    
+    UpdateDataPatientComponent
 
   ],
   imports: [
@@ -45,7 +51,8 @@ import { ShowDoctorConsultationsComponent } from './chief-doctor/show-doctor-con
     AuthModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

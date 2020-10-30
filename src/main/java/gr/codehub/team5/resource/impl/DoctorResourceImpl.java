@@ -59,7 +59,6 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
         doctor.setFirstName(doctorReprIn.getFirstName());
         doctor.setLastName(doctorReprIn.getLastName());
-        doctor.setUserName(doctorReprIn.getUserName());
         doctor.setPassword(doctorReprIn.getPassword());
 
         doctorRepository.save(doctor);

@@ -16,6 +16,7 @@ import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,8 +68,9 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
         Consultations consultation = ConsultationRepresentation.getConsultation(consultationIn);
         consultation.setDocId(doctor);
         consultation.setPatId(patient);
+        consultation.setDate(new Date());
         patient.setDoctor(doctor);
-
+        patientRepository.save(patient);
         consultationRepository.save(consultation);
         return ConsultationRepresentation.getConsultationRepresentation(consultation);
     }

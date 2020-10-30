@@ -50,10 +50,11 @@ public class CustomRouter {
 
         // Patient
         router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);//Admin Privilege also
-        router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
+        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
+        router.attach("/patient/{id}/data/edit", PatientDataSpecifyResourceImpl.class);
         router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
         router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);
+        router.attach("/patient/{id}/AllData", GetAllDataForPatientImpl.class);
 
         // Doctor
         router.attach("/doctors", DoctorsResourceImpl.class);
@@ -61,9 +62,8 @@ public class CustomRouter {
         router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
         router.attach("/doctor/{id}/myPatients", GetPatientsForASpecificDoctorImpl.class);
         router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
-
+        router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
         router.attach("/newPatients", GetNewPatientsImpl.class);
-
 
         // Consultation
         router.attach("/consultations", ConsultationsResourceImpl.class);
@@ -74,6 +74,7 @@ public class CustomRouter {
         router.attach("/admin/{id}", AdminResourceGetImpl.class);
         router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
         router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
+        router.attach("/allPatientsWaitForConsult", AllPatientsWaitForConsultResourceImpl.class);
 
         return router;
     }

@@ -46,6 +46,7 @@ public class GetPatientsForASpecificDoctorImpl extends ServerResource implements
         List<Patient> patients = query.getResultList();
         List<PatientRepresentation> patientRepresentations = new ArrayList<>();
         patients.forEach(patient -> patientRepresentations.add(PatientRepresentation.getPatientRepresentation(patient)));
+        if (patientRepresentations.isEmpty()) throw new NotFoundException("This doctor has no Patients");
         return patientRepresentations;
     }
 }

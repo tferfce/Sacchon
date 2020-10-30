@@ -47,20 +47,11 @@ public class DoctorNoActivityResourceImpl extends ServerResource implements Doct
     public List<DoctorRepresentation> getDoctorsWithNoActivity() throws NotFoundException, ParseException, IOException {
         String paramValue1 = getQueryValue("fromDate");
         String paramValue2 = getQueryValue("toDate");
-        // Get all doctors ids
         List<Doctor> doctors = doctorRepository.findAll();
         List<Long> idsFromDoctor = new ArrayList<>();
         doctors.forEach((e) -> idsFromDoctor.add(e.getId()));
-
-        // Get doctors ids in date range from Consultation
-        // A) String to Json object
-//        ObjectMapper mapper = new ObjectMapper();
-//        Map<String,Object> map = mapper.readValue(dates, Map.class);
-//        JsonNode rootNode = mapper.readTree(dates);
-        // B) Json values to Dates
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
         Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
-        // C) Add 1 day to toDate
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);
@@ -68,18 +59,12 @@ public class DoctorNoActivityResourceImpl extends ServerResource implements Doct
         List<Consultations> consultations = consultationRepository.findByTimeRange(dateFrom, dateTo);
         List<Long> idsFromConsultations = new ArrayList<>();
         consultations.forEach((e) -> idsFromConsultations.add(e.getDocId().getId()));
-
-
         idsFromDoctor.removeAll(idsFromConsultations);
-
-
         List<Doctor> doctorsWithNoActivity = new ArrayList<>();
         idsFromDoctor.forEach((e) -> doctorsWithNoActivity.add(doctorRepository.findById(e).get()));
-
-
         List<DoctorRepresentation> doctorRepresentation = new ArrayList<>();
         doctorsWithNoActivity.forEach(doctor -> doctorRepresentation.add(DoctorRepresentation.getDoctorRepresentation(doctor)));
-
+        if (doctorRepresentation.isEmpty()) throw new NotFoundException("No such Doctors");
         return doctorRepresentation;
     }
 }

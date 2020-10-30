@@ -8,6 +8,6 @@ import org.restlet.resource.Post;
 public interface AdministratorResource {
 
     @Post
-    Administrator addAdmin(Administrator admin) throws NotFoundException, BadEntityException;
+    Administrator addAdmin(Administrator admin) throws Exception;
 
 }
