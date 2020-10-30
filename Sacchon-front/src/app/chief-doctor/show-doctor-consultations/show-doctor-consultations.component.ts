@@ -41,8 +41,8 @@ export class ShowDoctorConsultationsComponent implements OnInit {
 
    findConsultations(){
     this.showDoctorConsultService.getDoctorConsultations(this.fromDate, this.toDate, this.doctorId).subscribe((data) => {
-      //this.consultations = data;
       this.consultsLength = data.length;
+      console.log(this.consultsLength);
     });
    }
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Consultation } from '../model/consultations.model';
 import { Doctor } from '../model/doctor.model';
 import { Patient } from '../model/patient.model';
+import { PatientData } from '../model/patientData.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class ChiefDoctorServiceService {
   private readonly patientsNoActivity = 'http://localhost:9000/project/patientsWithNoActivity';
   private readonly showDoctors = 'http://localhost:9000/project/doctors';
   private readonly showDoctorConsults = 'http://localhost:9000/project/admin/doctor';
+  private readonly showPatients = 'http://localhost:9000/project/patient';
+  private readonly showPatientData = 'http://localhost:9000/project/patient';
 
 
   constructor(private http: HttpClient) { }
@@ -38,6 +41,16 @@ export class ChiefDoctorServiceService {
     const headers = { 'Content-Type': 'application/json' }
     let params = new HttpParams().set("fromDate", fromDate).set("toDate", toDate);
     return this.http.get<Consultation[]>(`${this.showDoctorConsults}/${doctorId}/consults`, { headers, params })
+  }
+
+  getPatients(): Observable<Patient[]>{
+    return this.http.get<Patient[]>(this.showPatients);
+  }
+
+  getPatientData(fromDate, toDate, patientId): Observable<PatientData[]>{
+    const headers = { 'Content-Type': 'application/json' }
+    let params = new HttpParams().set("fromDate", fromDate).set("toDate", toDate);
+    return this.http.get<PatientData[]>(`${this.showPatientData}/${patientId}/data`, { headers, params })
   }
 
 }
