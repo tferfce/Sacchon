@@ -45,9 +45,7 @@ getPatient(){
   onSubmit() {
 this.getPatient();
 this.authService.signup(this.patient).subscribe((data)=>{
- this.patient.id=data.id;
- this.patient.customRole=data.customRole;
-  this.authService.authSuccessfullyPatient();
+  this.authService.registerSuccessfylyPatient();
 });
 
 
