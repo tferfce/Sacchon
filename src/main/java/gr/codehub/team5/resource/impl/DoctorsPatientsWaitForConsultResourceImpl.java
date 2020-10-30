@@ -69,8 +69,8 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
                 Date lastConsultDate = consults.get(consults.size() - 1).getDate();
                 patientsWaitForConsult= checkdiff(lastConsultDate, patientsWaitForConsult, patient);
             }
-
         }
+        if (patientsWaitForConsult.isEmpty()) throw new NotFoundException("No Patients waiting consults");
 
         return patientsWaitForConsult;
     }

@@ -7,6 +7,7 @@ import gr.codehub.team5.exceptions.BadEntityException;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
+import gr.codehub.team5.representation.HashPatientsWaitingConsult;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.AllPatientsWaitForConsultResource;
 import org.restlet.resource.ResourceException;
@@ -14,9 +15,7 @@ import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class AllPatientsWaitForConsultResourceImpl extends ServerResource implements AllPatientsWaitForConsultResource {
@@ -40,7 +39,7 @@ public class AllPatientsWaitForConsultResourceImpl extends ServerResource implem
         em.close();
     }
     @Override
-    public HashMap <PatientRepresentation , Long> getAllPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException {
+    public List<HashPatientsWaitingConsult> getAllPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException {
 
         List<Patient> Patients= patientRepository.findAll();
         HashMap <PatientRepresentation , Long> patientsWaitForConsult = new HashMap <>();
@@ -59,7 +58,13 @@ public class AllPatientsWaitForConsultResourceImpl extends ServerResource implem
                 patientsWaitForConsult= checkdiff(lastConsultDate, patientsWaitForConsult, patient);
             }
         }
-        return patientsWaitForConsult;
+        List<HashPatientsWaitingConsult> hashedPatients = new ArrayList<>();
+        for (Map.Entry<PatientRepresentation,Long> map: patientsWaitForConsult.entrySet()){
+            hashedPatients.add(HashPatientsWaitingConsult.getPatientHashed(map.getKey(), map.getValue()));
+        }
+        if (hashedPatients.isEmpty()) throw new NotFoundException("No patients Waiting Consult");
+
+        return hashedPatients;
     }
 
     public List<PatientData> getPatientQueryResult(Patient patient){

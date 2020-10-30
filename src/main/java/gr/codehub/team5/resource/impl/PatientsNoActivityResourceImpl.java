@@ -55,6 +55,7 @@ public class PatientsNoActivityResourceImpl extends ServerResource implements Pa
         c.add(Calendar.DATE, 1);
         dateTo = c.getTime();
         List<Patient> patients= patientRepository.findAll();
+        if(patients.isEmpty()) throw new NotFoundException("No patients with no Activity");
         List<Patient> activePatients =new ArrayList<>();
         List <PatientData> patientData = patientDataRepository.findByTimeRange(dateFrom, dateTo);
         patientData.forEach(pd -> activePatients.add(pd.getPData()));
