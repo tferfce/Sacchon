@@ -49,10 +49,7 @@ public class AllPatientsWaitForConsultResourceImpl extends ServerResource implem
             List <Consultations> consults= getConsultsQueryResult(patient);
             if (consults.size()==0){
                 List<PatientData> pdataList= getPatientQueryResult(patient);
-                if (pdataList.size()==0){
-                    throw new BadEntityException("The patient hasn't entered any data.");
-                }
-                else{
+                if (pdataList.size()!=0){
                     Date fromDate= pdataList.get(0).getDate();
                     patientsWaitForConsult= checkdiff(fromDate, patientsWaitForConsult, patient);
                 }

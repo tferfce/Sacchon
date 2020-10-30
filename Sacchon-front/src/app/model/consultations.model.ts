@@ -14,6 +14,4 @@ export interface Consultation {​​
 
     patient:string;
     
-    uri:string;
-
 }​​

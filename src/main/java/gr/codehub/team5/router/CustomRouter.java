@@ -54,6 +54,7 @@ public class CustomRouter {
         router.attach("/patient/{id}/data/edit", PatientDataSpecifyResourceImpl.class);
         router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
         router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);
+        router.attach("/patient/{id}/AllData", GetAllDataForPatientImpl.class);
 
         // Doctor
         router.attach("/doctors", DoctorsResourceImpl.class);
@@ -63,7 +64,6 @@ public class CustomRouter {
         router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
         router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
         router.attach("/newPatients", GetNewPatientsImpl.class);
-
 
         // Consultation
         router.attach("/consultations", ConsultationsResourceImpl.class);

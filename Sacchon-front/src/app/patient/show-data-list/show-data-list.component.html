@@ -35,8 +35,7 @@
           <th scope="col">ID</th>
           <th scope="col">Carbohydrates</th>
           <th scope="col">Blood Glucose</th>
-          <th scope="col">Date</th>
-      
+          <th scope="col" style="text-align: center;">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +43,7 @@
           <th  scope="row">{{patientData.id}}</th>
           <td>{{patientData.carbIntake}}</td>
           <td>{{patientData.bloodGlucose}}</td>
-          <td>{{patientData.date}}
+          <td>
             <button class="btn btn-warning float-right m-1"  (click)="loadMyUpdateDataComponent(patientData)">Update</button>
             <button class="btn btn-danger float-right m-1 " (click)="onClickDeleteBtn(patientData)">Delete</button>
         

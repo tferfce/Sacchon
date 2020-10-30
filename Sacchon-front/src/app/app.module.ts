@@ -15,7 +15,9 @@ import { ShowAverageComponent } from './patient/show-average/show-average.compon
 import { ShowConsulationComponent } from './patient/show-consulation/show-consulation.component';
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PatientsWithNoConsultComponent } from './doctor/patients-with-no-consult/patients-with-no-consult.component';
 import { UpdateDataPatientComponent } from './patient/update-data-patient/update-data-patient.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { UpdateDataPatientComponent } from './patient/update-data-patient/update
     ShowAverageComponent,
     ShowConsulationComponent,
     DoctorDataViewComponent,
+    PatientsWithNoConsultComponent,
+    
     UpdateDataPatientComponent
 
   ],
@@ -37,7 +41,8 @@ import { UpdateDataPatientComponent } from './patient/update-data-patient/update
     AuthModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

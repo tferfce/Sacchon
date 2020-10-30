@@ -19,11 +19,13 @@ public scopeUser:User
   }
 
   public getScopeUser():User{
-    return this.scopeUser;
+     //this.scopeUser;
+     return JSON.parse(localStorage.getItem('user'))
   }
 
   public setScopeUser(scope:User):void{
     this.scopeUser=scope;
+    localStorage.setItem('user', JSON.stringify(scope));
   }
 
   public setIdScope(scopeId:number):void{
