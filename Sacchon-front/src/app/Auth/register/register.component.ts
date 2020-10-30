@@ -49,7 +49,7 @@ this.authService.signup(this.patient).subscribe((data)=>{
   this.patient.id=data.id;
   this.patient.customRole=data.customRole;
    this.storageService.setScope(this.patient);
-   this.authService.authSuccessfully(redirectTo);
+   this.authService.authSuccessfully();
 });
 
 

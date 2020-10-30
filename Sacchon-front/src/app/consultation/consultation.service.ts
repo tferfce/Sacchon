@@ -12,11 +12,11 @@ export class ConsultationService {
 
   constructor(private http: HttpClient) { }
 
-  addConsultation(consultation: Consultation): Observable<Consultation> {
-    return this.http.post<Consultation>(this.addConsultationEndpoint, {
-      'consult': consultation.consult,
-      'doctor': {id: 1}, //current doctor user id from cookie
-      'patient': {id: consultation.patient.id}
-    });
-}
+//   addConsultation(consultation: Consultation): Observable<Consultation> {
+//     return this.http.post<Consultation>(this.addConsultationEndpoint, {
+//       'consult': consultation.consult,
+//       'doctor': {id: 1}, //current doctor user id from cookie
+//       'patient': {id: consultation.patient.id}
+//     });
+// }
 }
