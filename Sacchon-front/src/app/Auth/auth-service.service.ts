@@ -48,9 +48,9 @@ constructor(
   }
 
 
-  authSuccessfully(){
+  authSuccessfully(redirectTo: string){
     this.authChange.next(true);
-    this.router.navigate(['/patientData']);
+    this.router.navigate([redirectTo]);
 }
 isAUth(){
   return this.user != null;

@@ -43,8 +43,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).subscribe(data=>{
    if(data.role=="ROLE_PATIENT")
    {
+     let redirectTo = '/patientData';
      this.storage.setScopeUser(data);
-     this.authService.authSuccessfully();
+     this.authService.authSuccessfully(redirectTo);
    }
     })
   }

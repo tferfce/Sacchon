@@ -56,11 +56,11 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
 
         if (consultationIn==null) throw new  BadEntityException("Null consultation representation error");
 
-        Optional<Doctor> doctorOpt = doctorRepository.findById(consultationIn.getDoctor().getId());
+        Optional<Doctor> doctorOpt = doctorRepository.findById(consultationIn.getDoctorId());
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given doctor id is not existing");
         Doctor doctor = doctorOpt.get();
         if (!doctor.isActive()) throw new NotFoundException("Inactive Doctor");
-        Optional<Patient> patientOpt = patientRepository.findById(consultationIn.getPatient().getId());
+        Optional<Patient> patientOpt = patientRepository.findById(consultationIn.getPatientId());
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given patient id is not existing");
         Patient patient = patientOpt.get();
 

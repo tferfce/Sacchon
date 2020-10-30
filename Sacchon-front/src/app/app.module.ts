@@ -16,6 +16,10 @@ import { ShowConsulationComponent } from './patient/show-consulation/show-consul
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddDoctorComponent } from './doctor/add-doctor/add-doctor.component';
+import { ChiefAfterLoginComponent } from './chief-doctor/chief-after-login/chief-after-login.component';
+import { PatientsWithNoActivityComponent } from './chief-doctor/patients-with-no-activity/patients-with-no-activity.component';
+import { AddConsultationComponent } from './consultation/add-consultation/add-consultation.component';
+import { ShowDoctorConsultationsComponent } from './chief-doctor/show-doctor-consultations/show-doctor-consultations.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { AddDoctorComponent } from './doctor/add-doctor/add-doctor.component';
     ShowAverageComponent,
     ShowConsulationComponent,
     DoctorDataViewComponent,
-    AddDoctorComponent
+    AddDoctorComponent,
+    ChiefAfterLoginComponent,
+    PatientsWithNoActivityComponent,
+    AddConsultationComponent,
+    ShowDoctorConsultationsComponent
 
   ],
   imports: [
