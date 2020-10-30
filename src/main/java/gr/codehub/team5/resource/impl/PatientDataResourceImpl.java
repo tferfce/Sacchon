@@ -51,7 +51,6 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
         String paramValue2=getQueryValue("toDate");
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
         Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
-        // C) Add 1 day to toDate
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);

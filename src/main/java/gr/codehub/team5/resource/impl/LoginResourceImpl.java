@@ -1,6 +1,7 @@
 package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Doctor;
+import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.resource.LoginResource;
@@ -38,6 +39,7 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
         loginUserPersistence.setPassword(app_user.getPassword());
         loginUserPersistence.setRole(app_user.getRole());
         loginUserPersistence.setUsername(app_user.getUsername());
+
         TypedQuery<Long> query = em.createQuery("SELECT p.id FROM Doctor p WHERE p.userName=:param",Long.class);
         TypedQuery<Doctor> queryDoc = em.createQuery("FROM Doctor p WHERE p.userName=:param",Doctor.class);
         query.setParameter("param",user.getIdentifier());
@@ -55,7 +57,13 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
         if (!adminlist.isEmpty()) loginUserPersistence.setId(adminlist.get(0));
 
         TypedQuery<Long> query2 = em.createQuery("SELECT p.id FROM Patient p WHERE p.userName=:param",Long.class);
+        TypedQuery<Patient> queryPat = em.createQuery("FROM Patient p WHERE p.userName=:param",Patient.class);
         query2.setParameter("param",user.getIdentifier());
+        queryPat.setParameter("param",user.getIdentifier());
+        List<Patient> patObj = queryPat.getResultList();
+        if (!patObj.isEmpty()){
+            if (!patObj.get(0).isActive()) throw new NotFoundException("inactive Patient");
+        }
         List<Long> patientlist = query2.getResultList();
         if (!patientlist.isEmpty()) loginUserPersistence.setId(patientlist.get(0));
 

@@ -7,6 +7,9 @@ import org.restlet.resource.Post;
 
 import java.util.List;
 
+/**
+ * The first request is the register of the Patient with full Access
+ */
 public interface PatientListResource {
     @Post("json")
     PatientRepresentation addPatient(PatientRepresentation patientRepresentation) throws Exception;

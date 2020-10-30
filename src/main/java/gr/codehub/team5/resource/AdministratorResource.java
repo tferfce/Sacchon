@@ -1,10 +1,10 @@
 package gr.codehub.team5.resource;
-
 import gr.codehub.team5.Model.Administrator;
-import gr.codehub.team5.exceptions.BadEntityException;
-import gr.codehub.team5.exceptions.NotFoundException;
 import org.restlet.resource.Post;
 
+/**
+ * Its for personal use only to add an Administrator to monitor all our programme!
+ */
 public interface AdministratorResource {
 
     @Post

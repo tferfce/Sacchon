@@ -21,6 +21,7 @@ public class Patient {
     private String lastName;
     private String userName;
     private String password;
+    private boolean Active = true;
     private CustomRole customRole = CustomRole.ROLE_PATIENT;
 
     @Column(nullable = false)
