@@ -59,6 +59,12 @@ registerSuccessfylyPatient(){
 
 }
 
+loginSuccesfullyDoctor(){
+  this.authChange.next(true);
+  this.router.navigate(['/doctor-data-view']);
+
+}
+
 
 isAUth(){
   return this.user != null;
@@ -67,6 +73,7 @@ isAUth(){
 logout(){
   this.user=null;
   this.authChange.next(false);
+  this.router.navigate(['/login']);
   
 }
 
