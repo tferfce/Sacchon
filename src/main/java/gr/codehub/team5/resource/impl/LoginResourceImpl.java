@@ -21,7 +21,11 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
     private EntityManager em;
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
+        try {
+            em = SacchonJpa.getEntityManager();
+        }catch (ResourceException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

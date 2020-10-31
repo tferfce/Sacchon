@@ -30,10 +30,14 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
 
     @Override
     protected void doInit() throws ResourceException {
+        try {
 
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
-        patientDataRepository = new PatientDataRepository(em);
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+            patientDataRepository = new PatientDataRepository(em);
+        }catch (ResourceException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

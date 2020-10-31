@@ -30,9 +30,13 @@ public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements 
 
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
-        consultationRepository = new ConsultationRepository(em);
+        try {
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+            consultationRepository = new ConsultationRepository(em);
+        }catch (ResourceException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * The first request is used by the Admin and helps him add a doctor in DB after providing his Credentials
- * The second is used also by the admin and shows all doctors in the Database, active or inactive
+ * The second is used also by the admin and shows all doctors in DB, active or inactive
  */
 public interface DoctorsResource {
 
