@@ -54,8 +54,7 @@ export class PatientsWithNoConsultComponent implements OnInit {
 
 
      }
-     debugger
-     this.doctorService.addConsult(consultation).subscribe((data)=>{
+      this.doctorService.addConsult(consultation).subscribe((data)=>{
       this.modalService.dismissAll();
        console.log(data)
      })
