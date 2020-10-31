@@ -18,7 +18,8 @@ export class RegisterComponent implements OnInit {
      userName:'',
      password:'',
      gender:'',
-     customRole:''
+     customRole:'',
+     uri:''
    };
    
   constructor(private authService:AuthServiceService,private storageService:StorageService) {   

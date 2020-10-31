@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'add-consultation', component:AddConsultationComponent},
   {path: 'show-doctor-consult', component:ShowDoctorConsultationsComponent},
   {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent},
-  {path:'doctor-data-view', component:DoctorDataViewComponent},
+  {path:'doctor-data-view', component:DoctorDataViewComponent, canActivate:[AuthGuard]}
 
 ];
 

@@ -46,6 +46,16 @@ export class LoginComponent implements OnInit {
      this.storage.setScopeUser(data);
      this.authService.authSuccessfully();
    }
+   else if(data.role=="ROLE_DOCTOR")
+   {
+     this.storage.setScopeUser(data);
+     this.authService.loginSuccesfullyDoctor();
+    
+   }
+   else if(data.role="ROLE_CHIEFDOCTOR"){
+     console.log("WORKS");
+   }
+
     })
   }
   

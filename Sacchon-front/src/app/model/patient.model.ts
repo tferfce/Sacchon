@@ -5,5 +5,6 @@ export interface Patient {
     userName:string;
     password:string;
     gender:string;
-    customRole:string
+    customRole:string;
+    uri:string;
 }
