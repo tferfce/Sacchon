@@ -21,5 +21,5 @@ public interface DoctorResource {
     DoctorRepresentation update(DoctorRepresentation doctorReprIn)
             throws NotFoundException, BadEntityException;
     @Delete("json")
-    DoctorRepresentation remove() throws ResourceException, NotFoundException;
+    void remove() throws ResourceException, NotFoundException;
 }

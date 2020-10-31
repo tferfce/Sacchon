@@ -65,11 +65,11 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         return DoctorRepresentation.getDoctorRepresentation(doctor);
     }
     @Override
-    public DoctorRepresentation remove() throws ResourceException, NotFoundException {
+    public void remove() throws ResourceException, NotFoundException {
 
         Optional<Doctor> doctor = doctorRepository.findById(id);
         if (!doctor.isPresent()) throw new NotFoundException("Non existing doctor");
-        doctor.get().setActive(true);
+        doctor.get().setActive(false);
         doctorRepository.save(doctor.get());
 
         TypedQuery<Patient> query= em.createQuery("FROM Patient P WHERE doctor_id=:param", Patient.class);
@@ -80,7 +80,5 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
             patient.setDoctor(null);
             patientRepository.save(patient);
         }
-        return DoctorRepresentation.getDoctorRepresentation(doctor.get());
-
     }
 }
