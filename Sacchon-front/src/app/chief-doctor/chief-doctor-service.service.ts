@@ -5,6 +5,7 @@ import { Consultation } from '../model/consultations.model';
 import { Doctor } from '../model/doctor.model';
 import { Patient } from '../model/patient.model';
 import { PatientData } from '../model/patientData.model';
+import { PatientsWaitConsult } from '../model/patientsWaitConsult.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class ChiefDoctorServiceService {
   private readonly showDoctorConsults = 'http://localhost:9000/project/admin/doctor';
   private readonly showPatients = 'http://localhost:9000/project/patient';
   private readonly showPatientData = 'http://localhost:9000/project/patient';
+  private readonly showPatientWaitingForConsult = 'http://localhost:9000/project/allPatientsWaitForConsult';
 
 
   constructor(private http: HttpClient) { }
@@ -51,6 +53,11 @@ export class ChiefDoctorServiceService {
     const headers = { 'Content-Type': 'application/json' }
     let params = new HttpParams().set("fromDate", fromDate).set("toDate", toDate);
     return this.http.get<PatientData[]>(`${this.showPatientData}/${patientId}/data`, { headers, params })
+  }
+
+
+  getPatientsWaitingForConsult(): Observable<PatientsWaitConsult[]>{
+    return this.http.get<PatientsWaitConsult[]>(this.showPatientWaitingForConsult);
   }
 
 }

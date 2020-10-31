@@ -10,8 +10,16 @@ import { ChiefDoctorServiceService } from '../chief-doctor-service.service';
 })
 export class ShowPatientDataComponent implements OnInit {
 
-  fromDate: String;
-  toDate: String;
+  fromDate: {
+    "year": String,
+    "month": String,
+    "day": String
+  };
+  toDate: {
+    "year": String,
+    "month": String,
+    "day": String
+  };
   patientId: number;
   patients: Patient[];
   datalength: number;
@@ -36,7 +44,9 @@ export class ShowPatientDataComponent implements OnInit {
    }
 
    findData(){
-    this.showPatientDataService.getPatientData(this.fromDate, this.toDate, this.patientId).subscribe((data) => {
+    let fromDate = `${this.fromDate.year}/${this.fromDate.month}/${this.fromDate.day}`
+    let toDate = `${this.toDate.year}/${this.toDate.month}/${this.toDate.day}`
+    this.showPatientDataService.getPatientData(fromDate, toDate, this.patientId).subscribe((data) => {
       this.datalength = data.length;
     });
    }

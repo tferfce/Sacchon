@@ -12,8 +12,16 @@ import { ChiefDoctorServiceService } from '../chief-doctor-service.service';
 })
 export class ShowDoctorConsultationsComponent implements OnInit {
 
-  fromDate: String;
-  toDate: String;
+  fromDate: {
+    "year": String,
+    "month": String,
+    "day": String
+  };
+  toDate: {
+    "year": String,
+    "month": String,
+    "day": String
+  };
   doctorId: number;
   doctors: Doctor[];
   consultations: Consultation[];
@@ -40,7 +48,9 @@ export class ShowDoctorConsultationsComponent implements OnInit {
    }
 
    findConsultations(){
-    this.showDoctorConsultService.getDoctorConsultations(this.fromDate, this.toDate, this.doctorId).subscribe((data) => {
+    let fromDate = `${this.fromDate.year}/${this.fromDate.month}/${this.fromDate.day}`
+    let toDate = `${this.toDate.year}/${this.toDate.month}/${this.toDate.day}`
+    this.showDoctorConsultService.getDoctorConsultations(fromDate, toDate, this.doctorId).subscribe((data) => {
       this.consultsLength = data.length;
       console.log(this.consultsLength);
     });
