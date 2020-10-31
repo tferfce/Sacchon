@@ -69,7 +69,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
         Optional<Doctor> doctor = doctorRepository.findById(id);
         if (!doctor.isPresent()) throw new NotFoundException("Non existing doctor");
-        doctor.get().setActive(true);
+        doctor.get().setActive(false);
         doctorRepository.save(doctor.get());
 
         TypedQuery<Patient> query= em.createQuery("FROM Patient P WHERE doctor_id=:param", Patient.class);
