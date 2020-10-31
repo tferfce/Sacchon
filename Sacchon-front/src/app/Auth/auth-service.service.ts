@@ -48,7 +48,7 @@ constructor(
   }
 
 
-  authSuccessfullyPatient(){
+  authSuccessfully(){
     this.authChange.next(true);
     this.router.navigate(['/patientData']);
 }
