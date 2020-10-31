@@ -1,5 +1,8 @@
 package gr.codehub.team5.security;
 
+/**
+ * Defining the Roles for our clients
+ */
 public enum CustomRole {
     ROLE_NA("n/a"),
     ROLE_DOCTOR("doctor"),

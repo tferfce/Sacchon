@@ -1,0 +1,38 @@
+<div class="container">
+  <h4>Insert dates here:</h4><br>
+    <form [formGroup]="datesForm" (submit)="formSubmit(datesForm)">
+        <div class="form-row">
+            <div class="col">
+              <div class="input-group">
+                <input class="form-control" formControlName ="fromDate" type="text" placeholder="From Date" ngbDatepicker #d="ngbDatepicker" name="dp"/>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="input-group">
+                <input class="form-control" formControlName ="toDate" type="text" placeholder="To Date" ngbDatepicker #d2="ngbDatepicker" name="dp"/>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div><br>
+<table class="table  table-bordered" *ngIf="patients?.length">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patientData of patients">
+        <td>{{patientData.firstName}}</td>
+        <td>{{patientData.lastName}}</td>
+      </tr>
+    </tbody>
+  </table>

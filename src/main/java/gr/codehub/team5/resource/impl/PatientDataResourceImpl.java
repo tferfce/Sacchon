@@ -30,10 +30,14 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
 
     @Override
     protected void doInit() throws ResourceException {
+        try {
 
-        em = SacchonJpa.getEntityManager();
-        id=Long.parseLong(getAttribute("id"));
-        patientDataRepository = new PatientDataRepository(em);
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+            patientDataRepository = new PatientDataRepository(em);
+        }catch (ResourceException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -51,7 +55,6 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
         String paramValue2=getQueryValue("toDate");
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
         Date dateTo = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue2);
-        // C) Add 1 day to toDate
         Calendar c = Calendar.getInstance();
         c.setTime(dateTo);
         c.add(Calendar.DATE, 1);

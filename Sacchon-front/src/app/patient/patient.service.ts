@@ -54,4 +54,16 @@ export class PatientService {
     return this.http.get<Consultation[]>(this.showDataPatientUrl+user.id+'/consultations');
   }
 
+
+  deletePatient(user:User){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.delete(this.postDataUrl+user.id,{headers});
+  }
+
+  getPatient(user:User){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.get<Patient>(this.showDataPatientUrl+user.id, { headers})
+  }
+
+
 }

@@ -4,6 +4,9 @@ import gr.codehub.team5.Model.Administrator;
 import gr.codehub.team5.security.CustomRole;
 import lombok.Data;
 
+/**
+ * Representation of the Chief Doctor for Front end use
+ */
 @Data
 public class AdministratorRepresentation {
     private long id;

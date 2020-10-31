@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * DB Model of a Patient
+ */
 @Entity
 @Getter
 @Setter
@@ -21,6 +24,7 @@ public class Patient {
     private String lastName;
     private String userName;
     private String password;
+    private boolean Active = true;
     private CustomRole customRole = CustomRole.ROLE_PATIENT;
 
     @Column(nullable = false)

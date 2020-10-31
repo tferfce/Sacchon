@@ -1,0 +1,46 @@
+<div class="container">
+    <h4>Complete the following form to add a doctor</h4><br>
+    <div class="alert alert-success alert-dismissible fade show" *ngIf="doctorIsAdded===true">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        New doctor is added <strong>successfully</strong>!
+    </div>
+    <form [formGroup]="addDoctorForm" (submit)="formSubmit(addDoctorForm)">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>First Name: </label>
+                    <input class="form-control" formControlName ="firstName" type="text" placeholder="Enter first name"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Last Name: </label>
+                    <input class="form-control" formControlName ="lastName" type="text" placeholder="Enter last name"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Username: </label>
+                    <input class="form-control" formControlName ="username" type="text" placeholder="Enter username"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Password: </label>
+                    <input class="form-control" formControlName ="password" type="password" placeholder="Enter password"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+</div><br>

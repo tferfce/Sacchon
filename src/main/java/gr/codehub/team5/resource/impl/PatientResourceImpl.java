@@ -1,5 +1,4 @@
 package gr.codehub.team5.resource.impl;
-
 import gr.codehub.team5.Model.Patient;
 import gr.codehub.team5.Model.PatientData;
 import gr.codehub.team5.exceptions.BadEntityException;
@@ -12,7 +11,6 @@ import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
-
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
@@ -73,5 +71,13 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         patientData.setPData(patient);
         patientDataRepository.save(patientData);
         return PatientDataRepresentation.getDataRepresentation(patientData);
+    }
+
+    @Override
+    public void deletePatient() throws NotFoundException {
+        Optional<Patient> patientOpt = patientRepository.findById(id);
+        if (!patientOpt.isPresent()) throw new NotFoundException("No such patient exists");
+        patientOpt.get().setActive(false);
+        patientRepository.save(patientOpt.get());
     }
 }

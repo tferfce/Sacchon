@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ * A request used by every patient giving him access to his data over a specific period
+ */
 public interface PatientDataResource {
     @Get("json")
     List<PatientDataRepresentation> getPatientData() throws NotFoundException, IOException, ParseException;

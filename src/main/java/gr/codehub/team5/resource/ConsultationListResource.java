@@ -6,6 +6,10 @@ import org.restlet.resource.Get;
 
 import java.util.List;
 
+/**
+ * Here we get all the consults a specific patient has.
+ * We define the patient judging from his id in the API
+ */
 public interface ConsultationListResource {
 
     @Get

@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * Representation of Consultations for Front End use
+ */
 @Data
 public class ConsultationRepresentation {
     private long id;

@@ -48,7 +48,7 @@ constructor(
   }
 
 
-  authSuccessfullyPatient(){
+  authSuccessfully(){
     this.authChange.next(true);
     this.router.navigate(['/patientData']);
 }
@@ -64,6 +64,11 @@ loginSuccesfullyDoctor(){
   this.router.navigate(['/doctor-data-view']);
 
 }
+loginSuccesfullyChiefDoctor(){
+  this.authChange.next(true);
+  this.router.navigate(['/chief-doctor']);
+
+}
 
 
 isAUth(){
@@ -71,6 +76,7 @@ isAUth(){
 }
 
 logout(){
+
   this.user=null;
   this.authChange.next(false);
   this.router.navigate(['/login']);

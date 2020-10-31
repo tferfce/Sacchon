@@ -7,6 +7,10 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Repository for Patient
+ * findByTimeRange -> Searching with time borders
+ */
 public class PatientDataRepository extends Repository<PatientData, Long> {
     public PatientDataRepository(EntityManager entityManager) {
         super(entityManager);

@@ -25,7 +25,9 @@ export class DoctorsWithNoActivityComponent implements OnInit {
   formSubmit(form: FormGroup){
     event.preventDefault();
     console.log(form.value);
-    this.noActivityDoctorsService.getDoctorsWithNoActivity(form.value).subscribe((data) => {
+    let fromDate = `${form.value.fromDate.year}/${form.value.fromDate.month}/${form.value.fromDate.day}`
+    let toDate = `${form.value.toDate.year}/${form.value.toDate.month}/${form.value.toDate.day}`
+    this.noActivityDoctorsService.getDoctorsWithNoActivity({fromDate: fromDate, toDate: toDate}).subscribe((data) => {
       this.doctors = data
     });
   }

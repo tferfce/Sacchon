@@ -5,6 +5,9 @@ import org.restlet.data.ChallengeScheme;
 import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.Verifier;
 
+/**
+ * Setting verifier for the apiGuard
+ */
 public class Shield {
 
     private Application application;

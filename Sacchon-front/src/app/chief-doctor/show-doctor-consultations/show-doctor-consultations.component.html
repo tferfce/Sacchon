@@ -1,0 +1,51 @@
+<table class="table  table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctorData of doctors">
+        <td>{{doctorData.firstName}}</td>
+        <td>{{doctorData.lastName}}</td>
+        <td><button class="btn btn-info float-left m-1" (click)="openModal(docConsultationModal, doctorData.id)">Number of Consultations</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #docConsultationModal let-modal>
+    <div class="modal-header">
+     <h5 class="modal-title"> Insert dates here: </h5>
+     <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">  
+          <div class="form-row">
+              <div class="col">
+                <div class="input-group">
+                  <input class="form-control" [(ngModel)]="fromDate" type="text" placeholder="From Date" ngbDatepicker #d="ngbDatepicker" name="dp"/>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group">
+                  <input class="form-control" [(ngModel)]="toDate" type="text" placeholder="To Date" ngbDatepicker #d2="ngbDatepicker" name="dp"/>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+          </div>
+    </div>
+    <div class="modal-footer footer-flex">
+      <div *ngIf="consultsLength!=null">
+        <span>Number of consultations: {{consultsLength}}</span>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="findConsultations()"> Search</button>
+    </div>
+   </ng-template>

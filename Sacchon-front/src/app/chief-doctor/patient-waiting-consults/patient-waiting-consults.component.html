@@ -1,0 +1,16 @@
+<table class="table  table-bordered" *ngIf="patients?.length">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Days Waiting</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patientData of patients">
+        <td>{{patientData.firstName}}</td>
+        <td>{{patientData.lastName}}</td>
+        <td>{{patientData.daysWaiting}}</td>
+      </tr>
+    </tbody>
+  </table>
