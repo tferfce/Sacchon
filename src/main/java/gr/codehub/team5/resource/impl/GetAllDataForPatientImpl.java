@@ -24,8 +24,12 @@ public class GetAllDataForPatientImpl extends ServerResource implements GetAllDa
 
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
-        id = Long.parseLong(getAttribute("id"));
+        try {
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+        }catch (ResourceException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

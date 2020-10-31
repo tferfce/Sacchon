@@ -4,6 +4,9 @@ import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.security.CustomRole;
 import lombok.Data;
 
+/**
+ * Doctor Representation for Front End use
+ */
 @Data
 public class DoctorRepresentation {
     private long id;

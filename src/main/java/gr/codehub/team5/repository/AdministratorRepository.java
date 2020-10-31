@@ -4,6 +4,9 @@ import gr.codehub.team5.Model.Administrator;
 import gr.codehub.team5.repository.lib.Repository;
 import javax.persistence.EntityManager;
 
+/**
+ * Repository for Chief Doctor
+ */
 public class AdministratorRepository extends Repository<Administrator, Long> {
     public AdministratorRepository(EntityManager entityManager) {
         super(entityManager);

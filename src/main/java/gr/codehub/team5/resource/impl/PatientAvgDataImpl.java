@@ -25,9 +25,13 @@ public class PatientAvgDataImpl extends ServerResource implements PatientAvgData
 
     @Override
     protected void doInit() throws ResourceException {
-        em = SacchonJpa.getEntityManager();
-        id = Long.parseLong(getAttribute("id"));
-        patientDataRepository = new PatientDataRepository(em);
+        try {
+            em = SacchonJpa.getEntityManager();
+            id = Long.parseLong(getAttribute("id"));
+            patientDataRepository = new PatientDataRepository(em);
+        }catch (ResourceException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

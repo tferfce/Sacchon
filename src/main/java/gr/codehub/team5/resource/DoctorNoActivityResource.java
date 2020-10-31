@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ * This request is used by the admin and Get us all the doctors with 0 consults despite having an active account
+ */
 public interface DoctorNoActivityResource {
 
     @Get("json")

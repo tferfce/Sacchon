@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * Representation of Patient Data for Front End use
+ */
 @Data
 public class PatientDataRepresentation {
     private long id;

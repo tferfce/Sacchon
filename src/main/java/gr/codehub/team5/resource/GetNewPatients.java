@@ -6,6 +6,9 @@ import org.restlet.resource.Get;
 
 import java.util.List;
 
+/**
+ * A request used by the Doctors having access to all New patients and their stored data!
+ */
 public interface GetNewPatients {
     @Get("json")
     List<PatientRepresentation> getNewPatients() throws NotFoundException;

@@ -5,6 +5,9 @@ import gr.codehub.team5.repository.lib.Repository;
 
 import javax.persistence.EntityManager;
 
+/**
+ * Repository for Patient
+ */
 public class PatientRepository extends Repository<Patient, Long> {
 
     public PatientRepository(EntityManager entityManager) {

@@ -8,6 +8,9 @@ import org.restlet.security.SecretVerifier;
 
 import java.sql.SQLException;
 
+/**
+ * Verifying if the user Exists
+ */
 public class CustomVerifier extends SecretVerifier {
 
     public int verify(String identifier, char[] secret)

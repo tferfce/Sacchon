@@ -26,8 +26,7 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
     private EntityManager em;
-    private long  doctorId;
-    private long patientId;
+
 
 
 
@@ -38,8 +37,7 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
             consultationRepository = new ConsultationRepository(em);
             doctorRepository = new DoctorRepository(em);
             patientRepository = new PatientRepository(em);
-            //doctorId = Long.parseLong(getAttribute("doctorId"));
-            //patientId = Long.parseLong(getAttribute("patientId"));
+
         }
         catch(Exception ex){
             throw new ResourceException(ex);

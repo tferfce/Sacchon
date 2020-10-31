@@ -1,6 +1,9 @@
 package gr.codehub.team5.representation;
 import lombok.Data;
 
+/**
+ * Representation of Patients waiting for consultation transforming Hashmap into List
+ */
 @Data
 public class HashPatientsWaitingConsult {
     private long id;

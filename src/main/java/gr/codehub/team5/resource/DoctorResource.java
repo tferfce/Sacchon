@@ -8,6 +8,10 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ResourceException;
 
+/**
+ * The first Request give us the specific doctor mostly for personal use
+ * The second is used by the Doctor and gives him the ability to edit his personal data with the **Exception** of username which is unique!
+ */
 public interface DoctorResource {
 
     @Get("json")

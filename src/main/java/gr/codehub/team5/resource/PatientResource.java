@@ -15,5 +15,7 @@ public interface PatientResource {
         throws NotFoundException, BadEntityException;
     @Post("json")
     PatientDataRepresentation addPatientData(PatientData patientData) throws BadEntityException,NotFoundException;
+    @Delete
+    void deletePatient() throws NotFoundException;
 
 }

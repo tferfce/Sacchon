@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * Repository for Doctor
+ */
 public class DoctorRepository extends Repository<Doctor, Long> {
 
     public DoctorRepository(EntityManager entityManager) {

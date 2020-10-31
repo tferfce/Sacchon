@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ * This request is used By the Chief Doctor showing him all the Patients that don't have any stored data
+ */
 public interface PatientsNoActivityResource {
 
     @Get
