@@ -1,16 +1,14 @@
 <table class="table  table-bordered">
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Consulation</th>
         <th scope="col">Date</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let consulationData of dataConsulations">
-        <th  scope="row">{{consulationData.id}}</th>
         <td>{{consulationData.consult}}</td>
-        <td>{{consulationData.date}}
+        <td>{{consulationData.date| date:'yyyy/MM/dd'}}
      </td>
       
       </tr>

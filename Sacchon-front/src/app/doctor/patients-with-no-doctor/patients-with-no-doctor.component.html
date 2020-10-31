@@ -2,7 +2,7 @@
 <table class="table  table-bordered">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+
         <th scope="col">Firstname</th>
         <th scope="col">Lastname</th>
         <th scope="col">Gender</th>
@@ -11,11 +11,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let patient of patients">
-        <th  scope="row">{{patient.id}}</th>
         <td>{{patient.firstName}}</td>
         <td>{{patient.lastName}}</td>
         <td>{{patient.gender}}</td>
         <td>
+            <button class="btn btn-info float-right m-1" (click)="pickPatient(patient)"> Pick Me</button>
             <button class="btn btn-info float-right m-1" (click)="openModal(consultsPatientModal,patient)"> Consults</button>
             <button class="btn btn-info float-right m-1 " (click)="openModal(consultationModal,patient)">Data</button>
         </td>
@@ -74,7 +74,7 @@
       <tbody >
         <tr *ngFor="let consulationData of consultations">
           <td >{{consulationData.consult}}</td>
-          <td>{{consulationData.date}}  </td>
+          <td>{{consulationData.date | date:'yyyy/MM/dd'}}  </td>
         </tr>
       </tbody>
     </table>

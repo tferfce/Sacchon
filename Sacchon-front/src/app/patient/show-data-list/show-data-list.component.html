@@ -1,4 +1,9 @@
-<ul class="nav nav-tabs">
+<div class="alert alert-info  row">
+  <h3>Welcome  Patient {{patient.firstName}} {{patient.lastName}}</h3>
+       <button type="button" class="btn btn-danger ml-auto" (click)="DeletePatient()">Delete Your Account</button>
+   </div>
+
+<ul class="nav nav-tabs ">
   <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">History Data</a></li>
   <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Average Table</a></li>
   <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Consulations Table</a></li>
@@ -6,10 +11,8 @@
 <div class="tab-content p-1">
   <div id="home" class="tab-pane fade in active show">
     <div class="col text-center">
-      <button class="btn btn-primary btn-space " (click)="loadMyAddDataComponent()">Put Data</button>
-      <div class="container p-1" *ngIf='loadComponent'>
-        <app-add-patient-data></app-add-patient-data>
-      </div>
+      <button class="btn btn-primary btn-space " (click)="openModal(addPatientData)">Put Data</button>
+
       <div class="container p-1" *ngIf='loadUpdateComponent'>
         <app-update-data-patient [patientData]="patientData"></app-update-data-patient>
       </div>
@@ -32,7 +35,7 @@
   <table class="table  table-bordered">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+
           <th scope="col">Carbohydrates</th>
           <th scope="col">Blood Glucose</th>
           <th scope="col" style="text-align: center;">Actions</th>
@@ -40,11 +43,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let patientData of dataPatientList">
-          <th  scope="row">{{patientData.id}}</th>
           <td>{{patientData.carbIntake}}</td>
           <td>{{patientData.bloodGlucose}}</td>
           <td>
-            <button class="btn btn-warning float-right m-1"  (click)="loadMyUpdateDataComponent(patientData)">Update</button>
+            <button class="btn btn-warning float-right m-1"  (click)="openModalForUpdateData(UpdatePatientData,patientData)">Update</button>
             <button class="btn btn-danger float-right m-1 " (click)="onClickDeleteBtn(patientData)">Delete</button>
         
           </td>
@@ -61,4 +63,27 @@
   </div>
 </div>
 
+<ng-template #addPatientData let-modal>
+  <div class="modal-header">
+   <h5 class="modal-title"> Add Data  </h5>
+   <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+   </button>
+  </div>
+  <div class="modal-body">  
+    <app-add-patient-data></app-add-patient-data>
+  </div>
+ </ng-template>
 
+
+ <ng-template #UpdatePatientData let-modal>
+  <div class="modal-header">
+   <h5 class="modal-title"> Update A Patient Data </h5>
+   <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+   </button>
+  </div>
+  <div class="modal-body">  
+    <app-update-data-patient [patientData]="patientData"></app-update-data-patient>
+  </div>
+ </ng-template>

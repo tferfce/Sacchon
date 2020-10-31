@@ -20,6 +20,8 @@ export class DoctorServiceService {
   private readonly myPatientsEndPoint='/myPatients';
   private readonly getPatientsWithNoDoctorEndPoint='/newPatients';
   private readonly getPatientDataEndPoint='/AllData';
+  private readonly pickPatientUrl='addPatientToDoctor/';
+  private readonly updateConsultUrl='/consultation/';
 
 
   constructor(private http: HttpClient) { }
@@ -33,7 +35,6 @@ export class DoctorServiceService {
     const headers = { 'Content-Type': 'application/json' }
     //let params = new HttpParams().set("doctorId",doctorId).set("patientId", patientId);       
     return this.http.post<Consultation>(this.url_endpoint+this.addconsult, consult , { headers})
-
 
   }
 
@@ -74,6 +75,27 @@ export class DoctorServiceService {
     const headers = { 'Content-Type': 'application/json' }
     return this.http.get<Consultation[]>(this.url_endpoint+this.patientDataEndpoint+patient.id+this.addconsult,{headers:headers})
   }
+
+  patientPicker(user:User,patient:Patient){
+    return this.http.get<Patient>(this.url_endpoint+'/'+this.pickPatientUrl+user.id+'/'+patient.id);
+  }
+
+  updateConsult(consult:Consultation){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.put<Consultation>(this.url_endpoint+this.updateConsultUrl+consult.id,{
+      'consult':consult.consult },{headers});
+  }
+
+  deleteDoctor(user:User){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.delete(this.url_endpoint+this.doctorEndpoint+user.id,{headers});
+  }
+
+  getDoctorDetails(user:User){
+    const headers = { 'Content-Type': 'application/json' }
+    return this.http.get<Doctor>(this.url_endpoint+this.doctorEndpoint+user.id);
+  }
+  
   }
 
 

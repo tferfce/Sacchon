@@ -2,6 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientData } from 'src/app/model/patientData.model';
 import { User } from 'src/app/model/user.model';
@@ -24,7 +25,7 @@ export class ShowDataListComponent implements OnInit {
   onTableNav=false;
   loadUpdateComponent=false;
 
-  constructor(private storageService:StorageService,private patientService:PatientService) {
+  constructor(private storageService:StorageService,private patientService:PatientService,private modalService:NgbModal,private router:Router) {
 
     
    }
@@ -37,6 +38,10 @@ export class ShowDataListComponent implements OnInit {
       toDate: new FormControl()
     })
 
+    this.patientService.getPatient(this.user).subscribe(data=>{
+      this.patient=data;
+    })
+
  
   }
 
@@ -47,20 +52,38 @@ this.patientService.showPatientData(form.value,this.user).subscribe(data=>{
 })
  }
 
-  loadMyAddDataComponent(){
-     this.loadComponent = !this.loadComponent;
-  }
-
-  loadMyUpdateDataComponent(patientData:PatientData){
-    this.patientData=patientData;
-    this.loadUpdateComponent = !this.loadUpdateComponent;
- }
-
   onClickDeleteBtn(patientData:PatientData){
     this.patientService.patientDataDelete(this.user,patientData).subscribe(data=>{
       console.log('works');
     })
   }
+
+  DeletePatient(){
+    this.patientService.deletePatient(this.user).subscribe(data=>{
+      console.log('works');
+    })
+    this.storageService.deleteUser();
+    this.router.navigate(['/login']);
+  }
   
+  
+  openModal(targetModal) {
+    this.modalService.open(targetModal, {
+      size:'md',
+     centered: true,
+     backdrop: 'static'
+    });
+   
+   }
+
+  openModalForUpdateData(targetModal,patientData:PatientData) {
+    this.patientData=patientData;
+    this.modalService.open(targetModal, {
+      size:'md',
+     centered: true,
+     backdrop: 'static'
+    });
+   
+   }
 
 }
