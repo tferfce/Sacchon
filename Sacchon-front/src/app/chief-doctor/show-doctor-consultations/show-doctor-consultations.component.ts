@@ -50,10 +50,18 @@ export class ShowDoctorConsultationsComponent implements OnInit {
    findConsultations(){
     let fromDate = `${this.fromDate.year}/${this.fromDate.month}/${this.fromDate.day}`
     let toDate = `${this.toDate.year}/${this.toDate.month}/${this.toDate.day}`
-    this.showDoctorConsultService.getDoctorConsultations(fromDate, toDate, this.doctorId).subscribe((data) => {
-      this.consultsLength = data.length;
-      console.log(this.consultsLength);
-    });
+    this.showDoctorConsultService.getDoctorConsultations(fromDate, toDate, this.doctorId).subscribe(
+      (data) => {                           //Next callback
+        console.log('response received')
+        this.consultsLength = data.length;
+      },
+      (error) => {                              //Error callback
+        console.error('error caught in component')
+        this.consultsLength = 0;
+
+        throw error;
+      }
+    );
    }
 
   

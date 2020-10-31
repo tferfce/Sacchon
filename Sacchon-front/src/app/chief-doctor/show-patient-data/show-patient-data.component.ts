@@ -46,9 +46,17 @@ export class ShowPatientDataComponent implements OnInit {
    findData(){
     let fromDate = `${this.fromDate.year}/${this.fromDate.month}/${this.fromDate.day}`
     let toDate = `${this.toDate.year}/${this.toDate.month}/${this.toDate.day}`
-    this.showPatientDataService.getPatientData(fromDate, toDate, this.patientId).subscribe((data) => {
+    this.showPatientDataService.getPatientData(fromDate, toDate, this.patientId).subscribe(
+      (data) => {
       this.datalength = data.length;
-    });
+    },
+    (error) => {                              //Error callback
+      console.error('error caught in component')
+      this.datalength = 0;
+
+      throw error;
+    }
+    );
    }
 
 }

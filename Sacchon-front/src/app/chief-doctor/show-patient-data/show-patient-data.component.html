@@ -1,7 +1,6 @@
 <table class="table  table-bordered">
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
         <th scope="col">Actions</th>
@@ -9,7 +8,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let patientData of patients">
-        <th  scope="row">{{patientData.id}}</th>
         <td>{{patientData.firstName}}</td>
         <td>{{patientData.lastName}}</td>
         <td><button class="btn btn-info float-left m-1" (click)="openModal(patDataModal, patientData.id)">Number of Data</button></td>
