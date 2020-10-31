@@ -4,6 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * JPA with Hibernate
+ */
 public class SacchonJpa {
     private static final String PERSISTENCE_UNIT_NAME = "HibernateLab";
     private static EntityManagerFactory factory;

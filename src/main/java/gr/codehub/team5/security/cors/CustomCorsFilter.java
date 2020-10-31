@@ -13,6 +13,12 @@ import org.restlet.util.Series;
 import java.util.Collections;
 import java.util.HashSet;
 
+/**
+ * Init Headers
+ * Request Headers
+ * Set responds
+ * Handle http methods
+ */
 public class CustomCorsFilter {
 
     private Application application;

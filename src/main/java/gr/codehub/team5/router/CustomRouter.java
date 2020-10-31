@@ -5,6 +5,11 @@ import gr.codehub.team5.resource.impl.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
+/**
+ * All our Routes
+ * createApiRouter protected by auth
+ * publicResources open routes
+ */
 public class CustomRouter {
 
     private Application application;

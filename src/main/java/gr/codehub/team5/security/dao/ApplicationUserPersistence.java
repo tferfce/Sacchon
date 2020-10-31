@@ -7,6 +7,9 @@ import org.restlet.Context;
 import java.sql.*;
 import java.util.Objects;
 
+/**
+ * Searching all the Database for user
+ */
 public class ApplicationUserPersistence   {
 
     // Singleton pattern.

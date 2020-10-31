@@ -17,6 +17,10 @@ import org.restlet.security.Role;
 import javax.persistence.EntityManager;
 import java.util.logging.Logger;
 
+/**
+ * Starting our Rest application in port 9000
+ * Inserting Cors filter
+ */
 public class RestApplication extends Application {
     public static final Logger LOGGER = Engine.getLogger(RestApplication.class);
 

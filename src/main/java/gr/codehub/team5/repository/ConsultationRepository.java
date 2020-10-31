@@ -7,6 +7,10 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Repository for Consultation
+ * findByTimeRange -> Searching with time borders
+ */
 public class ConsultationRepository extends Repository<Consultations, Long> {
 
     public ConsultationRepository(EntityManager entityManager) {
