@@ -3,6 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Consultation } from 'src/app/model/consultations.model';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientData } from 'src/app/model/patientData.model';
+import { User } from 'src/app/model/user.model';
+import { StorageService } from 'src/app/storage.service';
 import { DoctorServiceService } from '../doctor-service.service';
 
 @Component({
@@ -11,13 +13,14 @@ import { DoctorServiceService } from '../doctor-service.service';
   styleUrls: ['./patients-with-no-doctor.component.scss']
 })
 export class PatientsWithNoDoctorComponent implements OnInit {
-
+  user:User;
   patients:Patient[]=[];
   dataPatients:PatientData[]=[];
   consultations:Consultation[]=[];
-  constructor(private doctorService:DoctorServiceService, private modalService: NgbModal) { }
+  constructor(private doctorService:DoctorServiceService, private modalService: NgbModal,private storageService:StorageService) { }
 
   ngOnInit(): void {
+    this.user=this.storageService.getScopeUser();
     this.doctorService.getAllPatientsWithNoDoctor().subscribe(data=>{
       this.patients=data;
 
@@ -37,6 +40,12 @@ export class PatientsWithNoDoctorComponent implements OnInit {
     })
   }
 
+  pickPatient(patient:Patient){
+    this.doctorService.patientPicker(this.user,patient).subscribe(data=>{
+      console.log(data);
+    })
+  }
+
   openModal(targetModal,patient:Patient) {
     this.getDataFromPatient(patient);
     this.getConsultsFromPatient(patient);
@@ -44,6 +53,7 @@ export class PatientsWithNoDoctorComponent implements OnInit {
      centered: true,
      backdrop: 'static'
     });
-   
    }
+
+   
 }

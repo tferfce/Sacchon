@@ -32,5 +32,8 @@ public scopeUser:User
     this.scope.id=scopeId;
   }
 
+  public deleteUser():void{
+    localStorage.removeItem('user');
+  }
 
 }
