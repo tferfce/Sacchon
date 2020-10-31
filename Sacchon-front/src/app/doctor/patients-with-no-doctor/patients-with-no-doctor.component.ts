@@ -3,31 +3,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Consultation } from 'src/app/model/consultations.model';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientData } from 'src/app/model/patientData.model';
-import { User } from 'src/app/model/user.model';
-import { StorageService } from 'src/app/storage.service';
 import { DoctorServiceService } from '../doctor-service.service';
 
 @Component({
-  selector: 'app-doctor-data-view',
-  templateUrl: './doctor-data-view.component.html',
-  styleUrls: ['./doctor-data-view.component.scss']
+  selector: 'app-patients-with-no-doctor',
+  templateUrl: './patients-with-no-doctor.component.html',
+  styleUrls: ['./patients-with-no-doctor.component.scss']
 })
-export class DoctorDataViewComponent implements OnInit {
-  
-  user:User;
+export class PatientsWithNoDoctorComponent implements OnInit {
+
   patients:Patient[]=[];
   dataPatients:PatientData[]=[];
   consultations:Consultation[]=[];
-  constructor(private doctorService:DoctorServiceService,private storageService:StorageService, private modalService: NgbModal) 
-  {
-
-  }
+  constructor(private doctorService:DoctorServiceService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.user=this.storageService.getScopeUser();
-    this.doctorService.getDoctorPatients(this.user).subscribe(data=>{
-          //console.log(data);
-        this.patients=data;
+    this.doctorService.getAllPatientsWithNoDoctor().subscribe(data=>{
+      this.patients=data;
+
+     
     });
   }
 
@@ -43,7 +37,6 @@ export class DoctorDataViewComponent implements OnInit {
     })
   }
 
-
   openModal(targetModal,patient:Patient) {
     this.getDataFromPatient(patient);
     this.getConsultsFromPatient(patient);
@@ -53,6 +46,4 @@ export class DoctorDataViewComponent implements OnInit {
     });
    
    }
-   
-
 }

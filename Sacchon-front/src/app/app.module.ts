@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientsWithNoConsultComponent } from './doctor/patients-with-no-consult/patients-with-no-consult.component';
 import { UpdateDataPatientComponent } from './patient/update-data-patient/update-data-patient.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PatientsWithNoDoctorComponent } from './doctor/patients-with-no-doctor/patients-with-no-doctor.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DoctorDataViewComponent,
     PatientsWithNoConsultComponent,
     
-    UpdateDataPatientComponent
+    UpdateDataPatientComponent,
+    
+    PatientsWithNoDoctorComponent
 
   ],
   imports: [
