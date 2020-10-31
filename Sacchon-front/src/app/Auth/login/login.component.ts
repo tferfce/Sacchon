@@ -53,7 +53,8 @@ export class LoginComponent implements OnInit {
     
    }
    else if(data.role="ROLE_CHIEFDOCTOR"){
-     console.log("WORKS");
+    this.storage.setScopeUser(data);
+    this.authService.loginSuccesfullyChiefDoctor();
    }
 
     })

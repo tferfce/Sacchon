@@ -64,6 +64,11 @@ loginSuccesfullyDoctor(){
   this.router.navigate(['/doctor-data-view']);
 
 }
+loginSuccesfullyChiefDoctor(){
+  this.authChange.next(true);
+  this.router.navigate(['/chief-doctor']);
+
+}
 
 
 isAUth(){
