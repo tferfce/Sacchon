@@ -46,6 +46,7 @@ public class CustomRouter {
         router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
 
 
+        router.attach("/patient/AllPatients/get", AllPatientsListImpl.class);
         router.attach("/login", LoginResourceImpl.class);
         return router;
     }

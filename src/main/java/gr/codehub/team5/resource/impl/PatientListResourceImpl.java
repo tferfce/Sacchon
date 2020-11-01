@@ -7,14 +7,10 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientListResource;
-import gr.codehub.team5.resource.util.ResourceUtils;
-import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource  {
@@ -30,17 +26,10 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
             throw new ResourceException(e);
         }
     }
+
     @Override
     protected void doRelease() throws ResourceException {
         em.close();
-    }
-    @Override
-    public List<PatientRepresentation> getAllPatients() throws NotFoundException {
-        List<Patient> patients= patientRepository.findAll();
-        List<PatientRepresentation> patientRepresentationList = new ArrayList<>();
-        patients.forEach(patient -> patientRepresentationList.add(PatientRepresentation.getPatientRepresentation(patient)));
-        return patientRepresentationList;
-
     }
 
     @Override
