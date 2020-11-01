@@ -7,6 +7,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.representation.PatientDataRepresentation;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.GetAllDataForPatient;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -40,6 +42,7 @@ public class GetAllDataForPatientImpl extends ServerResource implements GetAllDa
 
     @Override
     public List<PatientDataRepresentation> getAllData() throws NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         TypedQuery<PatientData> query = em.createQuery("FROM PatientData P WHERE pData_id=:param", PatientData.class);
         query.setParameter("param",this.id);
         List<PatientData> pdataList = query.getResultList();

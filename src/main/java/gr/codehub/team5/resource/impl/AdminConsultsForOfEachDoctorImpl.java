@@ -6,6 +6,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.representation.ConsultationRepresentation;
 import gr.codehub.team5.resource.AdminConsultsForOfEachDoctor;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -46,8 +48,7 @@ public class AdminConsultsForOfEachDoctorImpl extends ServerResource implements 
 
     @Override
     public List<ConsultationRepresentation> getConsultsForEveryDoc() throws NotFoundException, IOException, ParseException {
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
-
+        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         String paramValue1=getQueryValue("fromDate");
         String paramValue2=getQueryValue("toDate");
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);

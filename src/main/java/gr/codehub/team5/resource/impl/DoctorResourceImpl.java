@@ -9,6 +9,8 @@ import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.DoctorRepresentation;
 import gr.codehub.team5.resource.DoctorResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -44,6 +46,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
     @Override
     public DoctorRepresentation getDoctor() throws NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Doctor> doctor = doctorRepository.findById(id);
         setExisting(doctor.isPresent());
         if (!doctor.isPresent())  throw new NotFoundException("Doctor is not found");
@@ -53,6 +56,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
     @Override
     public DoctorRepresentation update(DoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Doctor> doctorOpt = doctorRepository.findById(id);
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given doctor id is not existing");
         Doctor doctor = doctorOpt.get();
@@ -66,7 +70,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     }
     @Override
     public void remove() throws ResourceException, NotFoundException {
-
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Doctor> doctor = doctorRepository.findById(id);
         if (!doctor.isPresent()) throw new NotFoundException("Non existing doctor");
         doctor.get().setActive(false);

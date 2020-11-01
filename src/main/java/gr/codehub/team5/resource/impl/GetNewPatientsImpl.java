@@ -6,6 +6,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.GetNewPatients;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -36,6 +38,7 @@ public class GetNewPatientsImpl extends ServerResource implements GetNewPatients
 
     @Override
     public List<PatientRepresentation> getNewPatients() throws NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         TypedQuery<Patient> query = em.createQuery("FROM Patient P WHERE doctor_id is null", Patient.class);
         List<Patient> patients = query.getResultList();
         if (patients.isEmpty()) throw new NotFoundException("No Patients");

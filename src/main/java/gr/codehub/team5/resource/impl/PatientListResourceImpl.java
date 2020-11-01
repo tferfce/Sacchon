@@ -7,6 +7,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientListResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -34,8 +36,6 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
     }
     @Override
     public List<PatientRepresentation> getAllPatients() throws NotFoundException {
-
-        // ResourceUtils.checkRole(this, CustomRole.ROLE_USER.getRoleName());
         List<Patient> patients= patientRepository.findAll();
         List<PatientRepresentation> patientRepresentationList = new ArrayList<>();
         patients.forEach(patient -> patientRepresentationList.add(PatientRepresentation.getPatientRepresentation(patient)));
@@ -45,11 +45,8 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
     @Override
     public PatientRepresentation addPatient(PatientRepresentation patientRepresentation) throws Exception {
-
         if (patientRepresentation == null) throw new BadEntityException("Null patient error");
-
         userNameCheck(patientRepresentation);
-
         Patient patient = PatientRepresentation.getPatient(patientRepresentation);
         patientRepository.save(patient);
         return PatientRepresentation.getPatientRepresentation(patient);
