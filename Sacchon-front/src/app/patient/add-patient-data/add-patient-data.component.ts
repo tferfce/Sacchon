@@ -41,8 +41,8 @@ export class AddPatientDataComponent implements OnInit {
   }
 
   getPatientData(){
-    this.patientData.bloodGlucose=this.dataPatientForm.get('carbIntake').value;
-    this.patientData.carbIntake=this.dataPatientForm.get('bloodGlucose').value;
+    this.patientData.bloodGlucose=this.dataPatientForm.get('bloodGlucose').value;
+    this.patientData.carbIntake=this.dataPatientForm.get('carbIntake').value;
   }
 
   dataPushSubmit(){
@@ -52,8 +52,8 @@ this.patientService.addData(this.patientData,this.user,).subscribe(data=>{
   console.log(data);
 })
 
-this.patientData.bloodGlucose=this.dataPatientForm.get('carbIntake').value;
-this.patientData.carbIntake=this.dataPatientForm.get('bloodGlucose').value;
+this.patientData.bloodGlucose=this.dataPatientForm.get('bloodGlucose').value;
+this.patientData.carbIntake=this.dataPatientForm.get('carbIntake').value;
 this.isDataPost=true;
   }
   
