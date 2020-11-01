@@ -57,20 +57,20 @@ export class DoctorDataViewComponent implements OnInit {
   }
 
   getDataFromPatient(patient:Patient){
-    this.doctorService.getAllDataFromPatient(patient).subscribe(data=>{
+    this.doctorService.getAllDataFromPatient(patient,this.user).subscribe(data=>{
         this.dataPatients=data;
     })
   }
 
   getConsultsFromPatient(patient:Patient){
-    this.doctorService.getAllConsultationsFromPatient(patient).subscribe(data=>{
+    this.doctorService.getAllConsultationsFromPatient(patient,this.user).subscribe(data=>{
       this.consultations=data;
     })
   }
 
   updateConsultation() {
       this.consultation.consult=this.consult;
-     this.doctorService.updateConsult(this.consultation).subscribe((data)=>{
+     this.doctorService.updateConsult(this.consultation,this.user).subscribe((data)=>{
       this.secondModalService.dismissAll();
       
      })

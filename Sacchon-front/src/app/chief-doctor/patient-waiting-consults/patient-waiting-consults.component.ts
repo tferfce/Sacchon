@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientsWaitConsult } from 'src/app/model/patientsWaitConsult.model';
+import { User } from 'src/app/model/user.model';
+import { StorageService } from 'src/app/storage.service';
 import { ChiefDoctorServiceService } from '../chief-doctor-service.service';
 
 @Component({
@@ -11,11 +13,12 @@ import { ChiefDoctorServiceService } from '../chief-doctor-service.service';
 export class PatientWaitingConsultsComponent implements OnInit {
 
   patients: PatientsWaitConsult[];
-
-  constructor(private patientsWaitingConsults: ChiefDoctorServiceService) { }
+  user:User;
+  constructor(private patientsWaitingConsults: ChiefDoctorServiceService,private storageService:StorageService) { }
 
   ngOnInit(): void {
-    this.patientsWaitingConsults.getPatientsWaitingForConsult().subscribe((data) => {
+    this.user=this.storageService.getScopeUser();
+    this.patientsWaitingConsults.getPatientsWaitingForConsult(this.user).subscribe((data) => {
       this.patients = data
     });
   }

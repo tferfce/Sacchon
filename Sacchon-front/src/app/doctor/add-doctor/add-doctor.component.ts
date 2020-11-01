@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { User } from 'src/app/model/user.model';
+import { StorageService } from 'src/app/storage.service';
 import { DoctorService } from '../doctor.service';
 
 @Component({
@@ -8,11 +10,16 @@ import { DoctorService } from '../doctor.service';
   styleUrls: ['./add-doctor.component.scss']
 })
 export class AddDoctorComponent implements OnInit {
-
+  user:User={
+    id:null,
+    username:'',
+    password:'',
+    role:''
+  }
   addDoctorForm: FormGroup;
   doctorIsAdded: boolean;
 
-  constructor(private doctorService: DoctorService) { }
+  constructor(private doctorService: DoctorService,private storageService:StorageService) { }
 
   ngOnInit(): void {
 
@@ -22,14 +29,14 @@ export class AddDoctorComponent implements OnInit {
       username: new FormControl(),
       password: new FormControl()
     })
-
+    this.user=this.storageService.getScopeUser();
     this.doctorIsAdded = false;
   }
 
   formSubmit(form: FormGroup){
     event.preventDefault();
     console.log(form.value);
-    this.doctorService.addDoctor(form.value).subscribe((data) => {
+    this.doctorService.addDoctor(form.value,this.user).subscribe((data) => {
       console.log(data);
       this.doctorIsAdded = true;
     });

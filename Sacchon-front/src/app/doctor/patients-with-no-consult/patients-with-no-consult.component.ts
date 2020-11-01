@@ -33,7 +33,7 @@ export class PatientsWithNoConsultComponent implements OnInit {
 
   getPatientsWithNoConsult() {
 
-    this.doctorService.getPatientsWithNoConsult(this.user.id).subscribe((data) => {
+    this.doctorService.getPatientsWithNoConsult(this.user).subscribe((data) => {
       this.patientsWithNoConsults = data
       console.log(data)
     });
@@ -53,7 +53,7 @@ export class PatientsWithNoConsultComponent implements OnInit {
       patient: null
      }
      
-     this.doctorService.addConsult(consultation).subscribe((data)=>{
+     this.doctorService.addConsult(consultation,this.user).subscribe((data)=>{
       this.modalService.dismissAll();
        console.log(data)
      })
