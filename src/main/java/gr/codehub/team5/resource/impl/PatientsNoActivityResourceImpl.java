@@ -8,6 +8,8 @@ import gr.codehub.team5.repository.PatientDataRepository;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientsNoActivityResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -45,7 +47,7 @@ public class PatientsNoActivityResourceImpl extends ServerResource implements Pa
 
     @Override
     public List<PatientRepresentation> getPatientsWithNoActivity() throws NotFoundException, ParseException, IOException {
-
+        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         String paramValue1=getQueryValue("fromDate");
         String paramValue2=getQueryValue("toDate");
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);

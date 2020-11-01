@@ -44,7 +44,7 @@ getPatient(){
   this.patient.gender=this.registerForm.get('gender').value;
 }
   onSubmit() {
-    let redirectTo = '/patientData';
+    let redirectTo = '/login';
 this.getPatient();
 this.authService.signup(this.patient).subscribe((data)=>{
   this.patient.id=data.id;

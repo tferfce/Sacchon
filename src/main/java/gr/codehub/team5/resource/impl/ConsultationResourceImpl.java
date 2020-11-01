@@ -7,6 +7,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.representation.ConsultationRepresentation;
 import gr.codehub.team5.resource.ConsultationResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -39,7 +41,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
 
     @Override
     public ConsultationRepresentation getConsultation() throws NotFoundException, ResourceException {
-
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Consultations> consultation = consultationRepository.findById(id);
         setExisting(consultation.isPresent());
         if (!consultation.isPresent())  throw new NotFoundException("Consultation is not found");
@@ -49,7 +51,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
 
     @Override
     public ConsultationRepresentation update(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException {
-
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Consultations> consultationOpt = consultationRepository.findById(id);
         if (!consultationOpt.isPresent()) throw new NotFoundException("The given consultation id is not existing");
         Consultations consultation = consultationOpt.get();

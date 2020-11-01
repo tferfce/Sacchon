@@ -10,6 +10,8 @@ import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.HashPatientsWaitingConsult;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.AllPatientsWaitForConsultResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -40,7 +42,7 @@ public class AllPatientsWaitForConsultResourceImpl extends ServerResource implem
     }
     @Override
     public List<HashPatientsWaitingConsult> getAllPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException {
-
+        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         List<Patient> Patients= patientRepository.findAll();
         HashMap <PatientRepresentation , Long> patientsWaitForConsult = new HashMap <>();
 

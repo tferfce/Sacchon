@@ -8,6 +8,8 @@ import gr.codehub.team5.repository.ConsultationRepository;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.DoctorRepresentation;
 import gr.codehub.team5.resource.DoctorNoActivityResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -45,6 +47,7 @@ public class DoctorNoActivityResourceImpl extends ServerResource implements Doct
 
     @Override
     public List<DoctorRepresentation> getDoctorsWithNoActivity() throws NotFoundException, ParseException, IOException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         String paramValue1 = getQueryValue("fromDate");
         String paramValue2 = getQueryValue("toDate");
         List<Doctor> doctors = doctorRepository.findAll();
