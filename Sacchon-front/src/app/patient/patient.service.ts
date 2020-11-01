@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Average } from '../model/average.model';
@@ -24,9 +24,14 @@ export class PatientService {
   }
 
   showPatientData(dates,user:User): Observable<PatientData[]>{
+    let httpHeaders = new HttpHeaders()
+              .set('authorization','Basic ' +
+              btoa(user.username+':'+ user.password))
+              .set('Content-Type', 'application/json');
+
     const headers = { 'Content-Type': 'application/json' }
     let params = new HttpParams().set("fromDate",dates.fromDate).set("toDate", dates.toDate);
-    return this.http.get<PatientData[]>(this.showDataPatientUrl+user.id+'/data', { headers, params })
+    return this.http.get<PatientData[]>(this.showDataPatientUrl+user.id+'/data', {headers:httpHeaders, params })
   }
 
   avgPatientData(dates,user:User): Observable<Average>{

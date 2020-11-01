@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Consultation } from 'src/app/model/consultations.model';
@@ -14,7 +14,7 @@ import { DoctorServiceService } from '../doctor-service.service';
   templateUrl: './doctor-data-view.component.html',
   styleUrls: ['./doctor-data-view.component.scss']
 })
-export class DoctorDataViewComponent implements OnInit  {
+export class DoctorDataViewComponent implements OnInit {
   consult="";
   user:User;
   patients:Patient[]=[];
@@ -40,10 +40,11 @@ export class DoctorDataViewComponent implements OnInit  {
       patient: null
      }
   constructor(private doctorService:DoctorServiceService,private storageService:StorageService, private modalService: NgbModal,private secondModalService:NgbModal,private router:Router) 
-  {
+  {}
 
-  }
-
+  refreshPage() {
+    window.location.reload();
+   }
 
   ngOnInit(): void {
     this.user=this.storageService.getScopeUser();
@@ -112,6 +113,7 @@ export class DoctorDataViewComponent implements OnInit  {
     });
    
    }
+   
    
 
 }
