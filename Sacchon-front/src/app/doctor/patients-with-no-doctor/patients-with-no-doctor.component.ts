@@ -21,7 +21,7 @@ export class PatientsWithNoDoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this.user=this.storageService.getScopeUser();
-    this.doctorService.getAllPatientsWithNoDoctor().subscribe(data=>{
+    this.doctorService.getAllPatientsWithNoDoctor(this.user).subscribe(data=>{
       this.patients=data;
 
      
@@ -29,13 +29,13 @@ export class PatientsWithNoDoctorComponent implements OnInit {
   }
 
   getDataFromPatient(patient:Patient){
-    this.doctorService.getAllDataFromPatient(patient).subscribe(data=>{
+    this.doctorService.getAllDataFromPatient(patient,this.user).subscribe(data=>{
         this.dataPatients=data;
     })
   }
 
   getConsultsFromPatient(patient:Patient){
-    this.doctorService.getAllConsultationsFromPatient(patient).subscribe(data=>{
+    this.doctorService.getAllConsultationsFromPatient(patient,this.user).subscribe(data=>{
       this.consultations=data;
     })
   }

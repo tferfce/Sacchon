@@ -11,10 +11,11 @@ import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-v
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
 import { ShowDataListComponent } from './patient/show-data-list/show-data-list.component';
 import { PatientsWithNoDoctorComponent } from './doctor/patients-with-no-doctor/patients-with-no-doctor.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 
 const routes: Routes = [
-  {path:'',component:RegisterComponent},
+  {path:'',component:WelcomePageComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'patientData',component:ShowDataListComponent,canActivate:[AuthGuard]},

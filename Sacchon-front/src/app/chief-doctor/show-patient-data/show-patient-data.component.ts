@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Patient } from 'src/app/model/patient.model';
+import { User } from 'src/app/model/user.model';
+import { StorageService } from 'src/app/storage.service';
 import { ChiefDoctorServiceService } from '../chief-doctor-service.service';
 
 @Component({
@@ -9,7 +11,12 @@ import { ChiefDoctorServiceService } from '../chief-doctor-service.service';
   styleUrls: ['./show-patient-data.component.scss']
 })
 export class ShowPatientDataComponent implements OnInit {
-
+  user:User={
+    id:null,
+    username:'',
+    password:'',
+    role:''
+  }
   fromDate: {
     "year": String,
     "month": String,
@@ -24,12 +31,15 @@ export class ShowPatientDataComponent implements OnInit {
   patients: Patient[];
   datalength: number;
 
-  constructor(private showPatientDataService: ChiefDoctorServiceService, private modalService: NgbModal) { }
+  constructor(private showPatientDataService: ChiefDoctorServiceService, private modalService: NgbModal,private storageService:StorageService) { }
 
   ngOnInit(): void {
-    this.showPatientDataService.getPatients().subscribe((data) => {
+    this.user=this.storageService.getScopeUser();
+    this.showPatientDataService.getPatients(this.user).subscribe((data) => {
       this.patients = data
     });
+
+    
   }
 
   openModal(targetModal, patientId) {
@@ -46,7 +56,7 @@ export class ShowPatientDataComponent implements OnInit {
    findData(){
     let fromDate = `${this.fromDate.year}/${this.fromDate.month}/${this.fromDate.day}`
     let toDate = `${this.toDate.year}/${this.toDate.month}/${this.toDate.day}`
-    this.showPatientDataService.getPatientData(fromDate, toDate, this.patientId).subscribe(
+    this.showPatientDataService.getPatientData(fromDate, toDate, this.patientId,this.user).subscribe(
       (data) => {
       this.datalength = data.length;
     },

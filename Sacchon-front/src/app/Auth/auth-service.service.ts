@@ -68,9 +68,11 @@ export class AuthServiceService {
     return this.user != null;
   }
 
+
   logout() {
     this.user = null;
     this.authChange.next(false);
-    this.router.navigate(['/']);
+    this.router.navigate(['']);
   }
+
 }
