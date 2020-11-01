@@ -35,6 +35,12 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
     @Override
     public PatientRepresentation addPatient(PatientRepresentation patientRepresentation) throws Exception {
         if (patientRepresentation == null) throw new BadEntityException("Null patient error");
+        if (patientRepresentation.getFirstName()==null
+                || patientRepresentation.getLastName()==null
+                || patientRepresentation.getPassword()==null
+                || patientRepresentation.getUserName()==null){
+            throw new NotFoundException("Invalid Credentials");
+        }
         userNameCheck(patientRepresentation);
         Patient patient = PatientRepresentation.getPatient(patientRepresentation);
         patientRepository.save(patient);

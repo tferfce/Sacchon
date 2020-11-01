@@ -19,9 +19,13 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false)
     private String userName;
+    @Column(nullable = false)
     private String password;
     private boolean Active = true;
     private CustomRole customRole = CustomRole.ROLE_DOCTOR;

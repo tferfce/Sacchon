@@ -51,7 +51,7 @@ export class AuthServiceService {
   }
 
   registerSuccessfylyPatient() {
-    this.authChange.next(true);
+    this.authChange.next(false);
     this.router.navigate(['/login']);
   }
 

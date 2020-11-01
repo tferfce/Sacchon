@@ -20,7 +20,7 @@ public class ConsultationRepresentation {
     private long patientId;
     private Date date= new Date();
 
-    //Creates Consultation from ConsultationRepresentation
+
     public static Consultations getConsultation(ConsultationRepresentation consultationRepresentation){
         Consultations consultation = new Consultations();
         consultation.setConsult(consultationRepresentation.getConsult());
@@ -30,30 +30,18 @@ public class ConsultationRepresentation {
         return consultation;
     }
 
-    //Creates ConsultationRepresentation from Consultation
+
     public static ConsultationRepresentation getConsultationRepresentation(Consultations consultation){
         ConsultationRepresentation consultationRepresentation = new ConsultationRepresentation();
         consultationRepresentation.setConsult(consultation.getConsult());
         consultationRepresentation.setId(consultation.getId());
-        //consultationRepresentation.setDoctor(consultation.getDocId());
+
         consultationRepresentation.setDoctorId(consultation.getDocId().getId());
         consultationRepresentation.setPatientId(consultation.getPatId().getId());
         consultationRepresentation.setDate(consultation.getDate());
         return consultationRepresentation;
     }
 
-    // TO DO: After merge
-    // public static Consultations getConsultation(ConsultationRepresentation consultationRepresentation){
-    //     Consultations consultation = new Consultations();
-    //     consultation.setConsult(consultationRepresentation.getConsult());
-    //     return consultation;
-    // }
 
-
-    // public static ConsultationRepresentation getConsultationRepresentation(Consultations consultation){
-    //     ConsultationRepresentation consultationRepresentation = new ConsultationRepresentation();
-    //     consultationRepresentation.setConsult(consultation.getConsult());
-    //     return consultationRepresentation;
-    // }
 
 }
