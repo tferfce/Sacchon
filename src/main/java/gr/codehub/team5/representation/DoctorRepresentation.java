@@ -17,7 +17,7 @@ public class DoctorRepresentation {
     private CustomRole customRole;
     private String uri;
 
-    //Creates Doctor from DoctorRepresentation
+
     public static Doctor getDoctor(DoctorRepresentation doctorRepresentation){
         Doctor doctor = new Doctor();
         doctor.setFirstName(doctorRepresentation.getFirstName());
@@ -27,7 +27,7 @@ public class DoctorRepresentation {
         return doctor;
     }
 
-    //Creates DoctorRepresentation from Doctor
+
     public static DoctorRepresentation getDoctorRepresentation(Doctor doctor){
         DoctorRepresentation doctorRepresentation = new DoctorRepresentation();
         doctorRepresentation.setCustomRole(doctor.getCustomRole());

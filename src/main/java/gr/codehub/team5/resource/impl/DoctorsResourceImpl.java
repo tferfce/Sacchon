@@ -2,6 +2,7 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Doctor;
 import gr.codehub.team5.exceptions.BadEntityException;
+import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.DoctorRepresentation;
@@ -44,6 +45,12 @@ public class DoctorsResourceImpl extends ServerResource implements DoctorsResour
     public DoctorRepresentation add(DoctorRepresentation doctorIn) throws Exception {
         ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         if (doctorIn==null) throw new  BadEntityException("Null doctor error");
+        if (doctorIn.getFirstName()==null
+                || doctorIn.getLastName()==null
+                || doctorIn.getPassword()==null
+                || doctorIn.getUserName()==null){
+            throw new NotFoundException("Invalid Credentials");
+        }
         userNameCheck(doctorIn);
 
         Doctor doctor = DoctorRepresentation.getDoctor(doctorIn);
