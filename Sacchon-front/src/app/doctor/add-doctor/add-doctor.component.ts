@@ -16,6 +16,12 @@ export class AddDoctorComponent implements OnInit {
     password:'',
     role:''
   }
+  
+  successMessage:string;
+  isSuccesfullVisible=false;
+  errorMessage:string='';
+  isVisible: boolean = false;
+  
   addDoctorForm: FormGroup;
   doctorIsAdded: boolean;
 
@@ -39,6 +45,19 @@ export class AddDoctorComponent implements OnInit {
     this.doctorService.addDoctor(form.value,this.user).subscribe((data) => {
       console.log(data);
       this.doctorIsAdded = true;
+      this.successMessage='Succesfully add a doctor!'
+      if (this.isSuccesfullVisible) { 
+        return;
+      } 
+      this.isSuccesfullVisible = true;
+      setTimeout(()=> this.isSuccesfullVisible=false,1500); 
+    },(error)=>{
+      this.errorMessage='Error with Server You cant add a doctor!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     });
     this.addDoctorForm.reset();
   }

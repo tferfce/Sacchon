@@ -1,4 +1,7 @@
 <br>
+<div class="alert alert-danger" role="alert" *ngIf="isVisible">
+  <strong>{{errorMessage }} </strong>
+</div>
   <form [formGroup]="datesForm" (submit)="onSubmitForm(datesForm)">
     <div class="form-row">
         <div class="col">

@@ -14,12 +14,23 @@ export class PatientWaitingConsultsComponent implements OnInit {
 
   patients: PatientsWaitConsult[];
   user:User;
+
+  errorMessage:string='';
+  isVisible: boolean = false;
+
   constructor(private patientsWaitingConsults: ChiefDoctorServiceService,private storageService:StorageService) { }
 
   ngOnInit(): void {
     this.user=this.storageService.getScopeUser();
     this.patientsWaitingConsults.getPatientsWaitingForConsult(this.user).subscribe((data) => {
       this.patients = data
+    },(error)=>{
+      this.errorMessage='Error with Server You cant get patients that wait for consult!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     });
   }
 

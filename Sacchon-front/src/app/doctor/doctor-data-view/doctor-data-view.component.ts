@@ -26,8 +26,12 @@ export class DoctorDataViewComponent implements OnInit {
     password:'',
     customeRole:'',
     uri:''
-    
   };
+  isVisible: boolean = false;
+  successMessage:string;
+  isSuccesfullVisible=false;
+  errorMessage:string='';
+
   dataPatients:PatientData[]=[];
   consultations:Consultation[]=[];
    consultation: Consultation ={
@@ -52,6 +56,13 @@ export class DoctorDataViewComponent implements OnInit {
           //console.log(data);
         this.patients=data;
         
+    },(error)=>{
+      this.errorMessage='Error with Server You cant get your Patients!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     });
     this.getDoctor();
   }
@@ -59,13 +70,26 @@ export class DoctorDataViewComponent implements OnInit {
   getDataFromPatient(patient:Patient){
     this.doctorService.getAllDataFromPatient(patient,this.user).subscribe(data=>{
         this.dataPatients=data;
-    })
+      
+    },(error)=>{
+      this.errorMessage='Error with Server You cant get data for your Patient!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); })
   }
 
   getConsultsFromPatient(patient:Patient){
     this.doctorService.getAllConsultationsFromPatient(patient,this.user).subscribe(data=>{
       this.consultations=data;
-    })
+    },(error)=>{
+      this.errorMessage='Error with Server You cant get consults for your  Patient!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); })
   }
 
   updateConsultation() {
@@ -73,28 +97,58 @@ export class DoctorDataViewComponent implements OnInit {
      this.doctorService.updateConsult(this.consultation,this.user).subscribe((data)=>{
       this.secondModalService.dismissAll();
       
-     })
+     },(error)=>{
+      this.errorMessage='Error with Server You cant update consult for your   Patient!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); })
 
   }
 
   deleteDoctor(){
   this.doctorService.deleteDoctor(this.user).subscribe(data=>{
-    console.log(data);
-  });
-  this.storageService.deleteUser();
-  this.router.navigate(['/login']);
+    this.storageService.deleteUser();
+    this.router.navigate(['/login']);
+  },(error)=>{
+    this.errorMessage='Error with Server You cant delete your account';
+    if (this.isVisible) { 
+      return;
+    } 
+    this.isVisible = true;
+    setTimeout(()=> this.isVisible=false,1500); });
+
 
   }
 
   getDoctor(){
     this.doctorService.getDoctorDetails(this.user).subscribe(data=>{
       this.doctor=data;
-    })
+    },(error)=>{
+      this.errorMessage='Error with Server You cant take your Details';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); })
   }
 
-  openModal(targetModal,patient:Patient) {
-    this.getDataFromPatient(patient);
+  openModalForConsults(targetModal,patient:Patient) {
+
+    
     this.getConsultsFromPatient(patient);
+    this.modalService.open(targetModal, {
+      size:'xl',
+     centered: true,
+     backdrop: 'static'
+    });
+   
+   }
+
+   openModalForData(targetModal,patient:Patient) {
+    
+    this.getDataFromPatient(patient);
     this.modalService.open(targetModal, {
       size:'xl',
      centered: true,

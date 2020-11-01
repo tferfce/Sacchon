@@ -1,3 +1,10 @@
+<div class="alert alert-success" role="alert" *ngIf="isSuccesfullVisible">
+    <strong>{{sucessMessage}}</strong>
+  </div>
+  <div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+    <strong>{{errorMessage }} </strong>
+  </div>
+
 <div class="container">
     <form  [formGroup]="UpdateDataPatientForm" (submit)="updateDataOnSubmit()" >
     <div class="form-row">

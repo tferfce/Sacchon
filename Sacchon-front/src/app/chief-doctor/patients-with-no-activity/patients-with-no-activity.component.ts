@@ -17,6 +17,9 @@ export class PatientsWithNoActivityComponent implements OnInit {
     password:'',
     role:''
   }
+  errorMessage:string='';
+  isVisible: boolean = false;
+
   datesForm: FormGroup;
   patients: Patient[];
 
@@ -38,6 +41,13 @@ export class PatientsWithNoActivityComponent implements OnInit {
     let toDate = `${form.value.toDate.year}/${form.value.toDate.month}/${form.value.toDate.day}`
     this.noActivityPatientsService.getPatientsWithNoActivity({fromDate: fromDate, toDate: toDate},this.user).subscribe((data) => {
       this.patients = data
+    },(error)=>{
+      this.errorMessage='Error with Server You cant get patients';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     });
   }
 

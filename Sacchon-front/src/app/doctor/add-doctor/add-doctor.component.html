@@ -1,3 +1,12 @@
+<div>
+    <div class="alert alert-success" role="alert" *ngIf="isSuccesfullVisible">
+      <strong>{{successMessage}}</strong>
+    </div>
+    <div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+      <strong>{{errorMessage }} </strong>
+    </div>
+
+
 <div class="container">
     <h4>Complete the following form to add a doctor</h4><br>
     <div class="alert alert-success alert-dismissible fade show" *ngIf="doctorIsAdded===true">

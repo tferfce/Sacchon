@@ -12,7 +12,11 @@ import { PatientService } from '../patient.service';
 })
 export class UpdateDataPatientComponent implements OnInit {
   UpdateDataPatientForm: FormGroup;
+  sucessMessage:String='';
   user:User;
+  errorMessage:string='';
+  isVisible: boolean = false;
+  isSuccesfullVisible:boolean=false;
   @Input() patientData:PatientData;
   constructor(private patientService:PatientService,private storageService:StorageService) { 
     this.UpdateDataPatientForm=new FormGroup({
@@ -34,7 +38,21 @@ export class UpdateDataPatientComponent implements OnInit {
   updateDataOnSubmit(){
     this.getPatientData();
     this.patientService.updateData(this.patientData,this.user,).subscribe(data=>{
-     
+      this.sucessMessage='Succesfully Updated!';
+      console.log('works');
+      if (this.isSuccesfullVisible) { // if the alert is visible return
+        return;
+      } 
+      this.isSuccesfullVisible = true;
+      setTimeout(()=> this.isSuccesfullVisible=false,1500); 
+},(error)=>{
+  this.errorMessage='Server Problem, You cant delete Your Account';
+  if (this.isVisible) { // if the alert is visible return
+    return;
+  } 
+  this.isVisible = true;
+  setTimeout(()=> this.isVisible=false,1500); // hide the alert after 2.5s
+
 })
   }
  

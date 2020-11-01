@@ -1,4 +1,10 @@
 <div>
+  <div class="alert alert-success" role="alert" *ngIf="isSuccesfullVisible">
+    <strong>{{successMessage}}</strong>
+  </div>
+  <div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+    <strong>{{errorMessage }} </strong>
+  </div>
 <table class="table  table-bordered">
     <thead>
       <tr>
@@ -16,8 +22,8 @@
         <td>{{patient.gender}}</td>
         <td>
             <button class="btn btn-info float-right m-1" (click)="pickPatient(patient)"> Pick Me</button>
-            <button class="btn btn-info float-right m-1" (click)="openModal(consultsPatientModal,patient)"> Consults</button>
-            <button class="btn btn-info float-right m-1 " (click)="openModal(consultationModal,patient)">Data</button>
+            <button class="btn btn-info float-right m-1" (click)="openModalForConsult(consultsPatientModal,patient)"> Consults</button>
+            <button class="btn btn-info float-right m-1 " (click)="openModalForData(consultationModal,patient)">Data</button>
         </td>
       
       </tr>
@@ -33,6 +39,9 @@
    </button>
   </div>
   <div class="modal-body">  
+    <div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+      <strong>{{errorMessage }} </strong>
+    </div>
     <table class="table  table-bordered">
       <thead>
         <tr>
@@ -63,6 +72,9 @@
    </button>
   </div>
   <div class="modal-body ">  
+    <div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+      <strong>{{errorMessage }} </strong>
+    </div>
     <table class="table  table-bordered ">
       <thead>
         <tr>

@@ -20,6 +20,9 @@ export class DoctorsWithNoActivityComponent implements OnInit {
   datesForm: FormGroup;
   doctors: Array<Doctor>
 
+  errorMessage:string='';
+  isVisible: boolean = false;
+
   constructor(private noActivityDoctorsService: ChiefDoctorServiceService,private storageService:StorageService) { }
 
   ngOnInit(): void {
@@ -39,6 +42,13 @@ export class DoctorsWithNoActivityComponent implements OnInit {
     let toDate = `${form.value.toDate.year}/${form.value.toDate.month}/${form.value.toDate.day}`
     this.noActivityDoctorsService.getDoctorsWithNoActivity({fromDate: fromDate, toDate: toDate},this.user).subscribe((data) => {
       this.doctors = data
+    },(error)=>{
+      this.errorMessage='Error with Server You cant get patients that wait for consult!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     });
   }
 

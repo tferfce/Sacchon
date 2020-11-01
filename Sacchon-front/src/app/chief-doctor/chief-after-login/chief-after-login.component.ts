@@ -25,6 +25,8 @@ export class ChiefAfterLoginComponent implements OnInit {
     lastName:'',
     uri:''
   }
+  errorMessage:string='';
+  isVisible: boolean = false;
 
   constructor(private storageService:StorageService,private chiefService:ChiefDoctorServiceService) { }
 
@@ -32,6 +34,13 @@ export class ChiefAfterLoginComponent implements OnInit {
     this.user=this.storageService.getScopeUser();
     this.chiefService.getChiefDetails(this.user).subscribe(data=>{
       this.chief=data;
+    },(error)=>{
+      this.errorMessage='Error with Server You cant fetch your details!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     })
   }
 

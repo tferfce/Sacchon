@@ -1,3 +1,11 @@
+<div>
+  <div class="alert alert-success" role="alert" *ngIf="isSuccesfullVisible">
+    <strong>{{successMessage}}</strong>
+  </div>
+  <div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+    <strong>{{errorMessage }} </strong>
+  </div>
+
 <table class="table  table-bordered">
     <thead>
       <tr>

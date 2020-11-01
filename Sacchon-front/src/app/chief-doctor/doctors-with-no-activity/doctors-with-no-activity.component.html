@@ -21,7 +21,12 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
-</div><br>
+</div>
+<div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+  <strong>{{errorMessage }} </strong>
+</div>
+<br>
+
 <table class="table  table-bordered" *ngIf="doctors?.length">
     <thead>
       <tr>

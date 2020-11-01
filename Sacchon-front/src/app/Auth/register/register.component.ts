@@ -21,7 +21,8 @@ export class RegisterComponent implements OnInit {
      customRole:'',
      uri:''
    };
-   
+   errorMessage:string='';
+   isVisible: boolean = false;
   constructor(private authService:AuthServiceService,private storageService:StorageService) {   
 
     this.registerForm=new FormGroup({
@@ -51,6 +52,13 @@ this.authService.signup(this.patient).subscribe((data)=>{
   this.patient.customRole=data.customRole;
    this.storageService.setScope(this.patient);
    this.authService.registerSuccessfylyPatient();
+},(error)=>{
+  this.errorMessage='Error with Server You cant fetch your details!';
+  if (this.isVisible) { 
+    return;
+  } 
+  this.isVisible = true;
+  setTimeout(()=> this.isVisible=false,1500); 
 });
 
 
