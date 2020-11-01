@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientData } from 'src/app/model/patientData.model';
 import { User } from 'src/app/model/user.model';
@@ -20,7 +21,9 @@ export class AddPatientDataComponent implements OnInit {
    carbIntake:null,
    bloodGlucose:null,
    date:null
+   
  }
+
  
   constructor(private storageService:StorageService,private patientService:PatientService) {
     this.dataPatientForm=new FormGroup({
