@@ -7,80 +7,70 @@ import { User } from '../model/user.model';
 import { StorageService } from '../storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthServiceService {
   // private patient:Patient=this.storage.getScope();
-  private user:User=this.storage.getScopeUser();
-private  endpoint='http://localhost:9000/project/patient';
-private loginEndPoint='http://localhost:9000/project/login';
-  errorMessage:string;
-authChange=new Subject<boolean>();
-constructor(
-  private http:HttpClient,
-  private router:Router,
-  private storage:StorageService
-  ) { }
+  private user: User = this.storage.getScopeUser();
+  private endpoint = 'http://localhost:9000/project/patient';
+  private loginEndPoint = 'http://localhost:9000/project/login';
+  errorMessage: string;
+  authChange = new Subject<boolean>();
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private storage: StorageService
+  ) {}
 
-
-
-  login(user:User){
+  login(user: User) {
     let httpHeaders = new HttpHeaders()
-              .set('authorization','Basic ' +
-              btoa(user.username+':'+ user.password))
-              .set('Content-Type', 'application/json');
+      .set(
+        'authorization',
+        'Basic ' + btoa(user.username + ':' + user.password)
+      )
+      .set('Content-Type', 'application/json');
     const httpOptions = {
-        headers: httpHeaders
-}; 
-    return this.http.get<User>(this.loginEndPoint,httpOptions);
+      headers: httpHeaders,
+    };
+    return this.http.get<User>(this.loginEndPoint, httpOptions);
   }
 
-  signup(patient:Patient){
-    
-  return  this.http.post<Patient>(this.endpoint,{
-      'firstName':patient.firstName,
-      'lastName':patient.lastName,
-      'gender':patient.gender,
-      'userName':patient.userName,
-      'password':patient.password
-
-  })
+  signup(patient: Patient) {
+    return this.http.post<Patient>(this.endpoint, {
+      firstName: patient.firstName,
+      lastName: patient.lastName,
+      gender: patient.gender,
+      userName: patient.userName,
+      password: patient.password,
+    });
   }
 
-
-  authSuccessfully(){
+  authSuccessfully() {
     this.authChange.next(true);
     this.router.navigate(['/patientData']);
-}
+  }
 
-registerSuccessfylyPatient(){
-  this.authChange.next(true);
-  this.router.navigate(['/login']);
+  registerSuccessfylyPatient() {
+    this.authChange.next(true);
+    this.router.navigate(['/login']);
+  }
 
-}
+  loginSuccesfullyDoctor() {
+    this.authChange.next(true);
+    this.router.navigate(['/doctor-data-view']);
+  }
+  loginSuccesfullyChiefDoctor() {
+    this.authChange.next(true);
+    this.router.navigate(['/chief-doctor']);
+  }
 
-loginSuccesfullyDoctor(){
-  this.authChange.next(true);
-  this.router.navigate(['/doctor-data-view']);
+  isAUth() {
+    return this.user != null;
+  }
 
-}
-loginSuccesfullyChiefDoctor(){
-  this.authChange.next(true);
-  this.router.navigate(['/chief-doctor']);
-
-}
-
-
-isAUth(){
-  return this.user != null;
-}
-
-logout(){
-
-  this.user=null;
-  this.authChange.next(false);
-  this.router.navigate(['/login']);
-  
-}
-
+  logout() {
+    this.user = null;
+    this.authChange.next(false);
+    this.router.navigate(['/']);
+  }
 }

@@ -6,6 +6,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientDataRepository;
 import gr.codehub.team5.representation.PatientDataRepresentation;
 import gr.codehub.team5.resource.PatientDataResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -47,10 +49,10 @@ public class PatientDataResourceImpl extends ServerResource implements PatientDa
 
     @Override
     public List<PatientDataRepresentation> getPatientData() throws NotFoundException, IOException, ParseException {
-        //List<String> roles = new ArrayList<>();
-        //roles.add(CustomRole.ROLE_PATIENT.getRoleName());
-        //roles.add(CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
-        //ResourceUtils.checkRole(this, roles);
+        List<String> roles = new ArrayList<>();
+        roles.add(CustomRole.ROLE_PATIENT.getRoleName());
+        roles.add(CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
+        ResourceUtils.checkRole(this, roles);
         String paramValue1=getQueryValue("fromDate");
         String paramValue2=getQueryValue("toDate");
         Date dateFrom = new SimpleDateFormat("yyyy/MM/dd").parse(paramValue1);
