@@ -44,20 +44,24 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.getUser();
+ 
     this.authService.login(this.user).subscribe(data=>{
    if(data.role=="ROLE_PATIENT")
    {
      this.storage.setScopeUser(data);
+    // this.storage.setisAuth(true);
      this.authService.authSuccessfully();
    }
    else if(data.role=="ROLE_DOCTOR")
    {
      this.storage.setScopeUser(data);
+    // this.storage.setisAuth(true);
      this.authService.loginSuccesfullyDoctor();
     
    }
    else if(data.role="ROLE_CHIEFDOCTOR"){
     this.storage.setScopeUser(data);
+ //   this.storage.setisAuth(true);
     this.authService.loginSuccesfullyChiefDoctor();
    }
 

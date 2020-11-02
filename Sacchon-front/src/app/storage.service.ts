@@ -36,11 +36,11 @@ public isAuth:Boolean
   public deleteUser():void{
     localStorage.removeItem('user');
   }
-  public setisAuth(isAuth:Boolean):void{
+  public setisAuth(isAuth:boolean):void{
     this.isAuth=isAuth;
     localStorage.setItem('isAuth', JSON.stringify(isAuth));
   }
-  public getIsAuth():Boolean{
+  public getIsAuth():boolean{
     //this.scopeUser;
     return JSON.parse(localStorage.getItem('isAuth'))
  }

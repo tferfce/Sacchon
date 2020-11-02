@@ -12,7 +12,9 @@ canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot){
         return true;
     }
     else{
+        
         this.router.navigate(['/login']);
+       
     }
 }
 }
