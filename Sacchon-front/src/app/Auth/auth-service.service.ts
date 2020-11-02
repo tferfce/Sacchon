@@ -71,6 +71,8 @@ export class AuthServiceService {
 
   logout() {
     this.user = null;
+    this.storage.setScopeUser(null);
+    this.storage.setisAuth(false);
     this.authChange.next(false);
     this.router.navigate(['']);
   }

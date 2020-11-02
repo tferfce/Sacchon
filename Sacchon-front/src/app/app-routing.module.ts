@@ -18,13 +18,13 @@ const routes: Routes = [
   {path:'',component:WelcomePageComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'patientData',component:ShowDataListComponent,canActivate:[AuthGuard]},
-  {path:'addPatientData',component:AddPatientDataComponent,canActivate:[AuthGuard]},
+  {path:'patientData',component:ShowDataListComponent},
+  {path:'addPatientData',component:AddPatientDataComponent},
   {path: 'chief-doctor', component:ChiefAfterLoginComponent},
   {path: 'add-consultation', component:AddConsultationComponent},
   {path: 'show-doctor-consult', component:ShowDoctorConsultationsComponent},
   {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent},
-  {path:'doctor-data-view', component:DoctorDataViewComponent, canActivate:[AuthGuard]},
+  {path:'doctor-data-view', component:DoctorDataViewComponent},
   {path:'show-patients-with-no-doctor',component:PatientsWithNoDoctorComponent}
 
 
@@ -33,6 +33,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes,{ onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: []
 })
 export class AppRoutingModule { }
