@@ -17,6 +17,10 @@ export class LoginComponent implements OnInit {
     password:'',
     role:''
   }
+
+  errorMessage:string='';
+  isVisible: boolean = false;
+
   constructor(private authService:AuthServiceService,private storage:StorageService) {
     this.loginForm=new FormGroup({
       username:new FormControl(),
@@ -57,6 +61,13 @@ export class LoginComponent implements OnInit {
     this.authService.loginSuccesfullyChiefDoctor();
    }
 
+    },(error)=>{
+      this.errorMessage='Error with Server You cant do login!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     })
   }
   

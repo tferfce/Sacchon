@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientData } from 'src/app/model/patientData.model';
 import { User } from 'src/app/model/user.model';
@@ -17,12 +18,18 @@ export class AddPatientDataComponent implements OnInit {
  user:User;
  isDataPost=false;
  dataPatientForm: FormGroup;
+
  patientData:PatientData={
    id:null,
    carbIntake:null,
    bloodGlucose:null,
    date:null
  }
+ isVisible: boolean = false;
+ successMessage:string;
+ isSuccesfullVisible=false;
+ errorMessage:string='';
+
  
   constructor(private storageService:StorageService,private patientService:PatientService, private modalService: NgbModal) {
     this.dataPatientForm=new FormGroup({
@@ -52,11 +59,26 @@ this.patientService.addData(this.patientData,this.user,).subscribe(data=>{
   this.modalService.dismissAll();
 
   console.log(data);
+  this.isDataPost=true;
+  this.successMessage='Succesfully data added!';
+  console.log('works');
+  if (this.isSuccesfullVisible) { // if the alert is visible return
+    return;
+  } 
+  this.isSuccesfullVisible = true;
+  setTimeout(()=> this.isSuccesfullVisible=false,1500); 
+},
+(error)=>{
+  this.errorMessage='Server Problem, You cant add data!';
+  if (this.isVisible) { // if the alert is visible return
+    return;
+  } 
+  this.isVisible = true;
+  setTimeout(()=> this.isVisible=false,1500); // hide the alert after 2.5s
 })
 
-this.patientData.bloodGlucose=this.dataPatientForm.get('bloodGlucose').value;
-this.patientData.carbIntake=this.dataPatientForm.get('carbIntake').value;
-this.isDataPost=true;
+
+
   }
   
   

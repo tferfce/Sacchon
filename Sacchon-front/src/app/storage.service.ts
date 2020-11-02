@@ -8,6 +8,7 @@ import { User } from './model/user.model';
 export class StorageService {
 public scope:Patient
 public scopeUser:User
+public isAuth:Boolean
   constructor() { }
 
   public getScope():Patient{
@@ -35,5 +36,15 @@ public scopeUser:User
   public deleteUser():void{
     localStorage.removeItem('user');
   }
+  public setisAuth(isAuth:Boolean):void{
+    this.isAuth=isAuth;
+    localStorage.setItem('isAuth', JSON.stringify(isAuth));
+  }
+  public getIsAuth():Boolean{
+    //this.scopeUser;
+    return JSON.parse(localStorage.getItem('isAuth'))
+ }
+ 
+
 
 }

@@ -26,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowPatientDataComponent } from './chief-doctor/show-patient-data/show-patient-data.component';
 import { PatientWaitingConsultsComponent } from './chief-doctor/patient-waiting-consults/patient-waiting-consults.component';
 import { PatientsWithNoDoctorComponent } from './doctor/patients-with-no-doctor/patients-with-no-doctor.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { PatientsWithNoDoctorComponent } from './doctor/patients-with-no-doctor/
     ShowPatientDataComponent,
     
     PatientWaitingConsultsComponent,
-    PatientsWithNoDoctorComponent
+    PatientsWithNoDoctorComponent,
+    WelcomePageComponent
 
   ],
   imports: [

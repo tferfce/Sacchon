@@ -7,6 +7,8 @@ import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientToDoctorResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -40,6 +42,7 @@ public class PatientToDoctorResourceImpl extends ServerResource implements Patie
 
     @Override
     public PatientRepresentation setDoctorToPatient() throws ResourceException, NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Patient> patient = patientRepository.findById(patientId);
         Optional<Doctor> doctor= doctorRepository.findById(doctorId);
         if (!patient.isPresent() || !doctor.isPresent()) throw new NotFoundException("No Such patient or Doctor");

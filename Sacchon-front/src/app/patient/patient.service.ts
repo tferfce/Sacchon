@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Average } from '../model/average.model';
@@ -17,52 +17,89 @@ export class PatientService {
   constructor(private storageService:StorageService,private http:HttpClient ) { }
 
   addData(patientData:PatientData,user:User){
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
     return this.http.post<PatientData>(this.postDataUrl+user.id,{
       'carbIntake':patientData.carbIntake,
       'bloodGlucose':patientData.bloodGlucose
-    });
+    },{headers:httpHeaders});
   }
 
   showPatientData(dates,user:User): Observable<PatientData[]>{
-    const headers = { 'Content-Type': 'application/json' }
+    let httpHeaders = new HttpHeaders()
+              .set('authorization','Basic ' +
+              btoa(user.username+':'+ user.password))
+              .set('Content-Type', 'application/json');
+
     let params = new HttpParams().set("fromDate",dates.fromDate).set("toDate", dates.toDate);
-    return this.http.get<PatientData[]>(this.showDataPatientUrl+user.id+'/data', { headers, params })
+    return this.http.get<PatientData[]>(this.showDataPatientUrl+user.id+'/data', {headers:httpHeaders, params })
   }
 
   avgPatientData(dates,user:User): Observable<Average>{
-    const headers = { 'Content-Type': 'application/json' }
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
+
     let params = new HttpParams().set("fromDate",dates.fromDate).set("toDate", dates.toDate);
-    return this.http.get<Average>(this.showDataPatientUrl+user.id+'/avg', { headers, params })
+    return this.http.get<Average>(this.showDataPatientUrl+user.id+'/avg', { headers:httpHeaders, params })
   }
 
   patientDataDelete(user:User,patientData:PatientData){
-    const headers = { 'Content-Type': 'application/json' }
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
+
+
     let params = new HttpParams().set('id',patientData.id);
-    return this.http.delete(this.showDataPatientUrl+user.id+'/data/edit',{headers,params});
+    return this.http.delete(this.showDataPatientUrl+user.id+'/data/edit',{headers:httpHeaders,params});
   }
 
   updateData(patientData:PatientData,user:User){
-    const headers = { 'Content-Type': 'application/json' }
+
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
+
     let params = new HttpParams().set('id',patientData.id);
     return this.http.put<PatientData>(this.showDataPatientUrl+user.id+'/data/edit',{
       'carbIntake':patientData.carbIntake,
       'bloodGlucose':patientData.bloodGlucose
-    },{headers,params});
+    },{headers:httpHeaders,params});
   }
 
   getConsultations(user:User){
-    return this.http.get<Consultation[]>(this.showDataPatientUrl+user.id+'/consultations');
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
+
+    return this.http.get<Consultation[]>(this.showDataPatientUrl+user.id+'/consultations',{headers:httpHeaders});
   }
 
 
   deletePatient(user:User){
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
+
     const headers = { 'Content-Type': 'application/json' }
-    return this.http.delete(this.postDataUrl+user.id,{headers});
+    return this.http.delete(this.postDataUrl+user.id,{headers:httpHeaders});
   }
 
   getPatient(user:User){
+    let httpHeaders = new HttpHeaders()
+    .set('authorization','Basic ' +
+    btoa(user.username+':'+ user.password))
+    .set('Content-Type', 'application/json');
+
     const headers = { 'Content-Type': 'application/json' }
-    return this.http.get<Patient>(this.showDataPatientUrl+user.id, { headers})
+    return this.http.get<Patient>(this.showDataPatientUrl+user.id, { headers:httpHeaders})
   }
 
 

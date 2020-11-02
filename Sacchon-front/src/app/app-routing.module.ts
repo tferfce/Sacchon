@@ -10,10 +10,12 @@ import { DoctorsWithNoActivityComponent } from './chief-doctor/doctors-with-no-a
 import { DoctorDataViewComponent } from './doctor/doctor-data-view/doctor-data-view.component';
 import { AddPatientDataComponent } from './patient/add-patient-data/add-patient-data.component';
 import { ShowDataListComponent } from './patient/show-data-list/show-data-list.component';
+import { PatientsWithNoDoctorComponent } from './doctor/patients-with-no-doctor/patients-with-no-doctor.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 
 const routes: Routes = [
-  {path:'',component:RegisterComponent},
+  {path:'',component:WelcomePageComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'patientData',component:ShowDataListComponent,canActivate:[AuthGuard]},
@@ -22,12 +24,14 @@ const routes: Routes = [
   {path: 'add-consultation', component:AddConsultationComponent},
   {path: 'show-doctor-consult', component:ShowDoctorConsultationsComponent},
   {path: 'doctors-with-no-activity', component:DoctorsWithNoActivityComponent},
-  {path:'doctor-data-view', component:DoctorDataViewComponent, canActivate:[AuthGuard]}
+  {path:'doctor-data-view', component:DoctorDataViewComponent, canActivate:[AuthGuard]},
+  {path:'show-patients-with-no-doctor',component:PatientsWithNoDoctorComponent}
+
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
   providers: [AuthGuard]
 })

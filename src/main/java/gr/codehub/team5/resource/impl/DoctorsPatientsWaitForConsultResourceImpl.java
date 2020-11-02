@@ -10,6 +10,8 @@ import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.DoctorRepository;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.DoctorsPatientsWaitForConsultResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -47,8 +49,8 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
     }
 
     @Override
-    public List<PatientRepresentation> getDoctorsPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException {
-
+    public List<PatientRepresentation> getDoctorsPatientsWaitForConsult() throws ResourceException, NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Doctor> doctorOpt = doctorRepository.findById(doctorId);
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given doctor id is not existing");
         Doctor doctor = doctorOpt.get();
@@ -70,8 +72,6 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
                 patientsWaitForConsult= checkdiff(lastConsultDate, patientsWaitForConsult, patient);
             }
         }
-        if (patientsWaitForConsult.isEmpty()) throw new NotFoundException("No Patients waiting consults");
-
         return patientsWaitForConsult;
     }
 
@@ -106,8 +106,7 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
 
     }
     public List<PatientRepresentation> checkdiff(Date fromDate, List<PatientRepresentation> patientsWaitForConsult, Patient patient){
-        if(calculatediff(fromDate)>=0){//30 days
-            Long days= calculatediff(fromDate) -0;
+        if(calculatediff(fromDate)>=30){//30 days
             patientsWaitForConsult.add(PatientRepresentation.getPatientRepresentation(patient));
         }
         return patientsWaitForConsult;

@@ -3,6 +3,7 @@ package gr.codehub.team5.resource;
 import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.resource.loginUser.LoginUserPersistence;
 import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 
 /**
  * The most crucial Request! Our login depends on it.

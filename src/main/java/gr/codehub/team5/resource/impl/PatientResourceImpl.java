@@ -9,6 +9,8 @@ import gr.codehub.team5.repository.PatientRepository;
 import gr.codehub.team5.representation.PatientDataRepresentation;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.PatientResource;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
@@ -39,16 +41,17 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
     @Override
     public PatientRepresentation getPatient() throws NotFoundException, ResourceException {
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         Optional<Patient> patient = patientRepository.findById(id);
         setExisting(patient.isPresent());
         if (!patient.isPresent()) throw new NotFoundException("Patient is not found");
         PatientRepresentation patientRepresentation = PatientRepresentation.getPatientRepresentation(patient.get());
         return patientRepresentation;
     }
+
     @Override
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         Optional<Patient> patientOptional = patientRepository.findById(id);
         if (!patientOptional.isPresent()) throw new NotFoundException("No such patient exists");
         Patient patient = patientOptional.get();
@@ -63,7 +66,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
     @Override
     public PatientDataRepresentation addPatientData(PatientData patientData) throws BadEntityException, NotFoundException {
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         Optional<Patient> patientOpt = patientRepository.findById(id);
         if (!patientOpt.isPresent()) throw new NotFoundException("No such patient exists");
         Patient patient = patientOpt.get();
@@ -75,6 +78,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
     @Override
     public void deletePatient() throws NotFoundException {
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
         Optional<Patient> patientOpt = patientRepository.findById(id);
         if (!patientOpt.isPresent()) throw new NotFoundException("No such patient exists");
         patientOpt.get().setActive(false);

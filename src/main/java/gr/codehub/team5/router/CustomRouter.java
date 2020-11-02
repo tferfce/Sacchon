@@ -20,31 +20,34 @@ public class CustomRouter {
 
     public Router createApiRouter() {
         Router router = new Router(application.getContext());
-//        //apis
-//
-//        // Patient
-//        router.attach("/patient/{id}", PatientResourceImpl.class);
-       router.attach("/patient/{id}/data", PatientDataResourceImpl.class);//Admin Privilege also
-//        router.attach("/patient/{id}/data/{listId}", PatientDataSpecifyResourceImpl.class);
-//        router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
-//        router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);
-//
-//        // Doctor
-//        router.attach("/doctors", DoctorsResourceImpl.class);
-//        router.attach("/doctor/{id}", DoctorResourceImpl.class);
-//        router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
-//
-//
-//        // Consultation
-//        router.attach("/consultations", ConsultationsResourceImpl.class);
-//        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
-//
-//        // Administrator
-//        router.attach("/admin", AdministratorResourceImpl.class);
-//        router.attach("/admin/{id}", AdminResourceGetImpl.class);
-//        router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
-//
-   router.attach("/login", LoginResourceImpl.class);
+        //Patient
+        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
+        router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient/{id}/data/edit", PatientDataSpecifyResourceImpl.class);
+        router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);
+        router.attach("/patient/{id}/AllData", GetAllDataForPatientImpl.class);
+        router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
+        //Doctor
+        router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
+        router.attach("/doctor/{id}/myPatients", GetPatientsForASpecificDoctorImpl.class);
+        router.attach("/newPatients", GetNewPatientsImpl.class);
+        router.attach("/doctors", DoctorsResourceImpl.class);
+        router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
+        router.attach("/doctor/{id}", DoctorResourceImpl.class);
+
+        router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
+
+        router.attach("/consultations", ConsultationsResourceImpl.class);
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+        //Admin
+        router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
+        router.attach("/allPatientsWaitForConsult", AllPatientsWaitForConsultResourceImpl.class);
+        router.attach("/admin/{id}", AdminResourceGetImpl.class);
+        router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
+
+
+        router.attach("/patient/AllPatients/get", AllPatientsListImpl.class);
+        router.attach("/login", LoginResourceImpl.class);
         return router;
     }
 
@@ -52,34 +55,7 @@ public class CustomRouter {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class);
         router.attach("/patient", PatientListResourceImpl.class);
-
-        // Patient
-        router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/patient/{id}/data", PatientDataResourceImpl.class);
-        router.attach("/patient/{id}/data/edit", PatientDataSpecifyResourceImpl.class);
-        router.attach("/patient/{id}/consultations", ConsultationListImpl.class);
-        router.attach("/patient/{id}/avg", PatientAvgDataImpl.class);
-        router.attach("/patient/{id}/AllData", GetAllDataForPatientImpl.class);
-
-        // Doctor
-        router.attach("/doctors", DoctorsResourceImpl.class);
-        router.attach("/doctor/{id}", DoctorResourceImpl.class);
-        router.attach("/noactivity", DoctorNoActivityResourceImpl.class);
-        router.attach("/doctor/{id}/myPatients", GetPatientsForASpecificDoctorImpl.class);
-        router.attach("/addPatientToDoctor/{doctorId}/{patientId}", PatientToDoctorResourceImpl.class );
-        router.attach("/doctorsPatientsWaitForConsult/{doctorId}", DoctorsPatientsWaitForConsultResourceImpl.class);
-        router.attach("/newPatients", GetNewPatientsImpl.class);
-
-        // Consultation
-        router.attach("/consultations", ConsultationsResourceImpl.class);
-        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
-
-        // Administrator
         router.attach("/admin", AdministratorResourceImpl.class);
-        router.attach("/admin/{id}", AdminResourceGetImpl.class);
-        router.attach("/admin/doctor/{id}/consults", AdminConsultsForOfEachDoctorImpl.class);
-        router.attach("/patientsWithNoActivity", PatientsNoActivityResourceImpl.class);
-        router.attach("/allPatientsWaitForConsult", AllPatientsWaitForConsultResourceImpl.class);
 
         return router;
     }

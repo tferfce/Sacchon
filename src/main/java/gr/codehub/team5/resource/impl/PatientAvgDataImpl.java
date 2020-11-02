@@ -5,6 +5,8 @@ import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.PatientDataRepository;
 import gr.codehub.team5.resource.PatientAvgData;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -41,7 +43,7 @@ public class PatientAvgDataImpl extends ServerResource implements PatientAvgData
 
     @Override
     public Map<String, Double> getAvgData() throws NotFoundException,ParseException {
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
+        ResourceUtils.checkRole(this, CustomRole.ROLE_PATIENT.getRoleName());
 
         String paramValue1=getQueryValue("fromDate");
         String paramValue2=getQueryValue("toDate");
@@ -69,8 +71,6 @@ public class PatientAvgDataImpl extends ServerResource implements PatientAvgData
         Map<String ,Double> avgStatistics = new HashMap();
         avgStatistics.put("avgCarbs",totalCarbs/pdataList.size());
         avgStatistics.put("avgGlycose",totalBloodGlucose/pdataList.size());
-//        avgStatistics[0] = totalCarbs/pdataList.size();
-//        avgStatistics[1] = totalBloodGlucose/pdataList.size();
         return avgStatistics;
     }
 }

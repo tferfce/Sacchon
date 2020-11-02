@@ -2,6 +2,7 @@ package gr.codehub.team5.resource.impl;
 
 import gr.codehub.team5.Model.Administrator;
 import gr.codehub.team5.exceptions.BadEntityException;
+import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.repository.AdministratorRepository;
 import gr.codehub.team5.resource.AdministratorResource;
@@ -36,10 +37,13 @@ public class AdministratorResourceImpl extends ServerResource implements Adminis
     @Override
     public Administrator addAdmin(Administrator admin) throws Exception {
         if (admin==null) throw new BadEntityException("Null admin error");
-        //ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
-
+        if (admin.getFirstName()==null
+                || admin.getLastName()==null
+                || admin.getPassword()==null
+                || admin.getUserName()==null){
+            throw new NotFoundException("Invalid Credentials");
+        }
         userNameCheck(admin);
-
         administratorRepository.save(admin);
         return admin;
     }

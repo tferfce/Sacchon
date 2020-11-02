@@ -12,7 +12,7 @@ import { PatientService } from '../patient.service';
 })
 export class ShowAverageComponent implements OnInit {
   datesForm: FormGroup;
-
+  isVisible: boolean = false;
   user:User=this.storageService.getScopeUser();
   constructor(private storageService:StorageService,private patientService:PatientService) { }
   dataAverage:Average={
@@ -20,6 +20,7 @@ export class ShowAverageComponent implements OnInit {
     avgCarbs:null,
     avgGlycose:null
   };
+  errorMessage:string='';
   ngOnInit(): void {
 
     this.datesForm = new FormGroup({
@@ -33,8 +34,17 @@ export class ShowAverageComponent implements OnInit {
       console.log(data);
      this.dataAverage.avgCarbs=data.avgCarbs;
      this.dataAverage.avgGlycose=data.avgGlycose;
-      
-    })
+    
+    },
+    (error)=>{
+      this.errorMessage='You dont have data for these dates';
+    if (this.isVisible) { // if the alert is visible return
+      return;
+    } 
+    this.isVisible = true;
+    setTimeout(()=> this.isVisible=false,1500); // hide the alert after 2.5s
+}) 
      }
+     
 
 }

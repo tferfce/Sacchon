@@ -14,7 +14,7 @@ public class AdministratorRepresentation {
     private String lastName;
     private CustomRole customRole;
 
-    //Creates Administrator from AdministratorRepresentation
+
     public static Administrator getAdministrator(AdministratorRepresentation administratorRepresentation){
         Administrator administrator = new Administrator();
         administrator.setFirstName(administratorRepresentation.getFirstName());
@@ -22,7 +22,7 @@ public class AdministratorRepresentation {
         return administrator;
     }
 
-    //Creates AdministratorRepresentation from Administrator
+
     public static AdministratorRepresentation getAdministratorRepresentation(Administrator administrator){
         AdministratorRepresentation administratorRepresentation = new AdministratorRepresentation();
         administratorRepresentation.setId(administrator.getId());

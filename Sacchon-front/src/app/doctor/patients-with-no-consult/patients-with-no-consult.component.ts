@@ -4,7 +4,7 @@ import { StorageService } from '../../storage.service';
 import { User } from '../../model/user.model';
 import { Patient } from 'src/app/model/patient.model';
 import { Consultation } from 'src/app/model/consultations.model';
-import { Doctor } from 'src/app/model/doctor.model';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -19,7 +19,10 @@ export class PatientsWithNoConsultComponent implements OnInit {
   patientsWithNoConsults: Array<Patient>
   selectedPatient : Patient
   consult= ""
-
+  isVisible: boolean = false;
+  successMessage:string;
+  isSuccesfullVisible=false;
+  errorMessage:string='';
 
 
   constructor(private doctorService: DoctorServiceService, private storage: StorageService, private modalService: NgbModal) { }
@@ -33,9 +36,17 @@ export class PatientsWithNoConsultComponent implements OnInit {
 
   getPatientsWithNoConsult() {
 
-    this.doctorService.getPatientsWithNoConsult(this.user.id).subscribe((data) => {
+    this.doctorService.getPatientsWithNoConsult(this.user).subscribe((data) => {
       this.patientsWithNoConsults = data
       console.log(data)
+    },
+    (error)=>{
+      this.errorMessage='Error with Server You cant get Patients!';
+      if (this.isVisible) { 
+        return;
+      } 
+      this.isVisible = true;
+      setTimeout(()=> this.isVisible=false,1500); 
     });
 
   }
@@ -52,9 +63,23 @@ export class PatientsWithNoConsultComponent implements OnInit {
       doctor: null,
       patient: null
      }
-      this.doctorService.addConsult(consultation).subscribe((data)=>{
+     
+     this.doctorService.addConsult(consultation,this.user).subscribe((data)=>{
       this.modalService.dismissAll();
-       console.log(data)
+      this.successMessage='Consultation Succesfully added!';
+      if (this.isSuccesfullVisible) { 
+        return;
+      } 
+      this.isSuccesfullVisible = true;
+      setTimeout(()=> this.isSuccesfullVisible=false,1500); 
+     },
+     (error)=>{
+       this.errorMessage='Error with Server You cant add a Consult!';
+       if (this.isVisible) { 
+         return;
+       } 
+       this.isVisible = true;
+       setTimeout(()=> this.isVisible=false,1500); 
      })
 
   }

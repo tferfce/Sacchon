@@ -1,3 +1,8 @@
+<div class="alert alert-danger"   role="alert" *ngIf="isVisible">
+  <strong>{{errorMessage }} </strong>
+</div>
+
+
 <table class="table  table-bordered" *ngIf="patients?.length">
     <thead>
       <tr>

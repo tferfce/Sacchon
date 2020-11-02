@@ -5,6 +5,8 @@ import gr.codehub.team5.exceptions.NotFoundException;
 import gr.codehub.team5.jpa.SacchonJpa;
 import gr.codehub.team5.representation.PatientRepresentation;
 import gr.codehub.team5.resource.GetPatientsForASpecificDoctor;
+import gr.codehub.team5.resource.util.ResourceUtils;
+import gr.codehub.team5.security.CustomRole;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -40,13 +42,13 @@ public class GetPatientsForASpecificDoctorImpl extends ServerResource implements
     }
 
     @Override
-    public List<PatientRepresentation> getSpecificPatients() throws NotFoundException {
+    public List<PatientRepresentation> getSpecificPatients(){
+        ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         TypedQuery<Patient> query = em.createQuery("FROM Patient P WHERE doctor_id=:param", Patient.class);
         query.setParameter("param",this.id);
         List<Patient> patients = query.getResultList();
         List<PatientRepresentation> patientRepresentations = new ArrayList<>();
         patients.forEach(patient -> patientRepresentations.add(PatientRepresentation.getPatientRepresentation(patient)));
-        if (patientRepresentations.isEmpty()) throw new NotFoundException("This doctor has no Patients");
         return patientRepresentations;
     }
 }
