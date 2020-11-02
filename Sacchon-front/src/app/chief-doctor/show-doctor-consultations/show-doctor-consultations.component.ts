@@ -24,6 +24,7 @@ export class ShowDoctorConsultationsComponent implements OnInit {
     "month": String,
     "day": String
   };
+  
   user:User={
     id:null,
     username:'',

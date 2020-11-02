@@ -28,10 +28,20 @@
   <form [formGroup]="datesForm" (submit)="onSubmitForm(datesForm)">
     <div class="form-row">
         <div class="col">
-            <input class="form-control" formControlName ="fromDate" type="text" placeholder="From Date"/>
+          <div class="input-group">
+            <input class="form-control" formControlName ="fromDate" type="text" placeholder="From Date"  ngbDatepicker #d="ngbDatepicker" name="dp"/>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"  type="button"></button>
+            </div>
+          </div>
         </div>
         <div class="col">
-            <input class="form-control" formControlName ="toDate" type="text" placeholder="To Date"/>
+          <div class="input-group">
+            <input class="form-control" formControlName ="toDate" type="text" placeholder="To Date" ngbDatepicker #d2="ngbDatepicker" name="dp"/>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+            </div>
+          </div>   
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </div>

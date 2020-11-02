@@ -30,7 +30,9 @@ export class ShowAverageComponent implements OnInit {
   }
 
   onSubmitForm(form: FormGroup){
-    this.patientService.avgPatientData(form.value,this.user).subscribe(data=>{
+    let fromDate = `${form.value.fromDate.year}/${form.value.fromDate.month}/${form.value.fromDate.day}`
+    let toDate = `${form.value.toDate.year}/${form.value.toDate.month}/${form.value.toDate.day}`
+    this.patientService.avgPatientData({fromDate: fromDate, toDate: toDate},this.user).subscribe(data=>{
       console.log(data);
      this.dataAverage.avgCarbs=data.avgCarbs;
      this.dataAverage.avgGlycose=data.avgGlycose;

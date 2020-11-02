@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthServiceService } from 'src/app/Auth/auth-service.service';
 import { Patient } from 'src/app/model/patient.model';
 import { PatientData } from 'src/app/model/patientData.model';
 import { User } from 'src/app/model/user.model';
@@ -14,6 +15,8 @@ import { PatientService } from '../patient.service';
   templateUrl: './show-data-list.component.html',
   styleUrls: ['./show-data-list.component.scss']
 })
+
+
 export class ShowDataListComponent implements OnInit {
    isVisible: boolean = false;
   dataPatientList:PatientData[]=[];
@@ -27,7 +30,9 @@ export class ShowDataListComponent implements OnInit {
   loadUpdateComponent=false;
   errorMessage:string='';
   isSuccesfullVisible=false;
-  constructor(private storageService:StorageService,private patientService:PatientService,private modalService:NgbModal,private router:Router) {
+
+
+  constructor(private storageService:StorageService,private patientService:PatientService,private modalService:NgbModal,private authService:AuthServiceService) {
 
     
    }
@@ -50,7 +55,9 @@ export class ShowDataListComponent implements OnInit {
   }
 
  onSubmitForm(form: FormGroup){
-this.patientService.showPatientData(form.value,this.user).subscribe(data=>{
+  let fromDate = `${form.value.fromDate.year}/${form.value.fromDate.month}/${form.value.fromDate.day}`
+  let toDate = `${form.value.toDate.year}/${form.value.toDate.month}/${form.value.toDate.day}`
+this.patientService.showPatientData({fromDate: fromDate, toDate: toDate},this.user).subscribe(data=>{
   this.dataPatientList=data;
   
 
@@ -91,7 +98,7 @@ this.patientService.showPatientData(form.value,this.user).subscribe(data=>{
     this.patientService.deletePatient(this.user).subscribe(data=>{
       console.log('works');
       this.storageService.deleteUser();
-      this.router.navigate(['/login']);
+      this.authService.logout();
     },
     (error)=>{
       this.errorMessage='Server Problem, You cant delete Your Account';

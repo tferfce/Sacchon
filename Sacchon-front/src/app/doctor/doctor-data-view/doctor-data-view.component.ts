@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthServiceService } from 'src/app/Auth/auth-service.service';
 import { Consultation } from 'src/app/model/consultations.model';
 import { Doctor } from 'src/app/model/doctor.model';
 import { Patient } from 'src/app/model/patient.model';
@@ -43,7 +44,7 @@ export class DoctorDataViewComponent implements OnInit {
       doctor: null,
       patient: null
      }
-  constructor(private doctorService:DoctorServiceService,private storageService:StorageService, private modalService: NgbModal,private secondModalService:NgbModal,private router:Router) 
+  constructor(private doctorService:DoctorServiceService,private storageService:StorageService, private modalService: NgbModal,private secondModalService:NgbModal,private authService:AuthServiceService) 
   {}
 
   refreshPage() {
@@ -110,7 +111,7 @@ export class DoctorDataViewComponent implements OnInit {
   deleteDoctor(){
   this.doctorService.deleteDoctor(this.user).subscribe(data=>{
     this.storageService.deleteUser();
-    this.router.navigate(['/login']);
+    this.authService.logout();
   },(error)=>{
     this.errorMessage='Error with Server You cant delete your account';
     if (this.isVisible) { 
