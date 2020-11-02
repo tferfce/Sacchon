@@ -48,6 +48,7 @@ export class ShowDataListComponent implements OnInit {
 
     this.patientService.getPatient(this.user).subscribe(data=>{
       this.patient=data;
+      console.log(data);
     })
 
  

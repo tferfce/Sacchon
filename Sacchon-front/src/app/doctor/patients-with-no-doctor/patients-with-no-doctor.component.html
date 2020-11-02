@@ -8,7 +8,6 @@
 <table class="table  table-bordered">
     <thead>
       <tr>
-
         <th scope="col">Firstname</th>
         <th scope="col">Lastname</th>
         <th scope="col">Gender</th>
@@ -22,8 +21,8 @@
         <td>{{patient.gender}}</td>
         <td>
             <button class="btn btn-info float-right m-1" (click)="pickPatient(patient)"> Pick Me</button>
-            <button class="btn btn-info float-right m-1" (click)="openModalForConsult(consultsPatientModal,patient)"> Consults</button>
-            <button class="btn btn-info float-right m-1 " (click)="openModalForData(consultationModal,patient)">Data</button>
+            <button class="btn btn-info float-right m-1" (click)="openModalForConsult(consultsPatientModal,patient)">View Consultations</button>
+            <button class="btn btn-info float-right m-1 " (click)="openModalForData(consultationModal,patient)">View Data</button>
         </td>
       
       </tr>
