@@ -12,9 +12,9 @@
     </div>
 
 <ul class="nav nav-tabs">
-    <li class="nav-item" (click)="refreshPage()"><a class="nav-link active" data-toggle="tab" href="#home">My Patients</a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">New Patients</a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Ready For Consult</a></li>
+    <li class="nav-item" ><a class="nav-link active" data-toggle="tab" href="#home">My Patients</a></li> <!-- (click)="refreshPage()" --> 
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">New Patients to the System</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Patients ready for consultation</a></li>
   </ul>
   <div class="tab-content p-1">
     <div id="home" class="tab-pane fade in active show">
@@ -27,7 +27,7 @@
             <th scope="col">Firstname</th>
             <th scope="col">Lastname</th>
             <th scope="col">Gender</th>
-            <th scope="col" style="text-align: center;">Actions</th>
+            <th scope="col" style="text-align: center;">Actions </th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
             <td>{{patient.lastName}}</td>
             <td>{{patient.gender}}</td>
             <td>
-                <button class="btn btn-info float-right m-1"  (click)="openModalForConsults(consultsPatientModal,patient)"> Consults</button>
-                <button class="btn btn-info float-right m-1 " (click)="openModalForData(dataPatientModal,patient)">Data</button>
+                <button class="btn btn-info float-right m-1"  (click)="openModalForConsults(consultsPatientModal,patient)">View Consultations</button>
+                <button class="btn btn-info float-right m-1 " (click)="openModalForData(dataPatientModal,patient)">View Data</button>
             </td>
           
           </tr>
