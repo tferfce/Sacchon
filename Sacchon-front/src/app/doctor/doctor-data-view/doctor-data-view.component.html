@@ -70,6 +70,7 @@
            
             <th scope="col">Carbohydrates</th>
             <th scope="col">Blood Glucose</th>
+            <th scope="col">Date</th>
          
           </tr>
         </thead>
@@ -77,6 +78,7 @@
           <tr *ngFor="let patientData of dataPatients">
             <td>{{patientData.carbIntake}}</td>
             <td>{{patientData.bloodGlucose}}</td>
+            <td>{{patientData.date|date:"yyyy/MM/dd"}}</td>
      
           </tr>
         </tbody>
