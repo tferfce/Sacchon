@@ -13,13 +13,14 @@ public class PatientDataRepresentation {
     private long id;
     private double carbIntake;
     private double bloodGlucose;
-    private Date date = new Date();
+    private Date date;
 
     public static PatientDataRepresentation getDataRepresentation(PatientData patientData){
         PatientDataRepresentation patientDataRepresentation = new PatientDataRepresentation();
         patientDataRepresentation.setId(patientData.getId());
         patientDataRepresentation.setCarbIntake(patientData.getCarbIntake());
         patientDataRepresentation.setBloodGlucose(patientData.getBloodGlucose());
+        patientDataRepresentation.setDate(patientData.getDate());
         return patientDataRepresentation;
     }
 

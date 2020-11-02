@@ -18,7 +18,7 @@ public class ConsultationRepresentation {
     private Patient patient;
     private long doctorId;
     private long patientId;
-    private Date date= new Date();
+    private Date date;
 
 
     public static Consultations getConsultation(ConsultationRepresentation consultationRepresentation){

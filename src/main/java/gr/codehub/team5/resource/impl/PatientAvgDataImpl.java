@@ -69,8 +69,8 @@ public class PatientAvgDataImpl extends ServerResource implements PatientAvgData
             totalBloodGlucose +=pdata.getBloodGlucose();
         }
         Map<String ,Double> avgStatistics = new HashMap();
-        avgStatistics.put("avgCarbs",totalCarbs/pdataList.size());
-        avgStatistics.put("avgGlycose",totalBloodGlucose/pdataList.size());
+        avgStatistics.put("avgCarbs",Double.parseDouble(String.format("%.2f",totalCarbs/pdataList.size())));
+        avgStatistics.put("avgGlycose",Double.parseDouble(String.format("%.2f",totalBloodGlucose/pdataList.size())));
         return avgStatistics;
     }
 }
