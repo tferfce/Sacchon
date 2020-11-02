@@ -5,6 +5,8 @@ import { PatientData } from 'src/app/model/patientData.model';
 import { User } from 'src/app/model/user.model';
 import { StorageService } from 'src/app/storage.service';
 import { PatientService } from '../patient.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-add-patient-data',
@@ -22,7 +24,7 @@ export class AddPatientDataComponent implements OnInit {
    date:null
  }
  
-  constructor(private storageService:StorageService,private patientService:PatientService) {
+  constructor(private storageService:StorageService,private patientService:PatientService, private modalService: NgbModal) {
     this.dataPatientForm=new FormGroup({
       carbIntake:new FormControl(),
       bloodGlucose:new FormControl(),
@@ -33,24 +35,27 @@ export class AddPatientDataComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.user=this.storageService.getScopeUser();
     console.log(this.user);
   }
 
   getPatientData(){
-    this.patientData.bloodGlucose=this.dataPatientForm.get('carbIntake').value;
-    this.patientData.carbIntake=this.dataPatientForm.get('bloodGlucose').value;
+    this.patientData.bloodGlucose=this.dataPatientForm.get('bloodGlucose').value;
+    this.patientData.carbIntake=this.dataPatientForm.get('carbIntake').value;
   }
 
   dataPushSubmit(){
     this.getPatientData()
 
 this.patientService.addData(this.patientData,this.user,).subscribe(data=>{
+  this.modalService.dismissAll();
+
   console.log(data);
 })
 
-this.patientData.bloodGlucose=this.dataPatientForm.get('carbIntake').value;
-this.patientData.carbIntake=this.dataPatientForm.get('bloodGlucose').value;
+this.patientData.bloodGlucose=this.dataPatientForm.get('bloodGlucose').value;
+this.patientData.carbIntake=this.dataPatientForm.get('carbIntake').value;
 this.isDataPost=true;
   }
   

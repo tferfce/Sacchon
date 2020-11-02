@@ -28,9 +28,9 @@ public scopeUser:User
     localStorage.setItem('user', JSON.stringify(scope));
   }
 
-  public setIdScope(scopeId:number):void{
-    this.scope.id=scopeId;
-  }
+  // public setIdScope(scopeId:number):void{
+  //   this.scope.id=scopeId;
+  // }
 
   public deleteUser():void{
     localStorage.removeItem('user');

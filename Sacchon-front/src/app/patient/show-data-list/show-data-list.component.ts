@@ -18,12 +18,23 @@ export class ShowDataListComponent implements OnInit {
 
   dataPatientList:PatientData[]=[];
   datesForm: FormGroup;
-  patient:Patient;
+  //patient:Patient;
   patientData:PatientData;
   user:User;
   loadComponent = false;
   onTableNav=false;
   loadUpdateComponent=false;
+  patient:Patient={
+    id:null,
+    firstName:'',
+    lastName:'',
+    gender: '',
+    userName:'',
+    password:'',
+    customRole:'',
+    uri:''
+    
+  };
 
   constructor(private storageService:StorageService,private patientService:PatientService,private modalService:NgbModal,private router:Router) {
 
@@ -40,6 +51,7 @@ export class ShowDataListComponent implements OnInit {
 
     this.patientService.getPatient(this.user).subscribe(data=>{
       this.patient=data;
+      console.log(data);
     })
 
  
