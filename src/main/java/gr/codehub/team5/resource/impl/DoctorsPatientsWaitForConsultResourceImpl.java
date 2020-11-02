@@ -49,7 +49,7 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
     }
 
     @Override
-    public List<PatientRepresentation> getDoctorsPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException {
+    public List<PatientRepresentation> getDoctorsPatientsWaitForConsult() throws ResourceException, NotFoundException {
         ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         Optional<Doctor> doctorOpt = doctorRepository.findById(doctorId);
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given doctor id is not existing");
@@ -72,8 +72,6 @@ public class DoctorsPatientsWaitForConsultResourceImpl extends ServerResource im
                 patientsWaitForConsult= checkdiff(lastConsultDate, patientsWaitForConsult, patient);
             }
         }
-        if (patientsWaitForConsult.isEmpty()) throw new NotFoundException("No Patients waiting consults");
-
         return patientsWaitForConsult;
     }
 

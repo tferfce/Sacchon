@@ -41,7 +41,7 @@ public class AllPatientsWaitForConsultResourceImpl extends ServerResource implem
         em.close();
     }
     @Override
-    public List<HashPatientsWaitingConsult> getAllPatientsWaitForConsult() throws ResourceException, BadEntityException, NotFoundException {
+    public List<HashPatientsWaitingConsult> getAllPatientsWaitForConsult() throws ResourceException{
         ResourceUtils.checkRole(this, CustomRole.ROLE_CHIEFDOCTOR.getRoleName());
         List<Patient> Patients= patientRepository.findAll();
         HashMap <PatientRepresentation , Long> patientsWaitForConsult = new HashMap <>();
@@ -64,8 +64,6 @@ public class AllPatientsWaitForConsultResourceImpl extends ServerResource implem
         for (Map.Entry<PatientRepresentation,Long> map: patientsWaitForConsult.entrySet()){
             hashedPatients.add(HashPatientsWaitingConsult.getPatientHashed(map.getKey(), map.getValue()));
         }
-        if (hashedPatients.isEmpty()) throw new NotFoundException("No patients Waiting Consult");
-
         return hashedPatients;
     }
 

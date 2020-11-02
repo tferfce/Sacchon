@@ -42,14 +42,13 @@ public class GetPatientsForASpecificDoctorImpl extends ServerResource implements
     }
 
     @Override
-    public List<PatientRepresentation> getSpecificPatients() throws NotFoundException {
+    public List<PatientRepresentation> getSpecificPatients(){
         ResourceUtils.checkRole(this, CustomRole.ROLE_DOCTOR.getRoleName());
         TypedQuery<Patient> query = em.createQuery("FROM Patient P WHERE doctor_id=:param", Patient.class);
         query.setParameter("param",this.id);
         List<Patient> patients = query.getResultList();
         List<PatientRepresentation> patientRepresentations = new ArrayList<>();
         patients.forEach(patient -> patientRepresentations.add(PatientRepresentation.getPatientRepresentation(patient)));
-        if (patientRepresentations.isEmpty()) throw new NotFoundException("This doctor has no Patients");
         return patientRepresentations;
     }
 }
