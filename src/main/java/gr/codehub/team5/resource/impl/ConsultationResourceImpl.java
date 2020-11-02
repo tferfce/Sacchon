@@ -55,10 +55,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
         Optional<Consultations> consultationOpt = consultationRepository.findById(id);
         if (!consultationOpt.isPresent()) throw new NotFoundException("The given consultation id is not existing");
         Consultations consultation = consultationOpt.get();
-
         consultation.setConsult(consultationReprIn.getConsult());
-        consultation.setDate(consultationReprIn.getDate());
-
         consultationRepository.save(consultation);
         return ConsultationRepresentation.getConsultationRepresentation(consultation);
     }
