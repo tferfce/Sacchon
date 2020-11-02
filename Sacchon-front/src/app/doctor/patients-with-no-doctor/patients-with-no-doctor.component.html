@@ -55,7 +55,7 @@
         <tr *ngFor="let patientData of dataPatients">
           <td>{{patientData.carbIntake}}</td>
           <td>{{patientData.bloodGlucose}}</td>
-          <td>{{patientData.date}}</td>
+          <td>{{patientData.date|date:"yyyy/MM/dd"}}</td>
    
         </tr>
       </tbody>
