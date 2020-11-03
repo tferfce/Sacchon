@@ -62,7 +62,7 @@ public class ConsultationsResourceImpl extends ServerResource implements Consult
         Optional<Patient> patientOpt = patientRepository.findById(consultationIn.getPatientId());
         if (!doctorOpt.isPresent()) throw new NotFoundException("The given patient id is not existing");
         Patient patient = patientOpt.get();
-
+        if (!patient.isActive()) throw new NotFoundException("The given patient id is not existing");
         Consultations consultation = ConsultationRepresentation.getConsultation(consultationIn);
         consultation.setDocId(doctor);
         consultation.setPatId(patient);

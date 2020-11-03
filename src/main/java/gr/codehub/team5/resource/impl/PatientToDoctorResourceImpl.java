@@ -46,6 +46,7 @@ public class PatientToDoctorResourceImpl extends ServerResource implements Patie
         Optional<Patient> patient = patientRepository.findById(patientId);
         Optional<Doctor> doctor= doctorRepository.findById(doctorId);
         if (!patient.isPresent() || !doctor.isPresent()) throw new NotFoundException("No Such patient or Doctor");
+        if(!patient.get().isActive()) throw new NotFoundException("Inactive Patient!");
         patient.get().setDoctor(doctor.get());
         patientRepository.save(patient.get());
 
